@@ -120,8 +120,7 @@ class ResolveTypes(
             name = "load struct declaration symbol",
             attribute = Attribute(node, "symbol"),
         ) { symbol: StructSymbol ->
-
-            reactor.flatMap(
+            reactor.mapN(
                 name = "type struct declaration symbol",
                 from = symbol.fields.map { Attribute(it, "type") },
                 to = Attribute(symbol, "type"),
@@ -247,7 +246,7 @@ class ResolveTypes(
         val nodeTypeAttribute = Attribute(node, "type")
         val elementTypeAttributes = node.elements.map { Attribute(it, "type") }
 
-        reactor.flatMap(
+        reactor.mapN(
             name = "type array literal",
             from = elementTypeAttributes,
             to = nodeTypeAttribute,

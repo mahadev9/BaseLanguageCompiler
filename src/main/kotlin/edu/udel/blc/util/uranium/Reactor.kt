@@ -197,7 +197,7 @@ open class Reactor {
         map<Any>(name, from, to) { it }
     }
 
-    fun <T : Any> flatMap(name: String = "", from: Iterable<Attribute>, to: Attribute, f: (values: List<T>) -> Any) {
+    fun <T : Any> mapN(name: String = "", from: Iterable<Attribute>, to: Attribute, f: (values: List<T>) -> Any) {
         rule(name) {
             exports(to)
             using(from)

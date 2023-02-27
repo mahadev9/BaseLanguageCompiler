@@ -51,7 +51,7 @@ class CheckReturns(
 
     private fun block(node: BlockNode) {
         // a block returns if it contains something that can return and does return
-        reactor.flatMap(
+        reactor.mapN(
             name = "determine whether block returns",
             from = node.statements
                 .filter { isReturnContainer(it) }
@@ -62,7 +62,7 @@ class CheckReturns(
 
     private fun ifStmt(node: IfNode) {
         // an if statement returns only when all of its arms return
-        reactor.flatMap(
+        reactor.mapN(
             name = "determine whether if returns",
             from = listOfNotNull(node.thenStatement, node.elseStatement)
                 .filter { isReturnContainer(it) }
