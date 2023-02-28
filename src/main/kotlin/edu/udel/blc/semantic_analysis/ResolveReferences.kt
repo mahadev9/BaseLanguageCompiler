@@ -122,8 +122,6 @@ class ResolveReferences(
     }
 
     override fun reference(node: ReferenceNode, arg: Scope) {
-        println("looking for ${node.name} in ${arg.symbols}")
-
         val symbol = arg.lookup(node.name)
 
         reactor.supply(
