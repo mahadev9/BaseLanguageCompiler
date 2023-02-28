@@ -34,9 +34,9 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
 
     private fun addition(node: BinaryExpressionNode): Node {
         // visit left child to get the updated (copy/modified version)
-        val left = apply(node.left) as ExpressionNode
+        val left = apply(node.left)
         // visit right child to get the updated (copy/modified version)
-        val right = apply(node.right) as ExpressionNode
+        val right = apply(node.right)
 
         return when {
             // if left and right children are both int literals, replace the node with the result of the operation

@@ -1,6 +1,6 @@
 package edu.udel.blc.semantic_analysis.type
 
-data class ArrayType(
+class ArrayType(
     val elementType: Type,
 ) : Type {
 

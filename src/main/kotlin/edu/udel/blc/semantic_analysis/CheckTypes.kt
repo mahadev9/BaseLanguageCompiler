@@ -154,7 +154,7 @@ class CheckTypes(
         }
     }
 
-    private fun checkAssignable(name: String = "", from: ExpressionNode, to: Any) {
+    private fun checkAssignable(name: String = "", from: Node, to: Any) {
 
         val variableTypeAttribute = Attribute(to, "type")
         val expressionTypeAttribute = Attribute(from, "type")
@@ -244,7 +244,7 @@ class CheckTypes(
         }
     }
 
-    private fun checkType(name: String = "", node: ExpressionNode, vararg types: Type) {
+    private fun checkType(name: String = "", node: Node, vararg types: Type) {
         val attribute = Attribute(node, "type")
 
         reactor.rule(name) {

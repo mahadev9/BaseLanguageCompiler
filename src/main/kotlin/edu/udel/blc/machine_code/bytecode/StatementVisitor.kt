@@ -24,7 +24,7 @@ class StatementVisitor(
     val clazz: ClassWriter,
     val method: GeneratorAdapter,
     private val reactor: Reactor,
-) : Visitor<StatementNode>() {
+) : Visitor<Node>() {
 
     private val expressionVisitor = ExpressionVisitor(clazzType, method, reactor)
 

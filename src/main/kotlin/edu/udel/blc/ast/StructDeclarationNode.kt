@@ -2,7 +2,7 @@ package edu.udel.blc.ast
 
 
 class StructDeclarationNode(
-    range: IntRange,
+    override val range: IntRange,
     val name: String,
     val fields: List<FieldNode>,
-) : StatementNode(range)
+) : Node

@@ -2,6 +2,6 @@ package edu.udel.blc.ast
 
 
 class ArrayTypeNode(
-    range: IntRange,
+    override val range: IntRange,
     val elementType: Node,
-) : Node(range)
+) : Node

@@ -1,6 +1,6 @@
 package edu.udel.blc.parse.hand_written
 
-data class BaseToken(
+class BaseToken(
     val kind: Kind,
     val text: String,
     val range: IntRange

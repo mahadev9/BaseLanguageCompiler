@@ -2,6 +2,6 @@ package edu.udel.blc.ast
 
 
 class IntLiteralNode(
-    range: IntRange,
+    override val range: IntRange,
     val value: Long,
-) : ExpressionNode(range)
+) : Node

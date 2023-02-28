@@ -2,7 +2,7 @@ package edu.udel.blc.ast
 
 
 class CallNode(
-    range: IntRange,
-    val callee: ExpressionNode,
-    val arguments: List<ExpressionNode>,
-) : ExpressionNode(range)
+    override val range: IntRange,
+    val callee: Node,
+    val arguments: List<Node>,
+) : Node

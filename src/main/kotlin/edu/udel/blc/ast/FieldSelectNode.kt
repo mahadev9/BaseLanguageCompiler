@@ -2,7 +2,7 @@ package edu.udel.blc.ast
 
 
 class FieldSelectNode(
-    range: IntRange,
-    val expression: ExpressionNode,
+    override val range: IntRange,
+    val expression: Node,
     val name: String,
-) : ExpressionNode(range)
+) : Node

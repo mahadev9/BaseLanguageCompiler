@@ -17,7 +17,7 @@ class BaseVisitor : BaseBaseVisitor<Node>() {
         }
 
     override fun visitCompilatonUnit(ctx: BaseParser.CompilatonUnitContext): CompilationUnitNode {
-        val statements = ctx.declarations.map { it.accept(this) as StatementNode }
+        val statements = ctx.declarations.map { it.accept(this) }
         return CompilationUnitNode(ctx.range, statements)
     }
 
@@ -49,38 +49,38 @@ class BaseVisitor : BaseBaseVisitor<Node>() {
 
     override fun visitVariableDeclaration(ctx: BaseParser.VariableDeclarationContext): VariableDeclarationNode {
         val name = ctx.name.text
-        val type = ctx.type.accept(this) as Node
-        val initializer = ctx.initializer.accept(this) as ExpressionNode
+        val type = ctx.type.accept(this)
+        val initializer = ctx.initializer.accept(this)
         return VariableDeclarationNode(ctx.range, name, type, initializer)
     }
 
     // Stmt
 
     override fun visitBlock(ctx: BaseParser.BlockContext): BlockNode {
-        val declarations = ctx.declarations.map { it.accept(this) as StatementNode }
+        val declarations = ctx.declarations.map { it.accept(this) }
         return BlockNode(ctx.range, declarations)
     }
 
     override fun visitExpressionStmt(ctx: BaseParser.ExpressionStmtContext): ExpressionStatementNode {
-        val expr = ctx.expression.accept(this) as ExpressionNode
+        val expr = ctx.expression.accept(this)
         return ExpressionStatementNode(ctx.range, expr)
     }
 
     override fun visitIfStmt(ctx: BaseParser.IfStmtContext): IfNode {
-        val condition = ctx.condition.accept(this) as ExpressionNode
-        val thenStmt = ctx.thenStatement.accept(this) as StatementNode
-        val elseStmt = ctx.elseStatement?.accept(this) as? StatementNode
+        val condition = ctx.condition.accept(this)
+        val thenStmt = ctx.thenStatement.accept(this)
+        val elseStmt = ctx.elseStatement?.accept(this)
         return IfNode(ctx.range, condition, thenStmt, elseStmt)
     }
 
     override fun visitReturnStmt(ctx: BaseParser.ReturnStmtContext): ReturnNode {
-        val expression = ctx.expression?.accept(this) as? ExpressionNode
+        val expression = ctx.expression?.accept(this)
         return ReturnNode(ctx.range, expression)
     }
 
     override fun visitWhileStmt(ctx: BaseParser.WhileStmtContext): WhileNode {
-        val condition = ctx.condition.accept(this) as ExpressionNode
-        val body = ctx.body.accept(this) as StatementNode
+        val condition = ctx.condition.accept(this)
+        val body = ctx.body.accept(this)
         return WhileNode(ctx.range, condition, body)
     }
 
@@ -88,14 +88,14 @@ class BaseVisitor : BaseBaseVisitor<Node>() {
     // expr
 
     override fun visitAssignment(ctx: BaseParser.AssignmentContext): AssignmentNode {
-        val lvalue = ctx.lvalue.accept(this) as ExpressionNode
-        val expression = ctx.expression.accept(this) as ExpressionNode
+        val lvalue = ctx.lvalue.accept(this)
+        val expression = ctx.expression.accept(this)
         return AssignmentNode(ctx.range, lvalue, expression)
     }
 
     override fun visitBinary(ctx: BaseParser.BinaryContext): BinaryExpressionNode {
-        val left = ctx.left.accept(this) as ExpressionNode
-        val right = ctx.right.accept(this) as ExpressionNode
+        val left = ctx.left.accept(this)
+        val right = ctx.right.accept(this)
         val operator = when (ctx.operator.type) {
             BaseLexer.CONJ -> LOGICAL_CONJUNCTION
             BaseLexer.DISJ -> LOGICAL_DISJUNCTION
@@ -115,7 +115,7 @@ class BaseVisitor : BaseBaseVisitor<Node>() {
     }
 
     override fun visitUnaryPrefix(ctx: BaseParser.UnaryPrefixContext): UnaryExpressionNode {
-        val operand = ctx.operand.accept(this) as ExpressionNode
+        val operand = ctx.operand.accept(this)
         val operator = when (ctx.operator.type) {
             BaseLexer.BANG -> LOGICAL_COMPLEMENT
             BaseLexer.MINUS -> NEGATION
@@ -125,19 +125,19 @@ class BaseVisitor : BaseBaseVisitor<Node>() {
     }
 
     override fun visitCall(ctx: BaseParser.CallContext): CallNode {
-        val callee = ctx.callee.accept(this) as ExpressionNode
-        val arguments = ctx.arguments.map { it.accept(this) as ExpressionNode }
+        val callee = ctx.callee.accept(this)
+        val arguments = ctx.arguments.map { it.accept(this) }
         return CallNode(ctx.range, callee, arguments)
     }
 
     override fun visitIndex(ctx: BaseParser.IndexContext): IndexNode {
-        val expression = ctx.expression.accept(this) as ExpressionNode
-        val index = ctx.index.accept(this) as ExpressionNode
+        val expression = ctx.expression.accept(this)
+        val index = ctx.index.accept(this)
         return IndexNode(ctx.range, expression, index)
     }
 
     override fun visitFieldSelect(ctx: BaseParser.FieldSelectContext): FieldSelectNode {
-        val expression = ctx.expression.accept(this) as ExpressionNode
+        val expression = ctx.expression.accept(this)
         val name = ctx.name.text
         return FieldSelectNode(ctx.range, expression, name)
     }
@@ -145,7 +145,7 @@ class BaseVisitor : BaseBaseVisitor<Node>() {
     // literal
 
     override fun visitArrayLiteral(ctx: BaseParser.ArrayLiteralContext): ArrayLiteralNode {
-        val elements = ctx.elements.map { it.accept(this) as ExpressionNode }
+        val elements = ctx.elements.map { it.accept(this) }
         return ArrayLiteralNode(ctx.range, elements)
     }
 

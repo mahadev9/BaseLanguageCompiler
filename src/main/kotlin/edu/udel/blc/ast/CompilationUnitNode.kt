@@ -2,6 +2,6 @@ package edu.udel.blc.ast
 
 
 class CompilationUnitNode(
-    range: IntRange,
-    val statements: List<StatementNode>,
-) : Node(range)
+    override val range: IntRange,
+    val statements: List<Node>,
+) : Node

@@ -4,57 +4,82 @@ import edu.udel.blc.ast.*
 import edu.udel.blc.semantic_analysis.scope.*
 import edu.udel.blc.util.uranium.Attribute
 import edu.udel.blc.util.uranium.Reactor
-import edu.udel.blc.util.visitor.ReflectiveAccessorWalker
-import edu.udel.blc.util.visitor.WalkVisitType.POST_VISIT
-import edu.udel.blc.util.visitor.WalkVisitType.PRE_VISIT
 import java.util.function.Consumer
 
 
 class ResolveReferences(
     private val reactor: Reactor,
-) : Consumer<CompilationUnitNode> {
+) : Node.Visitor<Unit, Scope>, Consumer<CompilationUnitNode> {
 
-    private var scope: Scope = BuiltinScope
 
-    val walker = ReflectiveAccessorWalker(Node::class.java, PRE_VISIT, POST_VISIT).apply {
-
-        register(CompilationUnitNode::class.java, PRE_VISIT, ::enterCompilationUnit)
-        register(CompilationUnitNode::class.java, POST_VISIT, ::exitCompilationUnit)
-
-        register(FunctionDeclarationNode::class.java, PRE_VISIT, ::enterFunctionDeclaration)
-        register(FunctionDeclarationNode::class.java, POST_VISIT, ::exitFunctionDeclaration)
-
-        register(ParameterNode::class.java, PRE_VISIT, ::parameter)
-        register(VariableDeclarationNode::class.java, PRE_VISIT, ::variableDeclaration)
-
-        register(StructDeclarationNode::class.java, PRE_VISIT, ::enterStructDeclaration)
-        register(StructDeclarationNode::class.java, POST_VISIT, ::exitStructDeclaration)
-        register(FieldNode::class.java, PRE_VISIT, ::field)
-
-        register(BlockNode::class.java, PRE_VISIT, ::enterBlock)
-        register(BlockNode::class.java, POST_VISIT, ::exitBlock)
-
-        register(ReferenceNode::class.java, PRE_VISIT, ::reference)
-
-        register(ReturnNode::class.java, PRE_VISIT, ::returnStmt)
+    override fun accept(node: CompilationUnitNode) {
+        node.accept(this, BuiltinScope)
     }
 
-    override fun accept(compilationUnit: CompilationUnitNode) {
-        walker.accept(compilationUnit)
+    override fun arrayLiteral(node: ArrayLiteralNode, arg: Scope) {
+        node.elements.forEach { it.accept(this, arg) }
     }
 
-    private fun enterCompilationUnit(node: CompilationUnitNode) {
-        val globalScope = GlobalScope(scope)
-        scope = globalScope
+    override fun arrayType(node: ArrayTypeNode, arg: Scope) {
+        node.elementType.accept(this, arg)
     }
 
-    private fun exitCompilationUnit(node: CompilationUnitNode) {
-        scope = scope.containingScope!!
+    override fun assignment(node: AssignmentNode, arg: Scope) {
+        node.expression.accept(this, arg)
+        node.lvalue.accept(this, arg)
     }
 
-    private fun enterFunctionDeclaration(node: FunctionDeclarationNode) {
-        val functionScope = FunctionSymbol(node.name, scope)
-        scope.declare(functionScope)
+    override fun binaryExpression(node: BinaryExpressionNode, arg: Scope) {
+        node.left.accept(this, arg)
+        node.right.accept(this, arg)
+    }
+
+    override fun block(node: BlockNode, arg: Scope) {
+        val blockScope = LocalScope(arg)
+        node.statements.forEach { it.accept(this, blockScope) }
+    }
+
+    override fun booleanLiteral(node: BooleanLiteralNode, arg: Scope) {
+
+    }
+
+    override fun call(node: CallNode, arg: Scope) {
+        node.callee.accept(this, arg)
+        node.arguments.forEach { it.accept(this, arg) }
+    }
+
+    override fun compilationUnit(node: CompilationUnitNode, arg: Scope) {
+        val globalScope = GlobalScope(arg)
+        node.statements.forEach { it.accept(this, globalScope) }
+    }
+
+    override fun expressionStatement(node: ExpressionStatementNode, arg: Scope) {
+        node.expression.accept(this, arg)
+    }
+
+    override fun field(node: FieldNode, arg: Scope) {
+        val symbol = FieldSymbol(node.name, arg)
+        arg.declare(symbol)
+
+        reactor.supply(
+            name = "field: set symbol",
+            attribute = Attribute(node, "symbol")
+        ) {
+            symbol
+        }
+
+        node.type.accept(this, arg)
+    }
+
+    override fun fieldSelect(node: FieldSelectNode, arg: Scope) {
+        node.expression.accept(this, arg)
+    }
+
+    override fun functionDeclaration(node: FunctionDeclarationNode, arg: Scope) {
+        node.returnType.accept(this, arg)
+
+        val functionScope = FunctionSymbol(node.name, arg)
+        arg.declare(functionScope)
 
         reactor.supply(
             name = "function declaration: set symbol",
@@ -63,25 +88,28 @@ class ResolveReferences(
             functionScope
         }
 
-        scope = functionScope
+        node.parameters.forEach { it.accept(this, functionScope) }
+        node.body.accept(this, functionScope)
     }
 
-    private fun exitFunctionDeclaration(node: FunctionDeclarationNode) {
-        scope = scope.containingScope!!
+    override fun `if`(node: IfNode, arg: Scope) {
+        node.condition.accept(this, arg)
+        node.thenStatement.accept(this, arg)
+        node.elseStatement?.accept(this, arg)
     }
 
-    private fun enterBlock(node: BlockNode) {
-        val localScope = LocalScope(scope)
-        scope = localScope
+    override fun index(node: IndexNode, arg: Scope) {
+        node.expression.accept(this, arg)
+        node.index.accept(this, arg)
     }
 
-    private fun exitBlock(node: BlockNode) {
-        scope = scope.containingScope!!
+    override fun intLiteral(node: IntLiteralNode, arg: Scope) {
+
     }
 
-    private fun parameter(node: ParameterNode) {
-        val symbol = VariableSymbol(node.name, scope)
-        scope.declare(symbol)
+    override fun parameter(node: ParameterNode, arg: Scope) {
+        val symbol = VariableSymbol(node.name, arg)
+        arg.declare(symbol)
 
         reactor.supply(
             name = "parameter: set symbol",
@@ -89,57 +117,14 @@ class ResolveReferences(
         ) {
             symbol
         }
+
+        node.type.accept(this, arg)
     }
 
-    private fun variableDeclaration(node: VariableDeclarationNode) {
-        val symbol = VariableSymbol(node.name, scope)
-        scope.declare(symbol)
+    override fun reference(node: ReferenceNode, arg: Scope) {
+        println("looking for ${node.name} in ${arg.symbols}")
 
-        reactor.supply(
-            name = "variable declaration: set symbol",
-            attribute = Attribute(node, "symbol")
-        ) {
-            symbol
-        }
-    }
-
-    private fun enterStructDeclaration(node: StructDeclarationNode) {
-
-        val symbol = StructSymbol(node.name, scope)
-        scope.declare(symbol)
-
-        reactor.supply(
-            name = "struct declaration: set symbol",
-            attribute = Attribute(node, "symbol")
-        ) {
-            symbol
-        }
-
-        scope = symbol
-    }
-
-    private fun exitStructDeclaration(node: StructDeclarationNode) {
-        scope = scope.containingScope!!
-    }
-
-    private fun field(node: FieldNode) {
-
-        val symbol = FieldSymbol(node.name, scope)
-        scope.declare(symbol)
-
-        reactor.supply(
-            name = "field: set symbol",
-            attribute = Attribute(node, "symbol")
-        ) {
-            symbol
-        }
-    }
-
-    private fun reference(node: ReferenceNode) {
-
-        println("looking for ${node.name} in ${scope.symbols}")
-
-        val symbol = scope.lookup(node.name)
+        val symbol = arg.lookup(node.name)
 
         reactor.supply(
             name = "reference: set symbol",
@@ -150,11 +135,11 @@ class ResolveReferences(
                 else -> symbol
             }
         }
+
     }
 
-    private fun returnStmt(node: ReturnNode) {
-
-        val function = containingFunction(scope)
+    override fun `return`(node: ReturnNode, arg: Scope) {
+        val function = containingFunction(arg)
 
         reactor.supply(
             name = "return: set containing function",
@@ -166,6 +151,54 @@ class ResolveReferences(
             }
         }
 
+        node.expression?.accept(this, arg)
+    }
+
+    override fun stringLiteral(node: StringLiteralNode, arg: Scope) {
+
+    }
+
+    override fun structDeclaration(node: StructDeclarationNode, arg: Scope) {
+        val structScope = StructSymbol(node.name, arg)
+        arg.declare(structScope)
+
+        reactor.supply(
+            name = "struct declaration: set symbol",
+            attribute = Attribute(node, "symbol")
+        ) {
+            structScope
+        }
+
+        node.fields.forEach { it.accept(this, structScope) }
+    }
+
+    override fun unaryExpression(node: UnaryExpressionNode, arg: Scope) {
+        node.operand.accept(this, arg)
+    }
+
+    override fun unitLiteral(node: UnitLiteralNode, arg: Scope) {
+
+    }
+
+    override fun variableDeclaration(node: VariableDeclarationNode, arg: Scope) {
+
+        val symbol = VariableSymbol(node.name, arg)
+        arg.declare(symbol)
+
+        reactor.supply(
+            name = "variable declaration: set symbol",
+            attribute = Attribute(node, "symbol")
+        ) {
+            symbol
+        }
+
+        node.type.accept(this, arg)
+        node.initializer.accept(this, arg)
+    }
+
+    override fun `while`(node: WhileNode, arg: Scope) {
+        node.condition.accept(this, arg)
+        node.body.accept(this, arg)
     }
 
     private fun containingFunction(start: Scope): FunctionSymbol? {

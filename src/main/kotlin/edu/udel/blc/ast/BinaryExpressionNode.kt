@@ -2,8 +2,8 @@ package edu.udel.blc.ast
 
 
 class BinaryExpressionNode(
-    range: IntRange,
+    override val range: IntRange,
     val operator: BinaryOperator,
-    val left: ExpressionNode,
-    val right: ExpressionNode,
-) : ExpressionNode(range)
+    val left: Node,
+    val right: Node,
+) : Node

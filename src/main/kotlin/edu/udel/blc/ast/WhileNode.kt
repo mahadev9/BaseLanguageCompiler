@@ -2,7 +2,7 @@ package edu.udel.blc.ast
 
 
 class WhileNode(
-    range: IntRange,
-    val condition: ExpressionNode,
-    val body: StatementNode,
-) : StatementNode(range)
+    override val range: IntRange,
+    val condition: Node,
+    val body: Node,
+) : Node

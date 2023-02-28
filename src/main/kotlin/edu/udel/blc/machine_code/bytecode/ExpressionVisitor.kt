@@ -25,7 +25,7 @@ class ExpressionVisitor(
     private val clazzType: org.objectweb.asm.Type,
     private val method: GeneratorAdapter,
     private val reactor: Reactor,
-) : Visitor<ExpressionNode>() {
+) : Visitor<Node>() {
 
     init {
         register(ArrayLiteralNode::class.java, ::arrayLiteral)

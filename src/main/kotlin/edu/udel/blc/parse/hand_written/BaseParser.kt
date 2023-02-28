@@ -36,7 +36,7 @@ class BaseParser(
         }
     }
 
-    fun declaration(): StatementNode {
+    fun declaration(): Node {
         return when {
             check(FUN) -> functionDeclaration()
             check(STRUCT) -> structDeclaration()
@@ -80,7 +80,7 @@ class BaseParser(
         return FieldNode(name.range, name.text, type)
     }
 
-    fun variableDeclaration(): StatementNode {
+    fun variableDeclaration(): Node {
         val keyword = consume(VAR) { "Expect 'var'." }
         val name = consume(IDENTIFIER) { "Expect variable name." }
         consume(COLON) { "Expect ':' after variable name." }
@@ -92,7 +92,7 @@ class BaseParser(
     }
 
 
-    fun statement(): StatementNode {
+    fun statement(): Node {
         return when {
             check(IF) -> ifStatement()
             check(RETURN) -> returnStatement()
@@ -113,13 +113,13 @@ class BaseParser(
         return BlockNode(lbrace.range, declarations)
     }
 
-    fun expressionStatement(): StatementNode {
+    fun expressionStatement(): Node {
         val expr = expression()
         consume(SEMICOLON) { "Expect ';' after statement." }
         return ExpressionStatementNode(expr.range, expr)
     }
 
-    fun ifStatement(): StatementNode {
+    fun ifStatement(): Node {
         val keyword = consume(IF) { "Expect 'if'." }
         consume(LPAREN) { "Expect '(' after 'if'." }
         val condition = expression()
@@ -132,7 +132,7 @@ class BaseParser(
         return IfNode(keyword.range, condition, thenStatement, elseStatement)
     }
 
-    fun returnStatement(): StatementNode {
+    fun returnStatement(): Node {
         val keyword = consume(RETURN) { "Expect 'return'." }
         val value = when {
             check(SEMICOLON) -> null
@@ -142,7 +142,7 @@ class BaseParser(
         return ReturnNode(keyword.range, value)
     }
 
-    fun whileStatement(): StatementNode {
+    fun whileStatement(): Node {
         val keyword = consume(WHILE) { "Expect 'while'." }
         consume(LPAREN) { "Expect '(' after 'while'." }
         val condition = expression()
@@ -152,11 +152,11 @@ class BaseParser(
     }
 
 
-    fun expression(): ExpressionNode {
+    fun expression(): Node {
         return assignment()
     }
 
-    private fun assignment(): ExpressionNode {
+    private fun assignment(): Node {
         var expr = disjunction()
         if (check(EQUAL)) {
             val operator = consume(EQUAL) { " Expect '='." }
@@ -166,7 +166,7 @@ class BaseParser(
         return expr
     }
 
-    private fun disjunction(): ExpressionNode {
+    private fun disjunction(): Node {
         var expr = conjunction()
         while (check(OR)) {
             val operator = consume(OR) { "Expect '||'." }
@@ -176,7 +176,7 @@ class BaseParser(
         return expr
     }
 
-    private fun conjunction(): ExpressionNode {
+    private fun conjunction(): Node {
         var expr = equality()
         while (check(AND)) {
             val operator = consume(AND) { "Expect '&&'." }
@@ -186,7 +186,7 @@ class BaseParser(
         return expr
     }
 
-    private fun equality(): ExpressionNode {
+    private fun equality(): Node {
         var expr = comparison()
         while (true) {
             expr = when {
@@ -206,7 +206,7 @@ class BaseParser(
         return expr
     }
 
-    private fun comparison(): ExpressionNode {
+    private fun comparison(): Node {
 
         var expr = term()
 
@@ -240,7 +240,7 @@ class BaseParser(
 
     }
 
-    private fun term(): ExpressionNode {
+    private fun term(): Node {
 
         var expr = factor()
 
@@ -264,7 +264,7 @@ class BaseParser(
 
     }
 
-    private fun factor(): ExpressionNode {
+    private fun factor(): Node {
 
         var expr = unaryPrefix()
 
@@ -287,7 +287,7 @@ class BaseParser(
         return expr
     }
 
-    private fun unaryPrefix(): ExpressionNode {
+    private fun unaryPrefix(): Node {
         return when {
             check(BANG) -> {
                 val operator = consume(BANG) { "Expect '!'." }
@@ -303,7 +303,7 @@ class BaseParser(
         }
     }
 
-    private fun unaryPostfix(): ExpressionNode {
+    private fun unaryPostfix(): Node {
         var expr = primary()
 
         while (true) {
@@ -332,7 +332,7 @@ class BaseParser(
         return expr
     }
 
-    fun primary(): ExpressionNode {
+    fun primary(): Node {
         return when {
             check(FALSE, TRUE) -> booleanLiteral()
             check(NUMBER) -> intLiteral()
@@ -372,7 +372,7 @@ class BaseParser(
         return ReferenceNode(name.range, name.text)
     }
 
-    fun parenthesizedExpression(): ExpressionNode {
+    fun parenthesizedExpression(): Node {
         val lparen = consume(LPAREN) { "Expect '('." }
         val expr = expression()
         consume(RPAREN) { "Expect ')'." }

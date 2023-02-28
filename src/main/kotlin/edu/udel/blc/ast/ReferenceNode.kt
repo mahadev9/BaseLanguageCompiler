@@ -2,6 +2,6 @@ package edu.udel.blc.ast
 
 
 class ReferenceNode(
-    range: IntRange,
+    override val range: IntRange,
     val name: String,
-) : ExpressionNode(range)
+) : Node
