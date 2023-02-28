@@ -9,15 +9,24 @@ sealed class Scope {
     val declarations = LinkedHashMap<String, Symbol>()
 
     val symbols: List<Symbol>
-        get() = declarations.values.toList()
+        get() = buildList {
+            addAll(declarations.entries.map { it.value })
+            containingScope?.let { scope ->
+                addAll(scope.symbols)
+            }
+        }
 
     open fun declare(symbol: Symbol): Symbol {
-        declarations[symbol.name] = symbol
+        synchronized(declarations) {
+            declarations[symbol.name] = symbol
+        }
         return symbol
     }
 
     open fun lookup(name: String): Symbol? {
-        return declarations[name] ?: containingScope?.lookup(name)
+        synchronized(declarations) {
+            return declarations[name] ?: containingScope?.lookup(name)
+        }
     }
 
     val enclosingPath: List<Scope> by lazy {
@@ -29,6 +38,5 @@ sealed class Scope {
             }
         }
     }
-
 
 }

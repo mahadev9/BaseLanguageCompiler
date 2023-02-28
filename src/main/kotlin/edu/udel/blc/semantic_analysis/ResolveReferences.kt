@@ -137,6 +137,8 @@ class ResolveReferences(
 
     private fun reference(node: ReferenceNode) {
 
+        println("looking for ${node.name} in ${scope.symbols}")
+
         val symbol = scope.lookup(node.name)
 
         reactor.supply(

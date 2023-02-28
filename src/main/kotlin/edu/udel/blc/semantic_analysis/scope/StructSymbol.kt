@@ -8,5 +8,7 @@ class StructSymbol(
 
     val fields: List<FieldSymbol>
         get() = symbols.filterIsInstance<FieldSymbol>()
+    
+    override fun toString(): String = "Struct($name)"
 
 }

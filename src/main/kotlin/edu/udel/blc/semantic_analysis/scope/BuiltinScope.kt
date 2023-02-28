@@ -116,5 +116,9 @@ object BuiltinScope : Scope() {
     }
 
 
+    override fun toString() = buildString {
+        append("Builtin")
+//        symbols.joinTo(this, prefix = "{", postfix = "}")
+    }
 }
 
