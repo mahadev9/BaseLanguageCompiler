@@ -37,18 +37,13 @@ class ResolveReferences(
         register(ReferenceNode::class.java, PRE_VISIT, ::reference)
 
         register(ReturnNode::class.java, PRE_VISIT, ::returnStmt)
-
-        registerFallback(PRE_VISIT, ::enterNode)
     }
 
     override fun accept(compilationUnit: CompilationUnitNode) {
         walker.accept(compilationUnit)
-        reactor.run()
     }
 
     private fun enterCompilationUnit(node: CompilationUnitNode) {
-        reactor[node, "scope"] = scope
-
         val globalScope = GlobalScope(scope)
         scope = globalScope
     }
@@ -58,12 +53,15 @@ class ResolveReferences(
     }
 
     private fun enterFunctionDeclaration(node: FunctionDeclarationNode) {
-        reactor[node, "scope"] = scope
-
         val functionScope = FunctionSymbol(node.name, scope)
         scope.declare(functionScope)
 
-        reactor[node, "symbol"] = functionScope
+        reactor.supply(
+            name = "function declaration: set symbol",
+            attribute = Attribute(node, "symbol")
+        ) {
+            functionScope
+        }
 
         scope = functionScope
     }
@@ -73,10 +71,7 @@ class ResolveReferences(
     }
 
     private fun enterBlock(node: BlockNode) {
-        reactor[node, "scope"] = scope
-
         val localScope = LocalScope(scope)
-
         scope = localScope
     }
 
@@ -85,29 +80,42 @@ class ResolveReferences(
     }
 
     private fun parameter(node: ParameterNode) {
-        reactor[node, "scope"] = scope
-
         val symbol = VariableSymbol(node.name, scope)
-        reactor[node, "symbol"] = symbol
         scope.declare(symbol)
+
+        reactor.supply(
+            name = "parameter: set symbol",
+            attribute = Attribute(node, "symbol")
+        ) {
+            symbol
+        }
     }
 
     private fun variableDeclaration(node: VariableDeclarationNode) {
-        reactor[node, "scope"] = scope
-
         val symbol = VariableSymbol(node.name, scope)
         scope.declare(symbol)
 
-        reactor[node, "symbol"] = symbol
+        reactor.supply(
+            name = "variable declaration: set symbol",
+            attribute = Attribute(node, "symbol")
+        ) {
+            symbol
+        }
     }
 
     private fun enterStructDeclaration(node: StructDeclarationNode) {
-        reactor[node, "scope"] = scope
 
-        val structSymbol = StructSymbol(node.name, scope)
-        scope.declare(structSymbol)
-        reactor[node, "symbol"] = structSymbol
-        scope = structSymbol
+        val symbol = StructSymbol(node.name, scope)
+        scope.declare(symbol)
+
+        reactor.supply(
+            name = "struct declaration: set symbol",
+            attribute = Attribute(node, "symbol")
+        ) {
+            symbol
+        }
+
+        scope = symbol
     }
 
     private fun exitStructDeclaration(node: StructDeclarationNode) {
@@ -115,47 +123,47 @@ class ResolveReferences(
     }
 
     private fun field(node: FieldNode) {
-        reactor[node, "scope"] = scope
 
         val symbol = FieldSymbol(node.name, scope)
         scope.declare(symbol)
-        reactor[node, "symbol"] = symbol
-    }
 
-    private fun enterNode(node: Node) {
-        reactor[node, "scope"] = scope
+        reactor.supply(
+            name = "field: set symbol",
+            attribute = Attribute(node, "symbol")
+        ) {
+            symbol
+        }
     }
 
     private fun reference(node: ReferenceNode) {
-        reactor[node, "scope"] = scope
 
-        // attempt to resolve when encountering a reference
-        when (val symbol = scope.lookup(node.name)) {
-            // if it's not found, add a rule to try again after traversal is complete
-            null -> reactor.map(
-                from = Attribute(node, "scope"),
-                to = Attribute(node, "symbol")
-            ) { scope: Scope ->
+        val symbol = scope.lookup(node.name)
 
-                when (val symbol = scope.lookup(node.name)) {
-                    // if the symbol is null or a variable symbol, report an error
-                    // if we can find a variable now, but not before this means that the variable is used
-                    // prior to being declared.
-                    null, is VariableSymbol -> SemanticError(node, "unknown identifier: ${node.name}")
-                    else -> symbol
-                }
+        reactor.supply(
+            name = "reference: set symbol",
+            attribute = Attribute(node, "symbol")
+        ) {
+            when (symbol) {
+                null -> SemanticError(node, "unknown identifier: ${node.name}")
+                else -> symbol
             }
-            else -> reactor[node, "symbol"] = symbol
         }
     }
 
     private fun returnStmt(node: ReturnNode) {
-        reactor[node, "scope"] = scope
 
-        when (val function = containingFunction(scope)) {
-            null -> reactor.error(SemanticError(node, "return outside of function"))
-            else -> reactor[node, "containingFunction"] = function
+        val function = containingFunction(scope)
+
+        reactor.supply(
+            name = "return: set containing function",
+            attribute = Attribute(node, "containingFunction")
+        ) {
+            when (function) {
+                null -> SemanticError(node, "return outside of function")
+                else -> function
+            }
         }
+
     }
 
     private fun containingFunction(start: Scope): FunctionSymbol? {

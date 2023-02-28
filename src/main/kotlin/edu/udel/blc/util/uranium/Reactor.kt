@@ -185,6 +185,13 @@ open class Reactor {
         register(rule)
     }
 
+    fun supply(name: String = "", attribute: Attribute, f: () -> Any) {
+        rule(name) {
+            exports(attribute)
+            by { r -> r[attribute] = f() }
+        }
+    }
+
     fun <T : Any> map(name: String = "", from: Attribute, to: Attribute, f: (value: T) -> Any) {
         rule(name) {
             exports(to)

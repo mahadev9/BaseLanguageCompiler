@@ -24,7 +24,6 @@ class CheckReturns(
 
     override fun accept(compilationUnit: CompilationUnitNode) {
         walker.accept(compilationUnit)
-        reactor.run()
     }
 
     private fun functionDeclaration(node: FunctionDeclarationNode) {
@@ -75,7 +74,12 @@ class CheckReturns(
 
     private fun returnStmt(node: ReturnNode) {
         // Indicate that return statements return
-        reactor[node, "returns"] = true
+        reactor.supply(
+            name = "return: set returns",
+            attribute = Attribute(node, "returns")
+        ) {
+            true
+        }
     }
 
     private fun isReturnContainer(node: Node): Boolean {

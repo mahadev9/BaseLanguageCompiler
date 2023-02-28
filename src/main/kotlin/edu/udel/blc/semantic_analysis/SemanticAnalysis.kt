@@ -22,6 +22,8 @@ object SemanticAnalysis : Function<CompilationUnitNode, Result<Reactor>> {
             .andThen(CheckReturns(reactor))
             .accept(compilationUnit)
 
+        reactor.run()
+
 //        for((attribute, value) in SymbolTable.attributes) {
 //            println("$attribute : $value")
 //        }

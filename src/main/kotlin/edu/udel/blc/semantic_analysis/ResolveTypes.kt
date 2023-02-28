@@ -48,7 +48,6 @@ class ResolveTypes(
 
     override fun accept(compilationUnit: CompilationUnitNode) {
         walker.accept(compilationUnit)
-        reactor.run()
     }
 
     // Declarations
@@ -190,11 +189,16 @@ class ResolveTypes(
     }
 
     private fun binaryExpression(node: BinaryExpressionNode) {
-        reactor[node, "type"] = when (node.operator) {
-            ADDITION, SUBTRACTION, MULTIPLICATION, REMAINDER -> IntType
-            EQUAL_TO, NOT_EQUAL_TO,
-            GREATER_THAN, GREATER_THAN_OR_EQUAL_TO, LESS_THAN, LESS_THAN_OR_EQUAL_TO,
-            LOGICAL_CONJUNCTION, LOGICAL_DISJUNCTION -> BooleanType
+        reactor.supply(
+            "binary expression: type",
+            Attribute(node, "type")
+        ) {
+            when (node.operator) {
+                ADDITION, SUBTRACTION, MULTIPLICATION, REMAINDER -> IntType
+                EQUAL_TO, NOT_EQUAL_TO,
+                GREATER_THAN, GREATER_THAN_OR_EQUAL_TO, LESS_THAN, LESS_THAN_OR_EQUAL_TO,
+                LOGICAL_CONJUNCTION, LOGICAL_DISJUNCTION -> BooleanType
+            }
         }
     }
 
@@ -228,6 +232,7 @@ class ResolveTypes(
                         else -> fieldType
                     }
                 }
+
                 else -> SemanticError(node, "expression must be Struct, not $expressionType")
             }
 
@@ -235,9 +240,14 @@ class ResolveTypes(
     }
 
     private fun unaryExpression(node: UnaryExpressionNode) {
-        reactor[node, "type"] = when (node.operator) {
-            LOGICAL_COMPLEMENT -> BooleanType
-            NEGATION -> IntType
+        reactor.supply(
+            name = "unary expression: type",
+            attribute = Attribute(node, "type")
+        ) {
+            when (node.operator) {
+                LOGICAL_COMPLEMENT -> BooleanType
+                NEGATION -> IntType
+            }
         }
     }
 
@@ -262,19 +272,19 @@ class ResolveTypes(
     }
 
     private fun booleanLiteral(node: BooleanLiteralNode) {
-        reactor[node, "type"] = BooleanType
+        reactor.supply(name = "boolena: type", Attribute(node, "type")) { BooleanType }
     }
 
     private fun intLiteral(node: IntLiteralNode) {
-        reactor[node, "type"] = IntType
+        reactor.supply(name = "int: type", Attribute(node, "type")) { IntType }
     }
 
     private fun stringLiteral(node: StringLiteralNode) {
-        reactor[node, "type"] = StringType
+        reactor.supply(name = "string: type", Attribute(node, "type")) { StringType }
     }
 
     private fun unitLiteral(node: UnitLiteralNode) {
-        reactor[node, "type"] = UnitType
+        reactor.supply(name = "unit: type", Attribute(node, "type")) { UnitType }
     }
 
     private fun arrayType(node: ArrayTypeNode) {

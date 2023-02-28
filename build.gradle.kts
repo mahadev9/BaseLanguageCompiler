@@ -9,6 +9,10 @@ repositories {
     mavenCentral()
 }
 
+kotlin {
+    jvmToolchain(17)
+}
+
 dependencies {
     implementation("com.github.ajalt.clikt:clikt:3.5.0")
     implementation("com.google.guava:guava:31.1-jre")

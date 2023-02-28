@@ -38,7 +38,6 @@ class CheckTypes(
 
     override fun accept(compilationUnit: CompilationUnitNode) {
         walker.accept(compilationUnit)
-        reactor.run()
     }
 
     private fun index(node: IndexNode) {
