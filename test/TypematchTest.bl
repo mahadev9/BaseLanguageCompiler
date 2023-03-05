@@ -1,0 +1,45 @@
+// Boolean Positive
+var b1: Boolean = true;
+var b2: Boolean = false;
+// var b3: Boolean = (5 > 3); expression should have been evaluated to "true"
+var b4: Boolean = !false;
+print(b1); // should output true
+print(b2); // should output false
+// print(b3); // should output true
+print(b4); // should output true
+
+// Boolean Negative
+// var b: Boolean = 5; got compiler error
+// Type mismatch: Expected Boolean, but got Int
+
+
+// Int Positive
+var i1: Int = 10;
+var i2: Int = -5;
+var i3: Int = 0;
+var i4: Int = 2 + 3;
+print(i1); // should output 10
+print(i2); // should output -5
+print(i3); // should output 0
+print(i4); // should output 5
+
+// Int negative
+// var i: Int = true; // Type mismatch: Expected Int, but got Boolean
+
+// String Positive
+var s1: String = "Hello, world!";
+var s2: String = "This is a test string.";
+// var s3: String = "My age is " + 25;
+print(s1); // should output "Hello, world!"
+print(s2); // should output "This is a test string."
+// print(s3); // should output "My age is 25" 
+
+// String Negative
+// var s: String = true; // Type mismatch: Expected String, but got Boolean
+
+// Unit Positive
+var u1: Unit = unit;
+// var u2: Unit = { };
+
+// Unit Negative
+// var u: Unit = true; // Type mismatch: Expected Unit, but got Boolean

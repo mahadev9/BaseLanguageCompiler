@@ -1,0 +1,26 @@
+print("Validating Variables and their comparison");
+
+var x: Int = 7;
+var y: Int = 879;
+var z: String = "8439";
+var b: Boolean = true;
+var c: String = "false";
+
+// Float data type is not working as expected
+// var a: Float = 43.54;
+
+print(x); // 7
+print(y); // 879
+print(z); // "8439"
+print(b); // true
+print(c); // "false"
+
+print(x == y); // false
+print(x == z); // false
+print(b == z); // false
+print(b == x); // false
+print(false == c); // false
+print("false" == c); // true
+
+x = y;
+print(x == y); // true

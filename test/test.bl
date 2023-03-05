@@ -1,0 +1,25 @@
+struct Point { x: Int, y: Int }
+
+var p1: Point = Point(10, 10);
+var p2: Point = Point(10, 10);
+var p3: Point = Point(0, 0);
+
+//var points: [Point] = [p1, p2, p3];
+
+//print(points);
+
+//var a1: [[Int]] = [[1], [2], [3]];
+
+//print(len(a1));
+
+//print(p1);
+print(p1 == p1);
+print(p1 == p2);
+print(p1 == p3);
+
+
+fun add(x: Int, y: Int) -> Int {
+    return x + y;
+}
+
+print(add(1, 3));

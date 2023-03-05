@@ -1,0 +1,27 @@
+print("Validating Logical Operators");
+
+var a: Boolean = false;
+var b: Boolean = true;
+var c: Int = 0;
+var d: Int = 1;
+var e: Int = 893;
+var f: String = "";
+var g: String = "Hi";
+
+print(a && b); // false
+print(a && a); // false
+print(b && b); // true
+
+print(a || b); // true
+print(a || a); // false
+print(b || b); // true
+
+print(!a); // true
+print(!b); // false
+
+print(a && b || a); // false
+print(a && !b || a && !b); // false
+print(b || a && b); // true
+
+// grouping is not supported
+print(a || (b && a)); // false

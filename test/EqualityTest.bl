@@ -1,0 +1,45 @@
+print("Validating Euquality Operations (==, !=, <, <=, >, >=)");
+
+var a: Int = 384;
+var b: Int = -487;
+var c: String = "Hello World";
+var d: Boolean = true;
+var e: Boolean = false;
+
+var f: [Int] = [843, 34, -487];
+var g: [String] = ["Hello World", "Compiler", "Test"];
+var h: [Boolean] = [true, false];
+
+struct Test { x: Int, y: String, z: Boolean }
+var vTest1: Test = Test(83, "Hi", false);
+var vTest2: Test = Test(342, "There!", true);
+
+var vTest3: [Test] = [Test(83, "Hi", false), Test(342, "There!", true)];
+
+print(a == 384); // true
+print(a != 384); // false
+print(a == b); // false
+print(a != b); // true
+print(c == b); // false
+print(c == ""); // false
+print(c != ""); // true
+print(c == d); // false
+print(c != d); // true
+print(d == e); // false
+print(d == true); // true
+print(e == f); // false
+print(f[0] == a); // false
+print(f[2] == b); // true
+print(f != g); // true
+print(g[0] != c); // false, cannot interchange 'g[0]' and 'c'
+print(h == h); // true
+print(h[1] == e); // true
+print(h[1] == vTest1); // false
+print(vTest3[0] == vTest1); // true
+print(vTest3[1] != vTest2); // false
+
+print(37 > 22); // true
+print(3 >= 345); // false
+print(333 >= 333); // true
+print(333 < 333); // false
+print(32 <= 333); // true
