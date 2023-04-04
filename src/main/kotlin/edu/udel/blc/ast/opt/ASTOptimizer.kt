@@ -14,6 +14,7 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         register(ExpressionStatementNode::class.java, ::expressionStatement)
         register(FieldNode::class.java, ::fieldNode)
         register(FieldSelectNode::class.java, ::fieldSelectNode)
+        register(IndexNode::class.java, ::indexNode)
         // Add
         register(BinaryExpressionNode::class.java, ::binaryExpression)
 
@@ -265,7 +266,16 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         return FieldSelectNode(
             range = node.range,
             expression = expression,
-            name = node.name,
+            name = node.name
+        )
+    }
+    private fun indexNode(node:IndexNode): Node{
+        val expression = apply(node.expression)
+        val index = apply(node.index)
+        return IndexNode(
+            range = node.range,
+            expression = expression,
+            index = index
         )
     }
 
