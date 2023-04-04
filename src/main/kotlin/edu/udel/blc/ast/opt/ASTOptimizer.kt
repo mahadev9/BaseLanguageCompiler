@@ -18,7 +18,10 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
     }
 
     private fun intLiteral(node: IntLiteralNode): Node{
-        return node;
+        // return a copy of the literal node
+        return IntLiteralNode(
+            range = node.range,
+            value = node.value)
     }
 
     private fun binaryExpression(node: BinaryExpressionNode): Node {
