@@ -36,7 +36,7 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             GREATER_THAN_OR_EQUAL_TO -> greaterThanOrEqualTo(node)
             LESS_THAN -> lessThan(node)
             LESS_THAN_OR_EQUAL_TO -> lessThanOrEqualTo(node)
-            LOGICAL_CONJUNCTION -> TODO()
+            LOGICAL_CONJUNCTION -> logicalConjunction(node)
             LOGICAL_DISJUNCTION -> TODO()
         }
     }
@@ -193,6 +193,17 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
     }
 
     private fun lessThanOrEqualTo(node: BinaryExpressionNode): Node{
+        val left = apply(node.left)
+        val right = apply(node.right)
+
+        return BinaryExpressionNode(
+            range = node.range,
+            operator = node.operator,
+            left = left,
+            right = right
+        )
+    }
+    private fun logicalConjunction(node: BinaryExpressionNode): Node{
         val left = apply(node.left)
         val right = apply(node.right)
 
