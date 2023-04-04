@@ -10,6 +10,7 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         // Add implementation for ALL AST Nodes types
         register(IntLiteralNode::class.java, ::intLiteral)
         register(BooleanLiteralNode::class.java, ::booleanLiteral)
+        register(StringLiteralNode::class.java, ::stringLiteral)
         // Add
         register(BinaryExpressionNode::class.java, ::binaryExpression)
 
