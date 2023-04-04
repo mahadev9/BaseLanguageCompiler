@@ -7,12 +7,18 @@ import edu.udel.blc.util.visitor.ValuedVisitor
 class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
 
     init {
+        // Add implementation for ALL AST Nodes types
+        register(IntLiteralNode::class.java, ::intLiteral)
 
         // Add
         register(BinaryExpressionNode::class.java, ::binaryExpression)
 
         register(UnitLiteralNode::class.java, ::unitLiteral)
 
+    }
+
+    private fun intLiteral(node: IntLiteralNode): Node{
+        return node;
     }
 
     private fun binaryExpression(node: BinaryExpressionNode): Node {
