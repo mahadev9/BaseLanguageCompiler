@@ -2,6 +2,7 @@ package edu.udel.blc.ast.opt
 
 import edu.udel.blc.ast.*
 import edu.udel.blc.ast.BinaryOperator.*
+import edu.udel.blc.ast.UnaryOperator.*
 import edu.udel.blc.util.visitor.ValuedVisitor
 
 class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
@@ -18,6 +19,7 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         register(ParameterNode::class.java, ::parameterNode)
         register(ReferenceNode::class.java, ::referenceNode)
         register(ReturnNode::class.java, ::returnNode)
+        register(UnaryExpressionNode::class.java, ::unaryExpression)
         // Add
         register(BinaryExpressionNode::class.java, ::binaryExpression)
 
@@ -304,6 +306,15 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             expression = expression,
         )
     }
+    private fun unaryExpression(node:UnaryExpressionNode):Node{
+        val operand = apply(node.operand)
+        return UnaryExpressionNode(
+            range = node.range,
+            operator =  node.operator,
+            operand = operand
+        )
+    }
+
 
     private fun unitLiteral(node: UnitLiteralNode): Node {
         // return a copy of the literal node
