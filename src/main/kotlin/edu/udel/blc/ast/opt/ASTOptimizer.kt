@@ -2,7 +2,6 @@ package edu.udel.blc.ast.opt
 
 import edu.udel.blc.ast.*
 import edu.udel.blc.ast.BinaryOperator.*
-import edu.udel.blc.ast.UnaryOperator.*
 import edu.udel.blc.util.visitor.ValuedVisitor
 
 class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
@@ -14,11 +13,11 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         register(StringLiteralNode::class.java, ::stringLiteral)
         register(ExpressionStatementNode::class.java, ::expressionStatement)
         register(FieldNode::class.java, ::fieldNode)
-        register(FieldSelectNode::class.java, ::fieldSelectNode)
-        register(IndexNode::class.java, ::indexNode)
-        register(ParameterNode::class.java, ::parameterNode)
-        register(ReferenceNode::class.java, ::referenceNode)
-        register(ReturnNode::class.java, ::returnNode)
+        register(FieldSelectNode::class.java, ::fieldSelect)
+        register(IndexNode::class.java, ::index)
+        register(ParameterNode::class.java, ::parameter)
+        register(ReferenceNode::class.java, ::reference)
+        register(ReturnNode::class.java, ::_return)
         register(UnaryExpressionNode::class.java, ::unaryExpression)
         register(ArrayLiteralNode::class.java, ::arrayLiteral)
 
@@ -268,7 +267,7 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         )
     }
 
-    private fun fieldSelectNode(node:FieldSelectNode): Node{
+    private fun fieldSelect(node:FieldSelectNode): Node{
         val expression = apply(node.expression)
         return FieldSelectNode(
             range = node.range,
@@ -276,7 +275,7 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             name = node.name
         )
     }
-    private fun indexNode(node:IndexNode): Node{
+    private fun index(node:IndexNode): Node{
         val expression = apply(node.expression)
         val index = apply(node.index)
         return IndexNode(
@@ -285,7 +284,7 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             index = index
         )
     }
-    private fun parameterNode(node:ParameterNode): Node{
+    private fun parameter(node:ParameterNode): Node{
         val type = apply(node.type)
         return ParameterNode(
             range = node.range,
@@ -294,14 +293,14 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         )
     }
 
-    private fun referenceNode(node:ReferenceNode): Node{
+    private fun reference(node:ReferenceNode): Node{
         return ReferenceNode(
             range = node.range,
             name = node.name,
         )
     }
 
-    private fun returnNode(node:ReturnNode): Node{
+    private fun _return (node:ReturnNode): Node{
         val expression = node.expression?.let { apply(node.expression) }
         return ReturnNode(
             range = node.range,
