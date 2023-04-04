@@ -9,7 +9,7 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
     init {
         // Add implementation for ALL AST Nodes types
         register(IntLiteralNode::class.java, ::intLiteral)
-
+        register(BooleanLiteralNode::class.java, ::booleanLiteral)
         // Add
         register(BinaryExpressionNode::class.java, ::binaryExpression)
 
@@ -22,6 +22,12 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         return IntLiteralNode(
             range = node.range,
             value = node.value)
+    }
+    private fun booleanLiteral(node: BooleanLiteralNode): Node{
+        return BooleanLiteralNode(
+            range = node.range,
+            value = node.value
+        )
     }
 
     private fun binaryExpression(node: BinaryExpressionNode): Node {
