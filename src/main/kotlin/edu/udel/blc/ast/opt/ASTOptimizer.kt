@@ -29,7 +29,7 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             ADDITION -> addition(node)
             SUBTRACTION -> subtraction(node)
             MULTIPLICATION -> multiplication(node)
-            REMAINDER -> TODO()
+            REMAINDER -> remainder(node)
             EQUAL_TO -> TODO()
             NOT_EQUAL_TO -> TODO()
             GREATER_THAN -> TODO()
@@ -98,6 +98,29 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
                 IntLiteralNode(
                     range = -1..-1, // what should the range of the new node be? How does this impact error reporting?
                     value = left.value * right.value
+                )
+            }
+            else -> {
+                BinaryExpressionNode(
+                    range = node.range,
+                    operator = node.operator,
+                    left = left,
+                    right = right
+                )
+            }
+        }
+    }
+
+    private fun remainder(node: BinaryExpressionNode): Node{
+        val left = apply(node.left)
+        val right = apply(node.right)
+
+        return when {
+            // if left and right children are both int literals, replace the node with the result of the operation
+            left is IntLiteralNode && right is IntLiteralNode -> {
+                IntLiteralNode(
+                    range = -1..-1, // what should the range of the new node be? How does this impact error reporting?
+                    value = left.value % right.value
                 )
             }
             else -> {
