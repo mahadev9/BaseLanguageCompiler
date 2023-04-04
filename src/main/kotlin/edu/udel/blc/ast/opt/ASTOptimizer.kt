@@ -27,7 +27,7 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
     private fun binaryExpression(node: BinaryExpressionNode): Node {
         return when (node.operator) {
             ADDITION -> addition(node)
-            SUBTRACTION -> TODO()
+            SUBTRACTION -> subtraction(node)
             MULTIPLICATION -> TODO()
             REMAINDER -> TODO()
             EQUAL_TO -> TODO()
@@ -57,6 +57,28 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             }
             else -> {
                 BinaryExpressionNode(
+                    range = node.range,
+                    operator = node.operator,
+                    left = left,
+                    right = right
+                )
+            }
+        }
+    }
+
+    private fun subtraction(node:BinaryExpressionNode): Node{
+        val left = apply (node.left)
+        val right = apply(node.right)
+
+        return when {
+            left is IntLiteralNode && right is IntLiteralNode -> {
+                IntLiteralNode (
+                    range = -1..-1,
+                    value = left.value - right.value
+                )
+            }
+            else -> {
+                BinaryExpressionNode (
                     range = node.range,
                     operator = node.operator,
                     left = left,
