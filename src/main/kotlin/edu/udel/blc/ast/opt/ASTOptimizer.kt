@@ -25,6 +25,7 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         register(BlockNode::class.java, ::block)
         register(CallNode::class.java, ::call)
         register(CompilationUnitNode::class.java, ::compilationUnit)
+        register(FunctionDeclarationNode::class.java, ::functionDeclaration)
         // Add
         register(BinaryExpressionNode::class.java, ::binaryExpression)
 
@@ -375,6 +376,18 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         )
     }
 
+    private fun functionDeclaration(node:FunctionDeclarationNode):Node{
+        val parameters = node.parameters.map { p -> apply(p) as ParameterNode}
+        val returnType = apply(node.returnType)
+        val body = apply(node.body) as BlockNode
+        return FunctionDeclarationNode(
+            range = node.range,
+            name = node.name,
+            parameters = parameters,
+            returnType = returnType,
+            body = body
+        )
+    }
 
 
 
