@@ -7,9 +7,11 @@ class IndexNode(
     val index: Node,
 ) : Node {
     override fun equals(other: Any?): Boolean {
-        TODO("Not yet implemented")
+        return (other?.let {it is IndexNode &&
+                it.range == this.range &&
+                it.expression == this.expression &&
+                it.index == this.index} == true)
     }
-
     override fun toString(): String {
         TODO("Not yet implemented")
     }
