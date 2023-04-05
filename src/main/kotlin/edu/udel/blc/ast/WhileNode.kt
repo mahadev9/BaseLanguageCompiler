@@ -7,7 +7,10 @@ class WhileNode(
     val body: Node,
 ) : Node {
     override fun equals(other: Any?): Boolean {
-        TODO("Not yet implemented")
+        return (other?.let {it is WhileNode &&
+                it.range == this.range &&
+                it.condition == this.condition &&
+                it.body == this.body} == true)
     }
 
     override fun toString(): String {
