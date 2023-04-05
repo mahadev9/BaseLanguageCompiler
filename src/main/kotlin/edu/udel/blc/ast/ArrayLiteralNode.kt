@@ -11,7 +11,8 @@ class ArrayLiteralNode(
     }
 
     override fun equals(other: Any?): Boolean {
-        TODO("Not yet implemented")
+        return (other?.let {it is ArrayLiteralNode && it.range == this.range &&
+                it.elements == this.elements} == true)
     }
 
     override fun toString(): String {
