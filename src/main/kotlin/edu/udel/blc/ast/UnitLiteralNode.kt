@@ -5,7 +5,8 @@ class UnitLiteralNode(
     override val range: IntRange,
 ) : Node {
     override fun equals(other: Any?): Boolean {
-        TODO("Not yet implemented")
+        return (other?.let {it is UnitLiteralNode &&
+                it.range == this.range} == true)
     }
 
     override fun toString(): String {
