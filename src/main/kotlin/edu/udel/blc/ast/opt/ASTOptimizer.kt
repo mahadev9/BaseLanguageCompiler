@@ -20,6 +20,7 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         register(ReturnNode::class.java, ::_return)
         register(UnaryExpressionNode::class.java, ::unaryExpression)
         register(ArrayLiteralNode::class.java, ::arrayLiteral)
+        register(ArrayTypeNode::class.java, ::arrayType)
 
         // Add
         register(BinaryExpressionNode::class.java, ::binaryExpression)
@@ -321,6 +322,14 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         return ArrayLiteralNode(
             range = node.range,
             elements = elements
+        )
+    }
+
+    private fun arrayType(node:ArrayTypeNode):Node{
+        val elementType = apply(node.elementType)
+        return ArrayTypeNode(
+            range = node.range,
+            elementType = elementType
         )
     }
 
