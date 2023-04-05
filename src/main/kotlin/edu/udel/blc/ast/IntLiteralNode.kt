@@ -9,4 +9,8 @@ class IntLiteralNode(
     return (other?.let {it is IntLiteralNode && it.range == this.range &&
             it.value == this.value} == true)
     }
+
+    override fun toString(): String {
+        return "IntLiteralNode {range = $range, value = $value}"
+    }
 }
