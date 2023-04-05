@@ -11,10 +11,11 @@ private fun additionTest(): Unit{
         left = IntLiteralNode(IntRange.EMPTY, 5),
         right = IntLiteralNode(IntRange.EMPTY, 5)
     )
-    val optimized = ExpressionOptimizer().apply(node)
+    val actual = (ExpressionOptimizer().apply(node) )
     val expected = IntLiteralNode(-1..-1, 10)
 
-    check( optimized == expected)
+    check( actual == expected){ "Addition for binary expression failed." +
+            "Expected: $expected, actual: $actual" }
 }
 
 fun main() {
