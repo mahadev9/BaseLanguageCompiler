@@ -22,6 +22,7 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         register(ArrayLiteralNode::class.java, ::arrayLiteral)
         register(ArrayTypeNode::class.java, ::arrayType)
         register(AssignmentNode::class.java, ::assignment)
+        register(BlockNode::class.java, ::block)
         // Add
         register(BinaryExpressionNode::class.java, ::binaryExpression)
 
@@ -340,6 +341,15 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             range = node.range,
             lvalue = lvalue,
             expression = expression
+        )
+    }
+
+    private fun block(node:BlockNode):Node{
+        val statements = node.statements.map { s -> apply(s) }
+
+        return BlockNode(
+            range = node.range,
+            statements = statements
         )
     }
 
