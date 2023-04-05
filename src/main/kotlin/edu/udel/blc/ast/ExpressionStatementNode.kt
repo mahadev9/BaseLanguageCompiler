@@ -6,7 +6,9 @@ class ExpressionStatementNode(
     val expression: Node,
 ) : Node {
     override fun equals(other: Any?): Boolean {
-        TODO("Not yet implemented")
+        return (other?.let {it is ExpressionStatementNode &&
+                it.range == this.range &&
+                it.expression == this.expression} == true)
     }
 
     override fun toString(): String {
