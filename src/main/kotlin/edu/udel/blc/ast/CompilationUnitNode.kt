@@ -6,7 +6,9 @@ class CompilationUnitNode(
     val statements: List<Node>,
 ) : Node {
     override fun equals(other: Any?): Boolean {
-        TODO("Not yet implemented")
+        return (other?.let {it is CompilationUnitNode &&
+                it.range == this.range &&
+                it.statements == this.statements} == true)
     }
 
     override fun toString(): String {
