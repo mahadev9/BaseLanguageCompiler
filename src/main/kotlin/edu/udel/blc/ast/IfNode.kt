@@ -8,7 +8,11 @@ class IfNode(
     val elseStatement: Node?,
 ) : Node {
     override fun equals(other: Any?): Boolean {
-        TODO("Not yet implemented")
+        return (other?.let {it is IfNode &&
+                it.range == this.range &&
+                it.condition == this.condition &&
+                it.thenStatement == this.thenStatement &&
+                it.elseStatement == this.elseStatement } == true)
     }
 
     override fun toString(): String {
