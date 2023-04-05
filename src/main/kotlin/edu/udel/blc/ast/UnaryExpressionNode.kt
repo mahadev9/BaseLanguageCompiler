@@ -7,7 +7,10 @@ class UnaryExpressionNode(
     val operand: Node,
 ) : Node {
     override fun equals(other: Any?): Boolean {
-        TODO("Not yet implemented")
+        return (other?.let {it is UnaryExpressionNode &&
+                it.range == this.range &&
+                it.operator == this.operator &&
+                it.operand == this.operand} == true)
     }
 
     override fun toString(): String {
