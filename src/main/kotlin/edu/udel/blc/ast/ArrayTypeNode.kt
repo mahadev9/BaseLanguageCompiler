@@ -6,7 +6,8 @@ class ArrayTypeNode(
     val elementType: Node,
 ) : Node {
     override fun equals(other: Any?): Boolean {
-        TODO("Not yet implemented")
+        return (other?.let {it is ArrayTypeNode && it.range == this.range &&
+                it.elementType == this.elementType} == true)
     }
 
     override fun toString(): String {
