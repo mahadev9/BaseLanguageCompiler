@@ -7,7 +7,10 @@ class CallNode(
     val arguments: List<Node>,
 ) : Node {
     override fun equals(other: Any?): Boolean {
-        TODO("Not yet implemented")
+        return (other?.let {it is CallNode &&
+                it.range == this.range &&
+                it.callee == this.callee &&
+                it.arguments == this.arguments} == true)
     }
 
     override fun toString(): String {
