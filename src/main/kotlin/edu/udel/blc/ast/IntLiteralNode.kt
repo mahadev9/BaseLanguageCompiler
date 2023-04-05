@@ -6,6 +6,7 @@ class IntLiteralNode(
     val value: Long,
 ) : Node {
     override fun equals(other: Any?): Boolean {
-        TODO("Not yet implemented")
+    return (other?.let {it is IntLiteralNode && it.range == this.range &&
+            it.value == this.value} == true)
     }
 }
