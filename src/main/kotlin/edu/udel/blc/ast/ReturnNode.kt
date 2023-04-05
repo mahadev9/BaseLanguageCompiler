@@ -6,6 +6,7 @@ class ReturnNode(
     val expression: Node?,
 ) : Node {
     override fun equals(other: Any?): Boolean {
-        TODO("Not yet implemented")
+    return (other?.let {it is ReturnNode && it.range == this.range &&
+            it.expression == this.expression} == true)
     }
 }
