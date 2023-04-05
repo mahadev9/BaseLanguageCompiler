@@ -7,7 +7,10 @@ class FieldSelectNode(
     val name: String,
 ) : Node {
     override fun equals(other: Any?): Boolean {
-        TODO("Not yet implemented")
+        return (other?.let {it is FieldSelectNode &&
+                it.range == this.range &&
+                it.expression == this.expression &&
+                it.name == this.name } == true)
     }
 
     override fun toString(): String {
