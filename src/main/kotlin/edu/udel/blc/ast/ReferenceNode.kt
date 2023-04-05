@@ -6,7 +6,9 @@ class ReferenceNode(
     val name: String,
 ) : Node {
     override fun equals(other: Any?): Boolean {
-        TODO("Not yet implemented")
+        return (other?.let {it is ReferenceNode &&
+                it.range == this.range &&
+                it.name == this.name} == true)
     }
 
     override fun toString(): String {
