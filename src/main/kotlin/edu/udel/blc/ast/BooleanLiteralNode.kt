@@ -6,7 +6,9 @@ class BooleanLiteralNode(
     val value: Boolean,
 ) : Node {
     override fun equals(other: Any?): Boolean {
-        TODO("Not yet implemented")
+        return (other?.let {it is BooleanLiteralNode &&
+                it.range == this.range &&
+                it.value == this.value} == true)
     }
 
     override fun toString(): String {
