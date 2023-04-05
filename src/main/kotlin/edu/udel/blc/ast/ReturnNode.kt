@@ -9,4 +9,8 @@ class ReturnNode(
     return (other?.let {it is ReturnNode && it.range == this.range &&
             it.expression == this.expression} == true)
     }
+
+    override fun toString(): String {
+        TODO("Not yet implemented")
+    }
 }

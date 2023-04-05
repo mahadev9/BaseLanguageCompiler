@@ -59,5 +59,6 @@ sealed interface Node {
         is WhileNode -> visitor.`while`(this, arg)
     }
     override fun equals(other: Any?): Boolean
+    override fun toString():String
 
 }
