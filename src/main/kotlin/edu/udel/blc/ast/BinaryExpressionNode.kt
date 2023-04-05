@@ -8,7 +8,11 @@ class BinaryExpressionNode(
     val right: Node,
 ) : Node {
     override fun equals(other: Any?): Boolean {
-        TODO("Not yet implemented")
+        return (other?.let {it is BinaryExpressionNode &&
+                it.range == this.range &&
+                it.operator == this.operator &&
+                it.left == this.left &&
+                it.right == this.left } == true)
     }
 
     override fun toString(): String {
