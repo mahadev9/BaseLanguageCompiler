@@ -5,4 +5,8 @@ class AssignmentNode(
     override val range: IntRange,
     val lvalue: Node,
     val expression: Node,
-) : Node
+) : Node {
+    override fun equals(other: Any?): Boolean {
+        TODO("Not yet implemented")
+    }
+}

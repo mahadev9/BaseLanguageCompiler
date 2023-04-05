@@ -6,4 +6,8 @@ class BinaryExpressionNode(
     val operator: BinaryOperator,
     val left: Node,
     val right: Node,
-) : Node
+) : Node {
+    override fun equals(other: Any?): Boolean {
+        TODO("Not yet implemented")
+    }
+}

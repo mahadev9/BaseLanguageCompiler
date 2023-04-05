@@ -5,4 +5,8 @@ class IndexNode(
     override val range: IntRange,
     val expression: Node,
     val index: Node,
-) : Node
+) : Node {
+    override fun equals(other: Any?): Boolean {
+        TODO("Not yet implemented")
+    }
+}

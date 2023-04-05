@@ -58,5 +58,6 @@ sealed interface Node {
         is VariableDeclarationNode -> visitor.variableDeclaration(this, arg)
         is WhileNode -> visitor.`while`(this, arg)
     }
+    override fun equals(other: Any?): Boolean
 
 }

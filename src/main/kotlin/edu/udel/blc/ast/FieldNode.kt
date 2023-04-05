@@ -5,4 +5,8 @@ class FieldNode(
     override val range: IntRange,
     val name: String,
     val type: Node,
-) : Node
+) : Node {
+    override fun equals(other: Any?): Boolean {
+        TODO("Not yet implemented")
+    }
+}

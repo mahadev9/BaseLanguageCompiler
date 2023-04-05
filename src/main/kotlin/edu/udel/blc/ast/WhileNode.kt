@@ -5,4 +5,8 @@ class WhileNode(
     override val range: IntRange,
     val condition: Node,
     val body: Node,
-) : Node
+) : Node {
+    override fun equals(other: Any?): Boolean {
+        TODO("Not yet implemented")
+    }
+}

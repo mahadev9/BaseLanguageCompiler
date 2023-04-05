@@ -6,4 +6,8 @@ class IfNode(
     val condition: Node,
     val thenStatement: Node,
     val elseStatement: Node?,
-) : Node
+) : Node {
+    override fun equals(other: Any?): Boolean {
+        TODO("Not yet implemented")
+    }
+}

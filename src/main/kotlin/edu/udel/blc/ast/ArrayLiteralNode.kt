@@ -10,4 +10,8 @@ class ArrayLiteralNode(
         require(elements.isNotEmpty()) { "must contain at least one element" }
     }
 
+    override fun equals(other: Any?): Boolean {
+        TODO("Not yet implemented")
+    }
+
 }

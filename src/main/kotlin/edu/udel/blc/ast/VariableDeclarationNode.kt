@@ -6,4 +6,8 @@ class VariableDeclarationNode(
     val name: String,
     val type: Node,
     val initializer: Node,
-) : Node
+) : Node {
+    override fun equals(other: Any?): Boolean {
+        TODO("Not yet implemented")
+    }
+}

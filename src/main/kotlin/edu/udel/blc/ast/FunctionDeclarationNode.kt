@@ -7,4 +7,8 @@ class FunctionDeclarationNode(
     val parameters: List<ParameterNode>,
     val returnType: Node,
     val body: BlockNode,
-) : Node
+) : Node {
+    override fun equals(other: Any?): Boolean {
+        TODO("Not yet implemented")
+    }
+}
