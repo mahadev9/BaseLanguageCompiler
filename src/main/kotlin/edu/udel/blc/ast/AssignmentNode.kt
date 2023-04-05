@@ -7,7 +7,10 @@ class AssignmentNode(
     val expression: Node,
 ) : Node {
     override fun equals(other: Any?): Boolean {
-        TODO("Not yet implemented")
+        return (other?.let {it is AssignmentNode &&
+                it.range == this.range &&
+                it.lvalue == this.lvalue &&
+                it.expression == this.expression} == true)
     }
 
     override fun toString(): String {
