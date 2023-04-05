@@ -24,6 +24,7 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         register(AssignmentNode::class.java, ::assignment)
         register(BlockNode::class.java, ::block)
         register(CallNode::class.java, ::call)
+        register(CompilationUnitNode::class.java, ::compilationUnit)
         // Add
         register(BinaryExpressionNode::class.java, ::binaryExpression)
 
@@ -362,6 +363,15 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             range = node.range,
             callee = callee,
             arguments = arguments
+        )
+    }
+
+    private fun compilationUnit(node:CompilationUnitNode):Node{
+        val statements = node.statements.map { s -> apply(s) }
+
+        return CompilationUnitNode(
+            range = node.range,
+            statements = statements
         )
     }
 
