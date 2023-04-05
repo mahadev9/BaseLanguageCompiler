@@ -23,6 +23,7 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         register(ArrayTypeNode::class.java, ::arrayType)
         register(AssignmentNode::class.java, ::assignment)
         register(BlockNode::class.java, ::block)
+        register(CallNode::class.java, ::call)
         // Add
         register(BinaryExpressionNode::class.java, ::binaryExpression)
 
@@ -352,6 +353,19 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             statements = statements
         )
     }
+
+    private fun call(node:CallNode):Node{
+        val callee = apply(node.callee)
+        val arguments = node.arguments.map { a -> apply(a) }
+
+        return CallNode(
+            range = node.range,
+            callee = callee,
+            arguments = arguments
+        )
+    }
+
+
 
 
     private fun unitLiteral(node: UnitLiteralNode): Node {
