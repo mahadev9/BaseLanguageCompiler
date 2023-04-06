@@ -11,6 +11,8 @@ class ReturnNode(
     }
 
     override fun toString(): String {
-        TODO("Not yet implemented")
+        // TODO: expression is nullable; is it safe to call toString()
+        return "{ReturnNode (range = $range," +
+                "expression = ${expression.toString()})}"
     }
 }
