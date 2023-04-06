@@ -1,0 +1,48 @@
+print("Validating Condition If Else");
+
+var x: Int = 738;
+var y: Int = -293;
+var z: String = "hello";
+var a: Boolean = true;
+
+if (x == 738) {
+  print("'IF' is valid");
+}
+
+if (x != 738) {
+  print("'IF' is not valid");
+} else {
+  print("'ELSE' is valid");
+}
+
+if (y == false) {
+  print("'IF' is not valid");
+} else if (z == "hello") {
+  print("'IF' is valid");
+} else {
+  print("'ELSE' is not valid");
+}
+
+if (a == false) {
+  print("'IF' is not valid");
+} else if (z == "hi") {
+  print("'IF' not is valid");
+} else {
+  print("'ELSE' is valid");
+}
+
+if (a == true) {
+  if (z == "hello") {
+    if (z == -293) {
+      print("Nested 'IF' is valid");
+    } else {
+      print("Nested 'ELSE' is not valid");
+    }
+  }
+}
+
+if (true && false || false && !true) {
+  print("'IF' not is valid");
+} else {
+  print("'ELSE' is valid");
+}

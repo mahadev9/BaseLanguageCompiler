@@ -1,0 +1,13 @@
+print("Validating Built-in Functions");
+
+// str() type is Any -> String not String
+// Comparing str() with String always yields false
+print(str(672) == "672"); // true
+print(str(true) == "true"); // true
+
+var year:Int = 2023;
+var month:String = " March ";
+var date:String = concat(month , str(year));
+print(date);
+print(date == " March 2023"); // true, concat is done with quotes '"'
+
