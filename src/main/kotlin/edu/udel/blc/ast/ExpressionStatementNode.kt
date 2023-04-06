@@ -12,6 +12,7 @@ class ExpressionStatementNode(
     }
 
     override fun toString(): String {
-        TODO("Not yet implemented")
+        return "{ExpressionStatementNode (range = $range," +
+                "expression = ${expression.toString()})}"
     }
 }
