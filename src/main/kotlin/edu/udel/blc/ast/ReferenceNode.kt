@@ -12,6 +12,7 @@ class ReferenceNode(
     }
 
     override fun toString(): String {
-        TODO("Not yet implemented")
+        return "{ReferenceNode (range = $range," +
+                "name = $name)}"
     }
 }
