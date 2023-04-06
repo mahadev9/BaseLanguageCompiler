@@ -14,6 +14,8 @@ class AssignmentNode(
     }
 
     override fun toString(): String {
-        TODO("Not yet implemented")
+        return "{AssignmentNode (range = $range," +
+                "lvalue = ${lvalue.toString()}," +
+                "expression = ${expression.toString()})}"
     }
 }
