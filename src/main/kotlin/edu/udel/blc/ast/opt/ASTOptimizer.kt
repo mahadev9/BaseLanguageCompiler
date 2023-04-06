@@ -26,6 +26,10 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         register(CallNode::class.java, ::call)
         register(CompilationUnitNode::class.java, ::compilationUnit)
         register(FunctionDeclarationNode::class.java, ::functionDeclaration)
+
+        register(VariableDeclarationNode::class.java, ::variableDeclaration)
+        register(StructDeclarationNode::class.java, ::structDeclaration)
+
         // Add
         register(BinaryExpressionNode::class.java, ::binaryExpression)
 
@@ -389,7 +393,22 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         )
     }
 
+    private fun variableDeclaration(node: VariableDeclarationNode): Node {
+        return VariableDeclarationNode(
+            range = node.range,
+            name = node.name,
+            type = node.type,
+            initializer = node.initializer
+        )
+    }
 
+    private fun structDeclaration(node: StructDeclarationNode): Node {
+        return StructDeclarationNode(
+            range = node.range,
+            name = node.name,
+            fields = node.fields
+        )
+    }
 
     private fun unitLiteral(node: UnitLiteralNode): Node {
         // return a copy of the literal node
