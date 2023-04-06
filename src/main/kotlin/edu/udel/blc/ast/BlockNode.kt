@@ -12,6 +12,7 @@ class BlockNode(
     }
 
     override fun toString(): String {
-        TODO("Not yet implemented")
+        return "{BlockNode (range = $range," +
+                "statements = ${statements.toString()})}"
     }
 }
