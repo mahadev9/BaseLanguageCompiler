@@ -14,6 +14,8 @@ class FieldSelectNode(
     }
 
     override fun toString(): String {
-        TODO("Not yet implemented")
+        return "{FieldSelectNode (range = $range," +
+                "expression = ${expression.toString()}," +
+                "name = $name)}"
     }
 }
