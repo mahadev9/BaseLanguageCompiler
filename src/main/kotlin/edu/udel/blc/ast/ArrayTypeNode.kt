@@ -11,6 +11,7 @@ class ArrayTypeNode(
     }
 
     override fun toString(): String {
-        TODO("Not yet implemented")
+        return "{ArrayTypeNode (range = $range," +
+                " elementType = ${elementType.toString()})}"
     }
 }
