@@ -11,6 +11,7 @@ class IntLiteralNode(
     }
 
     override fun toString(): String {
-        return "IntLiteralNode {range = $range, value = $value}"
+        return "{IntLiteralNode (range = $range," +
+                " value = $value)}"
     }
 }
