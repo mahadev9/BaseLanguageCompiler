@@ -14,6 +14,8 @@ class StructDeclarationNode(
     }
 
     override fun toString(): String {
-        TODO("Not yet implemented")
+        return "{StructDeclarationNode (range = $range," +
+                "name = $name," +
+                "fields = ${fields.toString()})}"
     }
 }
