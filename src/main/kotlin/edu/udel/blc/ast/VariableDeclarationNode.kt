@@ -16,6 +16,9 @@ class VariableDeclarationNode(
     }
 
     override fun toString(): String {
-        TODO("Not yet implemented")
+        return "{VariableDeclarationNode (range = $range," +
+                "name = $name," +
+                "type = ${type.toString()}" +
+                "initializer = ${initializer.toString()})}"
     }
 }
