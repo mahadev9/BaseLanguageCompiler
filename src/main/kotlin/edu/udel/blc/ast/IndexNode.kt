@@ -13,6 +13,8 @@ class IndexNode(
                 it.index == this.index} == true)
     }
     override fun toString(): String {
-        TODO("Not yet implemented")
+        return "{IndexNode (range = $range," +
+                "expression = ${expression.toString()}," +
+                "index = ${index.toString()})}"
     }
 }
