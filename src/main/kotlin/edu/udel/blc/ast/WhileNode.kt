@@ -14,6 +14,8 @@ class WhileNode(
     }
 
     override fun toString(): String {
-        TODO("Not yet implemented")
+        return "{WhileNode (range = $range," +
+                "condition = ${condition.toString()}" +
+                "body = ${body.toString()},)}"
     }
 }
