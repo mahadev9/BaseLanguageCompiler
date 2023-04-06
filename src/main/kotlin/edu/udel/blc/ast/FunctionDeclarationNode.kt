@@ -17,6 +17,10 @@ class FunctionDeclarationNode(
     }
 
     override fun toString(): String {
-        TODO("Not yet implemented")
+        return "{FunctionDeclarationNode (range = $range," +
+                "name = $name," +
+                "parameters = ${parameters.toString()}," +
+                "returnType = ${returnType.toString()}," +
+                "body = ${body.toString()})}"
     }
 }
