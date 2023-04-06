@@ -10,6 +10,6 @@ class UnitLiteralNode(
     }
 
     override fun toString(): String {
-        TODO("Not yet implemented")
+        return "{UnitLiteralNode (range = $range)}"
     }
 }
