@@ -12,6 +12,7 @@ class CompilationUnitNode(
     }
 
     override fun toString(): String {
-        TODO("Not yet implemented")
+        return "{CompilationUnitNode (range = $range," +
+                "statements = ${statements.toString()})}"
     }
 }
