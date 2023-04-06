@@ -16,6 +16,9 @@ class BinaryExpressionNode(
     }
 
     override fun toString(): String {
-        TODO("Not yet implemented")
+        return "{BinaryExpressionNode (range = $range," +
+                "operator = ${operator.toString()}," +
+                "left = ${left.toString()}," +
+                "right = ${right.toString()})}"
     }
 }
