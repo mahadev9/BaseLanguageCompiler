@@ -12,6 +12,7 @@ class BooleanLiteralNode(
     }
 
     override fun toString(): String {
-        TODO("Not yet implemented")
+        return "{BooleanLiteralNode (range = $range," +
+                "value = $value)}"
     }
 }
