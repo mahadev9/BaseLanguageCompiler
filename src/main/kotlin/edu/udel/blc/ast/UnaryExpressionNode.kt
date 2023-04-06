@@ -14,6 +14,8 @@ class UnaryExpressionNode(
     }
 
     override fun toString(): String {
-        TODO("Not yet implemented")
+        return "{UnaryExpressionNode (range = $range," +
+                "operator = $operator," +
+                "operand = ${operand.toString()})}"
     }
 }
