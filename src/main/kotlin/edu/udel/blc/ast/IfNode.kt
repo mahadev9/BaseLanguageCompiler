@@ -16,6 +16,9 @@ class IfNode(
     }
 
     override fun toString(): String {
-        TODO("Not yet implemented")
+        return "{IfNode (range = $range," +
+                "condition = ${condition.toString()}," +
+                "thenStatement = ${thenStatement.toString()}," +
+                "elseStatement = ${elseStatement.toString()})}"
     }
 }
