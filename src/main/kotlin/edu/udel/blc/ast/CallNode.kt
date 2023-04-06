@@ -14,6 +14,8 @@ class CallNode(
     }
 
     override fun toString(): String {
-        TODO("Not yet implemented")
+        return "{CallNode (range = $range," +
+                "callee = ${callee.toString()}," +
+                "arguments = ${arguments.toString()})}"
     }
 }
