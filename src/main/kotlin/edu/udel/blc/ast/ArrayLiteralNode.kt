@@ -16,7 +16,8 @@ class ArrayLiteralNode(
     }
 
     override fun toString(): String {
-        TODO("Not yet implemented")
+        return "{ArrayLiteralNode (range = $range," +
+                "elements = ${elements.toString()})}"
     }
 
 }
