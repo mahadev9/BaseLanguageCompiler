@@ -14,6 +14,8 @@ class FieldNode(
     }
 
     override fun toString(): String {
-        TODO("Not yet implemented")
+        return "{FieldNode (range = $range," +
+                "name = $name," +
+                "type = ${type.toString()})}"
     }
 }
