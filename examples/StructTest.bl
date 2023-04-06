@@ -1,0 +1,35 @@
+// struct declarations
+struct Point {x: Int, y: Int}
+struct Line {s:Point, e:Point}
+
+// struct definitions - simple
+var p1: Point = Point(0, 0);
+var p2: Point = Point(0, 10);
+var p3: Point = Point(10, 0);
+var p4: Point = Point(10, 10);
+
+// struct definition - struct within a struct
+var l1: Line = Line(p1, p3);
+var l2: Line = Line(p2, p4);
+
+print(p1);
+print(l1);
+
+// fields selection
+print(p1.x);
+print(p1.y);
+
+// fields selection
+print(l1.s.x);
+print(l1.e.y);
+
+// Comparison
+print(p1 == p1);
+print(p1 == p2);
+
+// Struct copy
+var p5: Point = p1;
+print(p5);
+print(p5 == p1); // true
+p5.x = 5;
+print(p5 == p1); // true

@@ -1,0 +1,99 @@
+print("Validating Arithmatic Operations");
+
+print("Validating Addition & Subtraction");
+var a: Int = 4 + 5;
+print(a); // 9
+print(a == 9); // true
+
+// incrementing a variable ( variable  + constant) is not working
+a = a + 1; // 10
+print(a);
+print(a == 10); // false
+
+var b: Int = -3 + 4;
+print(b); // 1
+print(b == 1); // true
+
+var c: Int = 11 - 21; // space should be given after '-' symbol
+print(c); // -10
+print(c == -10); // true
+
+var d: Int = -13 - 6;
+print(d); // -19
+print(d == -19); // true
+
+print("");
+print("Large Numbers");
+var e: Int = 1234567890 + 0987654321;
+print(e); // 2222222211
+print(e == 2222222211); // true
+
+var f: Int = -24680 + 1359;
+print(f); // -23321
+print(f == -23321); // true
+
+var g: Int = -74832 - 84792;
+print(g); // -159624
+print(g == -159624); // true
+
+print("");
+print("Validating Mulitplication Operations");
+var h: Int = 73 * 823;
+print(h); // 60079
+print(h == 60079); // true
+
+var i: Int = -4 * -3;
+print(i); // 12
+print(i == 12); // true
+
+var j: Int = -10 * 92;
+print(j); // -920
+print(j == -920); // true
+
+var k: Int = 64 * -39;
+print(k); // -2496
+print(k == -2496); // true
+
+k = 47923874 * -49827348;
+print(k); // -2387919547306152
+print(k == -2387919547306152); // true
+
+// Division is not supported
+// print("");
+// print("Validating Division Operations");
+// var l: Int = 99 / 3;
+// print(l); // 33
+// print(l == 33); // true
+
+print("");
+print("Validating Module Operations");
+var m: Int = 73 % 9;
+print(m); // 1
+print(m == 1); // true
+
+var n: Int = -438 % 93;
+print(n); // -66
+print(n == -66); // true
+
+// var p: Int = 746;
+// p += 392;
+// print(p); // 1138
+// print(p == 1138); // true
+// 
+// p -= 8392;
+// print(p); // -7254
+// print(p == -7254); // true
+// 
+// p *= 938;
+// print(p); // -6804252
+// print(p == -6804252); // true
+// 
+// p *= -98;
+// print(p); // 666816696
+// print(p == 666816696); // true
+// 
+// p %= 9320;
+// print(p); //
+
+// grouping is not supported
+// print((3 + 5) - 33 + (34 * 2)); 

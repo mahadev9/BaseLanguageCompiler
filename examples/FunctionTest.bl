@@ -1,0 +1,77 @@
+print("Validating Functions");
+
+fun testFun() -> Int {
+  return 345678;
+}
+
+print(testFun()); // 8343
+print(testFun() == 345678); // true
+
+fun ifElseFun(x: Int) -> String {
+  var y: Int = x % 2;
+  if (y == 0) {
+    return "even";
+  } else if (y == 1) {
+    return "odd";
+  }
+  return "";
+}
+
+print(ifElseFun(5678)); // "even"
+print(ifElseFun(3892) == "even"); // true
+print(ifElseFun(3421) == "odd"); // true
+
+// Recursion is not supported
+// fun fibonacci(x: Int) -> Int {
+//   if (x <= 1) {
+//     return x;
+//   }
+//   return fibonacci(x - 1) + fibonacci(x - 2);
+// }
+// 
+// print(fibonacci(9)); // 34
+// print(fibonacci(9) == 34); // true
+// print(fibonacci(24)); // 46368
+
+fun whileFun(loopTimes: Int, message: String) -> Int {
+  var times: Int = loopTimes;
+  while (times > 0) {
+    var duplicate: Int = times - 1;
+    times = duplicate;
+    print(message);
+  }
+  return 0;
+}
+
+whileFun(5, "Hello World!"); // prints "Hello World!" 5 times
+whileFun(-1, "Hi There!"); // prints "Hi There!" 0 times
+
+
+// Scope of the defined variables
+var scop: Int = 10;
+
+fun scopeFun() -> Unit {
+  var scop: Int = 5;
+  print(scop);
+}
+
+scopeFun(); // should print 5
+
+// fun scopeFun1() -> Unit {
+//   var scop: Int = 8;
+//   fun inner() -> Unit {
+//     print(scop);
+//   }
+//   inner();
+// }
+
+struct Test { x: Int, y: String }
+
+fun testFun() -> Test {
+  var t: Test = Test(10, "testFun");
+  return t;
+}
+
+print(testFun());
+print(testFun().x == 10);
+print(testFun().y == "testFun");

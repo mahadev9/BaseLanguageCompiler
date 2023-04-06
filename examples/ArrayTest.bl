@@ -1,0 +1,38 @@
+print("Validating Arrays");
+
+var x: [Int] = [389, -92, 0, 123456];
+var y: [String] = ["Hi", "There!"];
+var z: [Boolean] = [true, true, false, false];
+
+struct Test { a: Int, b: String, c: Boolean }
+var arrayStruct: [Test] = [Test(83, "Hi", false), Test(342, "There!", true)];
+
+print(x);
+print(y);
+print(z);
+print(arrayStruct);
+
+print(x[0]);
+// Adding Elements of the array is not supported
+// print(x[0] + x[1] + x[2]);
+print(y[0]);
+print(concat(y[0], y[1]));
+
+print(z[2]);
+// Negative indexing is not supported
+// print(z[-1]);
+
+// Using array elements for logical operations is not supported
+// print(z[1] || z[2]);
+
+print(arrayStruct[1]);
+print(arrayStruct[0].a);
+
+var b: Int = 02398;
+var c: Int = -456789;
+var a: [Int] = [b, c];
+print(a);
+
+var e: Int = b * c;
+var d: [Int] = [x[0], x[1], e];
+print(d);

@@ -1,0 +1,58 @@
+print("Validating While loop");
+var a: Int = 1;
+var b: Int = 2;
+var c: Int = 3;
+
+//a while loop with a true condition
+// the loop body should be executed once
+while( a == 1){
+    print("a == 1");
+    a = b;
+}
+
+// a while loop with a false condition
+// the loop body should not be executed
+while(b != 2){
+    print("b != 2");
+}
+
+// a while loop with if statement inside the
+// body
+while( b == 2){
+    if(b == 2)
+        print("b == 2");
+    b = 3;
+}
+
+// a while loop with if else statement
+// in the body
+b = 2;
+while( b == 2){
+    if(b == 2)
+        print("b == 2");
+    else
+        print("b != 2");
+    b = c;
+}
+
+a = 1;
+// a while loop with a single expression and no braces
+while( a == 1)
+    a = b;
+
+// nested while loops
+a = 1;
+b = 2;
+while(a < 5){
+    while (b < 5){
+        b = 5;
+    }
+    a = 5;
+}
+
+
+//Negative:  return inside while
+//while( 5 == 5){
+//    print("5 + 5");
+//    return(10);
+//}
