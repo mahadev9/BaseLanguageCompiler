@@ -170,93 +170,173 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         val left = apply(node.left)
         val right = apply(node.right)
 
-        return BinaryExpressionNode(
-            range = node.range,
-            operator = node.operator,
-            left = left,
-            right = right
-        )
+        return when {
+            left is IntLiteralNode && right is IntLiteralNode -> {
+                BooleanLiteralNode(
+                    range = node.range,
+                    value = left.value == right.value
+                )
+            }
+            else -> {
+                BinaryExpressionNode(
+                    range = node.range,
+                    operator = node.operator,
+                    left = left,
+                    right = right
+                )
+            }
+        }
     }
 
     private fun notEqualTo(node: BinaryExpressionNode): Node{
         val left = apply(node.left)
         val right = apply(node.right)
 
-        return BinaryExpressionNode(
-            range = node.range,
-            operator = node.operator,
-            left = left,
-            right = right
-        )
+        return when {
+            left is IntLiteralNode && right is IntLiteralNode -> {
+                BooleanLiteralNode(
+                    range = node.range,
+                    value = left.value != right.value
+                )
+            }
+            else -> {
+                BinaryExpressionNode(
+                    range = node.range,
+                    operator = node.operator,
+                    left = left,
+                    right = right
+                )
+            }
+        }
     }
 
     private fun greaterThan(node: BinaryExpressionNode): Node{
         val left = apply(node.left)
         val right = apply(node.right)
 
-        return BinaryExpressionNode(
-            range = node.range,
-            operator = node.operator,
-            left = left,
-            right = right
-        )
+        return when {
+            left is IntLiteralNode && right is IntLiteralNode -> {
+                BooleanLiteralNode(
+                    range = node.range,
+                    value = left.value > right.value
+                )
+            }
+            else -> {
+                BinaryExpressionNode(
+                    range = node.range,
+                    operator = node.operator,
+                    left = left,
+                    right = right
+                )
+            }
+        }
     }
 
     private fun greaterThanOrEqualTo(node: BinaryExpressionNode): Node{
         val left = apply(node.left)
         val right = apply(node.right)
 
-        return BinaryExpressionNode(
-            range = node.range,
-            operator = node.operator,
-            left = left,
-            right = right
-        )
+        return when {
+            left is IntLiteralNode && right is IntLiteralNode -> {
+                BooleanLiteralNode(
+                    range = node.range,
+                    value = left.value >= right.value
+                )
+            }
+            else -> {
+                BinaryExpressionNode(
+                    range = node.range,
+                    operator = node.operator,
+                    left = left,
+                    right = right
+                )
+            }
+        }
     }
     private fun lessThan(node: BinaryExpressionNode): Node{
         val left = apply(node.left)
         val right = apply(node.right)
 
-        return BinaryExpressionNode(
-            range = node.range,
-            operator = node.operator,
-            left = left,
-            right = right
-        )
+        return when {
+            left is IntLiteralNode && right is IntLiteralNode -> {
+                BooleanLiteralNode(
+                    range = node.range,
+                    value = left.value < right.value
+                )
+            }
+            else -> {
+                BinaryExpressionNode(
+                    range = node.range,
+                    operator = node.operator,
+                    left = left,
+                    right = right
+                )
+            }
+        }
     }
 
     private fun lessThanOrEqualTo(node: BinaryExpressionNode): Node{
         val left = apply(node.left)
         val right = apply(node.right)
 
-        return BinaryExpressionNode(
-            range = node.range,
-            operator = node.operator,
-            left = left,
-            right = right
-        )
+        return when {
+            left is IntLiteralNode && right is IntLiteralNode -> {
+                BooleanLiteralNode(
+                    range = node.range,
+                    value = left.value <= right.value
+                )
+            }
+            else -> {
+                BinaryExpressionNode(
+                    range = node.range,
+                    operator = node.operator,
+                    left = left,
+                    right = right
+                )
+            }
+        }
     }
     private fun logicalConjunction(node: BinaryExpressionNode): Node{
         val left = apply(node.left)
         val right = apply(node.right)
 
-        return BinaryExpressionNode(
-            range = node.range,
-            operator = node.operator,
-            left = left,
-            right = right
-        )
+        return when {
+            left is BooleanLiteralNode && right is BooleanLiteralNode -> {
+                BooleanLiteralNode(
+                    range = node.range,
+                    value = left.value && right.value
+                )
+            }
+            else -> {
+                BinaryExpressionNode(
+                    range = node.range,
+                    operator = node.operator,
+                    left = left,
+                    right = right
+                )
+            }
+        }
     }
     private fun logicalDisjunction(node: BinaryExpressionNode): Node{
         val left = apply(node.left)
         val right = apply(node.right)
 
-        return BinaryExpressionNode(
-            range = node.range,
-            operator = node.operator,
-            left = left,
-            right = right
-        )
+        return when {
+            left is BooleanLiteralNode && right is BooleanLiteralNode -> {
+                BooleanLiteralNode(
+                    range = node.range,
+                    value = left.value || right.value
+                )
+            }
+            else -> {
+                BinaryExpressionNode(
+                    range = node.range,
+                    operator = node.operator,
+                    left = left,
+                    right = right
+                )
+            }
+        }
     }
 
     private fun expressionStatement(node: ExpressionStatementNode): Node{
