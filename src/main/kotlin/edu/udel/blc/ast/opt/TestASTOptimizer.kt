@@ -60,6 +60,7 @@ val expr13 = BinaryExpressionNode(
 /* (5 * 0)  != (5 * 2) */
 val expr14 = BinaryExpressionNode(
     IntRange.EMPTY, BinaryOperator.NOT_EQUAL_TO, expr7, expr8)
+
 fun main() {
     //IntLiteralTest()
     additionTest()
@@ -73,7 +74,7 @@ fun main() {
     equalToTest()
     println("EqualTo test cases passed")
     notEqualToTest()
-    println("notEualTo test cases passed")
+    println("notEqualTo test cases passed")
 
 
 
