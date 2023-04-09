@@ -547,11 +547,13 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
     }
 
     private fun variableDeclaration(node: VariableDeclarationNode): Node {
+        val type = apply(node.type)
+        val initializer = apply(node.initializer)
         return VariableDeclarationNode(
             range = node.range,
             name = node.name,
-            type = node.type,
-            initializer = node.initializer
+            type = type,
+            initializer = initializer
         )
     }
 
