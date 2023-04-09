@@ -556,10 +556,11 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
     }
 
     private fun structDeclaration(node: StructDeclarationNode): Node {
+        val fields = node.fields.map { f -> apply(f) as FieldNode}
         return StructDeclarationNode(
             range = node.range,
             name = node.name,
-            fields = node.fields
+            fields = fields
         )
     }
 
