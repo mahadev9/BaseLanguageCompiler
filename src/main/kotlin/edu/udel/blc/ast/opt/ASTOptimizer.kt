@@ -83,6 +83,17 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         return when {
             // if left and right children are both int literals, replace the node with the result of the operation
             left is IntLiteralNode && right is IntLiteralNode -> {
+                if (left.value == 0.toLong()) {
+                    return IntLiteralNode(
+                        range = -1..-1,
+                        value = right.value
+                    )
+                } else if (right.value == 0.toLong()) {
+                    return IntLiteralNode(
+                        range = -1..-1,
+                        value = left.value
+                    )
+                }
                 IntLiteralNode(
                     range = -1..-1, // what should the range of the new node be? How does this impact error reporting?
                     value = left.value + right.value
@@ -105,6 +116,17 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
 
         return when {
             left is IntLiteralNode && right is IntLiteralNode -> {
+                if (left.value == 0.toLong()) {
+                    return IntLiteralNode(
+                        range = -1..-1,
+                        value = -right.value
+                    )
+                } else if (right.value == 0.toLong()) {
+                    return IntLiteralNode(
+                        range = -1..-1,
+                        value = left.value
+                    )
+                }
                 IntLiteralNode (
                     range = -1..-1,
                     value = left.value - right.value
@@ -128,6 +150,23 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         return when {
             // if left and right children are both int literals, replace the node with the result of the operation
             left is IntLiteralNode && right is IntLiteralNode -> {
+                if (left.value == 0.toLong() || right.value == 0.toLong()) {
+                    return IntLiteralNode(
+                        range = -1..-1,
+                        value = 0
+                    )
+                }
+                if (left.value == 1.toLong()) {
+                    return IntLiteralNode(
+                        range = -1..-1,
+                        value = right.value
+                    )
+                } else if (right.value == 1.toLong()) {
+                    return IntLiteralNode(
+                        range = -1..-1,
+                        value = left.value
+                    )
+                }
                 IntLiteralNode(
                     range = -1..-1, // what should the range of the new node be? How does this impact error reporting?
                     value = left.value * right.value
