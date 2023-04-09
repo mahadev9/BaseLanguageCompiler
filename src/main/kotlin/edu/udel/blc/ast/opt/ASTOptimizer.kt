@@ -7,58 +7,55 @@ import edu.udel.blc.util.visitor.ValuedVisitor
 class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
 
     init {
-        // Add implementation for ALL AST Nodes types
-        register(IntLiteralNode::class.java, ::intLiteral)
-        register(BooleanLiteralNode::class.java, ::booleanLiteral)
-        register(StringLiteralNode::class.java, ::stringLiteral)
-        register(ExpressionStatementNode::class.java, ::expressionStatement)
-        register(FieldNode::class.java, ::fieldNode)
-        register(FieldSelectNode::class.java, ::fieldSelect)
-        register(IndexNode::class.java, ::index)
-        register(ParameterNode::class.java, ::parameter)
-        register(ReferenceNode::class.java, ::reference)
-        register(ReturnNode::class.java, ::_return)
-        register(UnaryExpressionNode::class.java, ::unaryExpression)
+        // TODO: Add implementation for ALL AST Nodes types
         register(ArrayLiteralNode::class.java, ::arrayLiteral)
         register(ArrayTypeNode::class.java, ::arrayType)
         register(AssignmentNode::class.java, ::assignment)
+        register(BinaryExpressionNode::class.java, ::binaryExpression)
         register(BlockNode::class.java, ::block)
+        register(BooleanLiteralNode::class.java, ::booleanLiteral)
         register(CallNode::class.java, ::call)
         register(CompilationUnitNode::class.java, ::compilationUnit)
+        register(ExpressionStatementNode::class.java, ::expressionStatement)
+        register(FieldNode::class.java, ::fieldNode)
+        register(FieldSelectNode::class.java, ::fieldSelect)
         register(FunctionDeclarationNode::class.java, ::functionDeclaration)
         register(IfNode::class.java, ::`if`)
-
-        register(VariableDeclarationNode::class.java, ::variableDeclaration)
+        register(IndexNode::class.java, ::index)
+        register(IntLiteralNode::class.java, ::intLiteral)
+        register(ParameterNode::class.java, ::parameter)
+        register(ReferenceNode::class.java, ::reference)
+        register(ReturnNode::class.java, ::`return`)
+        register(StringLiteralNode::class.java, ::stringLiteral)
         register(StructDeclarationNode::class.java, ::structDeclaration)
-
-        // Add
-        register(BinaryExpressionNode::class.java, ::binaryExpression)
-
+        register(UnaryExpressionNode::class.java, ::unaryExpression)
         register(UnitLiteralNode::class.java, ::unitLiteral)
+        register(VariableDeclarationNode::class.java, ::variableDeclaration)
         register(WhileNode::class.java, ::`while`)
-
     }
-
-    private fun intLiteral(node: IntLiteralNode): Node{
-        // return a copy of the literal node
-        return IntLiteralNode(
+    private fun arrayLiteral(node:ArrayLiteralNode):Node{
+        val elements = node.elements.map { n -> apply(n) }
+        return ArrayLiteralNode(
             range = node.range,
-            value = node.value)
-    }
-    private fun booleanLiteral(node: BooleanLiteralNode): Node{
-        return BooleanLiteralNode(
-            range = node.range,
-            value = node.value
+            elements = elements
         )
     }
-    private fun stringLiteral(node: StringLiteralNode): Node{
-        return StringLiteralNode(
+    private fun arrayType(node:ArrayTypeNode):Node{
+        val elementType = apply(node.elementType)
+        return ArrayTypeNode(
             range = node.range,
-            value = node.value
+            elementType = elementType
         )
     }
-
-
+    private fun assignment(node:AssignmentNode):Node{
+        val lvalue = apply(node.lvalue)
+        val expression = apply(node.expression)
+        return AssignmentNode(
+            range = node.range,
+            lvalue = lvalue,
+            expression = expression
+        )
+    }
     private fun binaryExpression(node: BinaryExpressionNode): Node {
         return when (node.operator) {
             ADDITION -> addition(node)
@@ -75,7 +72,6 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             LOGICAL_DISJUNCTION -> logicalDisjunction(node)
         }
     }
-
     private fun addition(node: BinaryExpressionNode): Node {
         // visit left child to get the updated (copy/modified version)
         val left = apply(node.left)
@@ -111,7 +107,6 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             }
         }
     }
-
     private fun subtraction(node:BinaryExpressionNode): Node{
         val left = apply (node.left)
         val right = apply(node.right)
@@ -144,7 +139,6 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             }
         }
     }
-
     private fun multiplication(node: BinaryExpressionNode): Node{
         val left = apply(node.left)
         val right = apply(node.right)
@@ -184,7 +178,6 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             }
         }
     }
-
     private fun remainder(node: BinaryExpressionNode): Node{
         val left = apply(node.left)
         val right = apply(node.right)
@@ -228,7 +221,6 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             }
         }
     }
-
     private fun notEqualTo(node: BinaryExpressionNode): Node{
         val left = apply(node.left)
         val right = apply(node.right)
@@ -250,7 +242,6 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             }
         }
     }
-
     private fun greaterThan(node: BinaryExpressionNode): Node{
         val left = apply(node.left)
         val right = apply(node.right)
@@ -272,7 +263,6 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             }
         }
     }
-
     private fun greaterThanOrEqualTo(node: BinaryExpressionNode): Node{
         val left = apply(node.left)
         val right = apply(node.right)
@@ -315,7 +305,6 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             }
         }
     }
-
     private fun lessThanOrEqualTo(node: BinaryExpressionNode): Node{
         val left = apply(node.left)
         val right = apply(node.right)
@@ -379,99 +368,6 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             }
         }
     }
-
-    private fun expressionStatement(node: ExpressionStatementNode): Node{
-        val expression = apply(node.expression)
-        return ExpressionStatementNode(
-            range = node.range,
-            expression = expression
-        )
-    }
-
-    private fun fieldNode(node:FieldNode): Node{
-        val type = apply(node.type)
-        return FieldNode(
-            range = node.range,
-            name = node.name,
-            type = type
-        )
-    }
-
-    private fun fieldSelect(node:FieldSelectNode): Node{
-        val expression = apply(node.expression)
-        return FieldSelectNode(
-            range = node.range,
-            expression = expression,
-            name = node.name
-        )
-    }
-    private fun index(node:IndexNode): Node{
-        val expression = apply(node.expression)
-        val index = apply(node.index)
-        return IndexNode(
-            range = node.range,
-            expression = expression,
-            index = index
-        )
-    }
-    private fun parameter(node:ParameterNode): Node{
-        val type = apply(node.type)
-        return ParameterNode(
-            range = node.range,
-            name = node.name,
-            type = type
-        )
-    }
-
-    private fun reference(node:ReferenceNode): Node{
-        return ReferenceNode(
-            range = node.range,
-            name = node.name,
-        )
-    }
-
-    private fun _return (node:ReturnNode): Node{
-        val expression = node.expression?.let { apply(node.expression) }
-        return ReturnNode(
-            range = node.range,
-            expression = expression,
-        )
-    }
-    private fun unaryExpression(node:UnaryExpressionNode):Node{
-        val operand = apply(node.operand)
-        return UnaryExpressionNode(
-            range = node.range,
-            operator =  node.operator,
-            operand = operand
-        )
-    }
-
-    private fun arrayLiteral(node:ArrayLiteralNode):Node{
-        val elements = node.elements.map { n -> apply(n) }
-        return ArrayLiteralNode(
-            range = node.range,
-            elements = elements
-        )
-    }
-
-    private fun arrayType(node:ArrayTypeNode):Node{
-        val elementType = apply(node.elementType)
-        return ArrayTypeNode(
-            range = node.range,
-            elementType = elementType
-        )
-    }
-
-    private fun assignment(node:AssignmentNode):Node{
-        val lvalue = apply(node.lvalue)
-        val expression = apply(node.expression)
-        return AssignmentNode(
-            range = node.range,
-            lvalue = lvalue,
-            expression = expression
-        )
-    }
-
     private fun block(node:BlockNode):Node{
         val statements = node.statements.map { s -> apply(s) }
 
@@ -480,7 +376,12 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             statements = statements
         )
     }
-
+    private fun booleanLiteral(node: BooleanLiteralNode): Node{
+        return BooleanLiteralNode(
+            range = node.range,
+            value = node.value
+        )
+    }
     private fun call(node:CallNode):Node{
         val callee = apply(node.callee)
         val arguments = node.arguments.map { a -> apply(a) }
@@ -491,7 +392,6 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             arguments = arguments
         )
     }
-
     private fun compilationUnit(node:CompilationUnitNode):Node{
         val statements = node.statements.map { s -> apply(s) }
 
@@ -500,7 +400,29 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             statements = statements
         )
     }
-
+    private fun expressionStatement(node: ExpressionStatementNode): Node{
+        val expression = apply(node.expression)
+        return ExpressionStatementNode(
+            range = node.range,
+            expression = expression
+        )
+    }
+    private fun fieldNode(node:FieldNode): Node{
+        val type = apply(node.type)
+        return FieldNode(
+            range = node.range,
+            name = node.name,
+            type = type
+        )
+    }
+    private fun fieldSelect(node:FieldSelectNode): Node{
+        val expression = apply(node.expression)
+        return FieldSelectNode(
+            range = node.range,
+            expression = expression,
+            name = node.name
+        )
+    }
     private fun functionDeclaration(node:FunctionDeclarationNode):Node{
         val parameters = node.parameters.map { p -> apply(p) as ParameterNode}
         val returnType = apply(node.returnType)
@@ -545,18 +467,48 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             }
         }
     }
-
-    private fun variableDeclaration(node: VariableDeclarationNode): Node {
-        val type = apply(node.type)
-        val initializer = apply(node.initializer)
-        return VariableDeclarationNode(
+    private fun index(node:IndexNode): Node{
+        val expression = apply(node.expression)
+        val index = apply(node.index)
+        return IndexNode(
             range = node.range,
-            name = node.name,
-            type = type,
-            initializer = initializer
+            expression = expression,
+            index = index
         )
     }
-
+    private fun intLiteral(node: IntLiteralNode): Node{
+        // return a copy of the literal node
+        return IntLiteralNode(
+            range = node.range,
+            value = node.value)
+    }
+    private fun parameter(node:ParameterNode): Node{
+        val type = apply(node.type)
+        return ParameterNode(
+            range = node.range,
+            name = node.name,
+            type = type
+        )
+    }
+    private fun reference(node:ReferenceNode): Node{
+        return ReferenceNode(
+            range = node.range,
+            name = node.name,
+        )
+    }
+    private fun `return` (node:ReturnNode): Node{
+        val expression = node.expression?.let { apply(node.expression) }
+        return ReturnNode(
+            range = node.range,
+            expression = expression,
+        )
+    }
+    private fun stringLiteral(node: StringLiteralNode): Node{
+        return StringLiteralNode(
+            range = node.range,
+            value = node.value
+        )
+    }
     private fun structDeclaration(node: StructDeclarationNode): Node {
         val fields = node.fields.map { f -> apply(f) as FieldNode}
         return StructDeclarationNode(
@@ -565,11 +517,28 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             fields = fields
         )
     }
-
+    private fun unaryExpression(node:UnaryExpressionNode):Node{
+        val operand = apply(node.operand)
+        return UnaryExpressionNode(
+            range = node.range,
+            operator =  node.operator,
+            operand = operand
+        )
+    }
     private fun unitLiteral(node: UnitLiteralNode): Node {
         // return a copy of the literal node
         return UnitLiteralNode(
             range = node.range
+        )
+    }
+    private fun variableDeclaration(node: VariableDeclarationNode): Node {
+        val type = apply(node.type)
+        val initializer = apply(node.initializer)
+        return VariableDeclarationNode(
+            range = node.range,
+            name = node.name,
+            type = type,
+            initializer = initializer
         )
     }
     private fun `while`(node: WhileNode): Node {
@@ -581,5 +550,40 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             body = body
         )
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
