@@ -26,6 +26,7 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         register(CallNode::class.java, ::call)
         register(CompilationUnitNode::class.java, ::compilationUnit)
         register(FunctionDeclarationNode::class.java, ::functionDeclaration)
+        register(IfNode::class.java, ::`if`)
 
         register(VariableDeclarationNode::class.java, ::variableDeclaration)
         register(StructDeclarationNode::class.java, ::structDeclaration)
@@ -34,6 +35,7 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         register(BinaryExpressionNode::class.java, ::binaryExpression)
 
         register(UnitLiteralNode::class.java, ::unitLiteral)
+        register(WhileNode::class.java, ::`while`)
 
     }
 
@@ -472,6 +474,38 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             body = body
         )
     }
+    private fun `if`(node:IfNode):Node{
+        val condition = apply(node.condition)
+        val thenStatement = apply(node.thenStatement)
+        val elseStatement = node.elseStatement?.let { apply(it) }
+
+        return when{
+            condition is BooleanLiteralNode && condition.value ->{
+                IfNode(
+                    range = node.range,
+                    condition = condition,
+                    thenStatement = thenStatement,
+                    elseStatement = null
+                )
+            }
+            condition is BooleanLiteralNode && !condition.value ->{
+                IfNode(
+                    range = node.range,
+                    condition = condition,
+                    thenStatement = thenStatement,
+                    elseStatement = null
+                )
+            }
+            else -> {
+                IfNode(
+                    range = node.range,
+                    condition = node.condition,
+                    thenStatement = thenStatement,
+                    elseStatement = elseStatement
+                )
+            }
+        }
+    }
 
     private fun variableDeclaration(node: VariableDeclarationNode): Node {
         return VariableDeclarationNode(
@@ -494,6 +528,15 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         // return a copy of the literal node
         return UnitLiteralNode(
             range = node.range
+        )
+    }
+    private fun `while`(node: WhileNode): Node {
+        val condition = apply(node.condition)
+        val body = apply(node.body)
+        return WhileNode(
+            range = node.range,
+            condition = condition,
+            body = body
         )
     }
 
