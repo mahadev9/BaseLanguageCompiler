@@ -94,6 +94,37 @@ val expr18 = BinaryExpressionNode(
     String3
 )
 
+/* 1 > -18 */
+val expr19 = BinaryExpressionNode(
+    IntRange.EMPTY, BinaryOperator.GREATER_THAN, Int11, Int10)
+/* 10 > 23 */
+val expr20 = BinaryExpressionNode(
+    IntRange.EMPTY, BinaryOperator.GREATER_THAN, Int8, Int7)
+/* 1 < -18 */
+val expr21 = BinaryExpressionNode(
+    IntRange.EMPTY, BinaryOperator.LESS_THAN, Int11, Int10)
+/* 10 < 23 */
+val expr22 = BinaryExpressionNode(
+    IntRange.EMPTY, BinaryOperator.LESS_THAN, Int8, Int7)
+/* (5 + 5) > (5 + 0)  */
+val expr23 = BinaryExpressionNode(
+    IntRange.EMPTY, BinaryOperator.GREATER_THAN, expr1, expr2)
+/* (5 + 5) < (5 + 0)  */
+val expr24 = BinaryExpressionNode(
+    IntRange.EMPTY, BinaryOperator.LESS_THAN, expr1, expr2)
+/* 10 >= 23 */
+val expr25 = BinaryExpressionNode(
+    IntRange.EMPTY, BinaryOperator.GREATER_THAN_OR_EQUAL_TO, Int8, Int7)
+/* 10 >= 10 */
+val expr26 = BinaryExpressionNode(
+    IntRange.EMPTY, BinaryOperator.GREATER_THAN_OR_EQUAL_TO, Int8, Int8)
+/* 1 <= -18 */
+val expr27 = BinaryExpressionNode(
+    IntRange.EMPTY, BinaryOperator.LESS_THAN_OR_EQUAL_TO, Int11, Int10)
+/* 1 <= 1 */
+val expr28 = BinaryExpressionNode(
+    IntRange.EMPTY, BinaryOperator.LESS_THAN_OR_EQUAL_TO, Int11, Int11)
+
 fun main() {
     //IntLiteralTest()
     additionTest()
@@ -114,11 +145,12 @@ fun main() {
     println("whileNode test cases passed")
     blockNodeTest()
     println("blockNode test cases passed")
-
-
+    comparisonTest()
+    println("Comparison test cases passed")
 
     //equalToTest()
 }
+
 
 private fun additionTest(): Unit{
     var actual = (ExpressionOptimizer().apply(expr1))
@@ -218,6 +250,58 @@ private fun notEqualToTest():Unit{
     actual = ExpressionOptimizer().apply(expr18)
     expected = boolFalse
     check( actual == expected){ "equalTo: expr18 failed." +
+            "Expected: $expected, actual: $actual" }
+}
+
+fun comparisonTest() {
+    var actual = ExpressionOptimizer().apply(expr19)
+    var expected = boolTrue
+    check( actual == expected){ "equalTo: expr19 failed." +
+            "Expected: $expected, actual: $actual" }
+
+    actual = ExpressionOptimizer().apply(expr20)
+    expected = boolFalse
+    check( actual == expected){ "equalTo: expr20 failed." +
+            "Expected: $expected, actual: $actual" }
+
+    actual = ExpressionOptimizer().apply(expr21)
+    expected = boolFalse
+    check( actual == expected){ "equalTo: expr21 failed." +
+            "Expected: $expected, actual: $actual" }
+
+    actual = ExpressionOptimizer().apply(expr22)
+    expected = boolTrue
+    check( actual == expected){ "equalTo: expr22 failed." +
+            "Expected: $expected, actual: $actual" }
+
+    actual = ExpressionOptimizer().apply(expr23)
+    expected = boolTrue
+    check( actual == expected){ "equalTo: expr23 failed." +
+            "Expected: $expected, actual: $actual" }
+
+    actual = ExpressionOptimizer().apply(expr24)
+    expected = boolFalse
+    check( actual == expected){ "equalTo: expr24 failed." +
+            "Expected: $expected, actual: $actual" }
+
+    actual = ExpressionOptimizer().apply(expr25)
+    expected = boolFalse
+    check( actual == expected){ "equalTo: expr25 failed." +
+            "Expected: $expected, actual: $actual" }
+
+    actual = ExpressionOptimizer().apply(expr26)
+    expected = boolTrue
+    check( actual == expected){ "equalTo: expr26 failed." +
+            "Expected: $expected, actual: $actual" }
+
+    actual = ExpressionOptimizer().apply(expr27)
+    expected = boolFalse
+    check( actual == expected){ "equalTo: expr27 failed." +
+            "Expected: $expected, actual: $actual" }
+
+    actual = ExpressionOptimizer().apply(expr28)
+    expected = boolTrue
+    check( actual == expected){ "equalTo: expr28 failed." +
             "Expected: $expected, actual: $actual" }
 }
 
