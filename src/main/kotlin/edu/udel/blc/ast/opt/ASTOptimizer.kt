@@ -216,6 +216,18 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
                     value = left.value == right.value
                 )
             }
+            left is StringLiteralNode && right is StringLiteralNode -> {
+                BooleanLiteralNode(
+                    range = node.range,
+                    value = left.value == right.value
+                )
+            }
+            left is BooleanLiteralNode && right is BooleanLiteralNode -> {
+                BooleanLiteralNode(
+                    range = node.range,
+                    value = left.value == right.value
+                )
+            }
             else -> {
                 BinaryExpressionNode(
                     range = node.range,
@@ -233,6 +245,18 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
 
         return when {
             left is IntLiteralNode && right is IntLiteralNode -> {
+                BooleanLiteralNode(
+                    range = node.range,
+                    value = left.value != right.value
+                )
+            }
+            left is StringLiteralNode && right is StringLiteralNode -> {
+                BooleanLiteralNode(
+                    range = node.range,
+                    value = left.value != right.value
+                )
+            }
+            left is BooleanLiteralNode && right is BooleanLiteralNode -> {
                 BooleanLiteralNode(
                     range = node.range,
                     value = left.value != right.value
