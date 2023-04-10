@@ -395,9 +395,15 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
     private fun block(node:BlockNode):Node{
         val statements = node.statements.map { s -> apply(s) }
 
+        var returnExists = false
         return BlockNode(
             range = node.range,
-            statements = statements
+            statements = statements.filter { it ->
+                if (it is ReturnNode) {
+                    returnExists = true
+                }
+                !returnExists
+            }
         )
     }
     private fun booleanLiteral(node: BooleanLiteralNode): Node{
@@ -568,46 +574,20 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
     private fun `while`(node: WhileNode): Node {
         val condition = apply(node.condition)
         val body = apply(node.body)
-        return WhileNode(
-            range = node.range,
-            condition = condition,
-            body = body
-        )
+        return when {
+            condition is BooleanLiteralNode && !condition.value -> {
+                UnitLiteralNode(
+                    -1..-1
+                )
+            }
+            else -> {
+                return WhileNode(
+                    range = node.range,
+                    condition = condition,
+                    body = body
+                )
+            }
+        }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
