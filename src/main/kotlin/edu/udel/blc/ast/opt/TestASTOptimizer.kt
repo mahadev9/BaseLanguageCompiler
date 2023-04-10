@@ -110,6 +110,10 @@ fun main() {
     println("notEqualTo test cases passed")
     complexArithmeticOperationTest()
     println("Combination of Arithmetic Operations test cases passes")
+    whileNodeTest()
+    println("whileNode test cases passed")
+    blockNodeTest()
+    println("blockNode test cases passed")
 
 
 
@@ -330,7 +334,191 @@ private fun complexArithmeticOperationTest(): Unit {
     )
 
     expected = ExpressionOptimizer().apply(expr21)
-    check(boolFalse == expected){ "equalTo: expr21 failed." +
-            "Expected: $expected, actual: $boolFalse" }
+    val actual1 = boolFalse
+    check(actual1 == expected){ "equalTo: expr21 failed." +
+            "Expected: $expected, actual: $actual1" }
+}
+
+private fun whileNodeTest(): Unit {
+    val expr22 = WhileNode(
+        IntRange.EMPTY,
+        BinaryExpressionNode(
+            IntRange.EMPTY,
+            BinaryOperator.EQUAL_TO,
+            boolFalse,
+            boolTrue
+        ),
+        ExpressionStatementNode(
+            IntRange.EMPTY,
+            IntLiteralNode(
+                -1..-1,
+                10
+            )
+        )
+    )
+    var expected = ExpressionOptimizer().apply(expr22)
+    val actual = UnitLiteralNode(
+        -1..-1
+    )
+    check(actual == expected){ "equalTo: expr22 failed." +
+            "Expected: $expected, actual: $actual" }
+
+    val expr24 = WhileNode(
+        IntRange.EMPTY,
+        BinaryExpressionNode(
+            IntRange.EMPTY,
+            BinaryOperator.LOGICAL_DISJUNCTION,
+            boolFalse,
+            boolTrue
+        ),
+        BlockNode(
+            IntRange.EMPTY,
+            listOf()
+        )
+    )
+
+    expected = ExpressionOptimizer().apply(expr24)
+    val actual1 = WhileNode(
+        IntRange.EMPTY,
+        boolTrue,
+        UnitLiteralNode(
+            IntRange.EMPTY
+        )
+    )
+    check(actual1 == expected){ "equalTo: expr24 failed." +
+            "Expected: $expected, actual: $actual1" }
+}
+
+private fun blockNodeTest(): Unit {
+    val expr23 = BlockNode(
+        IntRange.EMPTY,
+        listOf(
+            VariableDeclarationNode(
+                IntRange.EMPTY,
+                "a",
+                ReferenceNode(
+                    IntRange.EMPTY,
+                    "Int"
+                ),
+                IntLiteralNode(
+                    -1..-1,
+                    5
+                )
+            ),
+            VariableDeclarationNode(
+                IntRange.EMPTY,
+                "b",
+                ReferenceNode(
+                    IntRange.EMPTY,
+                    "Int"
+                ),
+                IntLiteralNode(
+                    -1..-1,
+                    6
+                )
+            ),
+            ReturnNode(
+                IntRange.EMPTY,
+                ReferenceNode(
+                    IntRange.EMPTY,
+                    "b"
+                )
+            ),
+            VariableDeclarationNode(
+                IntRange.EMPTY,
+                "c",
+                ReferenceNode(
+                    IntRange.EMPTY,
+                    "Int"
+                ),
+                BinaryExpressionNode(
+                    IntRange.EMPTY,
+                    BinaryOperator.MULTIPLICATION,
+                    ReferenceNode(
+                        IntRange.EMPTY,
+                        "a"
+                    ),
+                    BinaryExpressionNode(
+                        IntRange.EMPTY,
+                        BinaryOperator.ADDITION,
+                        ReferenceNode(
+                            IntRange.EMPTY,
+                            "b"
+                        ),
+                        IntLiteralNode(
+                            IntRange.EMPTY,
+                            2
+                        )
+                    )
+                )
+            ),
+            IfNode(
+                IntRange.EMPTY,
+                boolFalse,
+                AssignmentNode(
+                    IntRange.EMPTY,
+                    ReferenceNode(
+                        IntRange.EMPTY,
+                        "c"
+                    ),
+                    BinaryExpressionNode(
+                        IntRange.EMPTY,
+                        BinaryOperator.REMAINDER,
+                        ReferenceNode(
+                            IntRange.EMPTY,
+                            "c"
+                        ),
+                        IntLiteralNode(
+                            IntRange.EMPTY,
+                            10
+                        )
+                    )
+                ),
+                UnitLiteralNode(
+                    IntRange.EMPTY
+                )
+            )
+        )
+    )
+
+    val expected = ExpressionOptimizer().apply(expr23)
+    val actual = BlockNode(
+        IntRange.EMPTY,
+        listOf(
+            VariableDeclarationNode(
+                IntRange.EMPTY,
+                "a",
+                ReferenceNode(
+                    IntRange.EMPTY,
+                    "Int"
+                ),
+                IntLiteralNode(
+                    -1..-1,
+                    5
+                )
+            ),
+            VariableDeclarationNode(
+                IntRange.EMPTY,
+                "b",
+                ReferenceNode(
+                    IntRange.EMPTY,
+                    "Int"
+                ),
+                IntLiteralNode(
+                    -1..-1,
+                    6
+                )
+            ),
+            ReturnNode(
+                IntRange.EMPTY,
+                ReferenceNode(
+                    IntRange.EMPTY,
+                    "b"
+                )
+            )
+        )
+    )
+    check(actual == expected){ "equalTo: expr23 failed." +
+            "Expected: $expected, actual: $actual" }
 }
 

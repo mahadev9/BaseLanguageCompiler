@@ -396,14 +396,23 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         val statements = node.statements.map { s -> apply(s) }
 
         var returnExists = false
+        val modifiedStatements = statements.filter { it ->
+            val foundReturn = returnExists
+            if (it is ReturnNode) {
+                returnExists = true
+            }
+            !foundReturn
+        }
+
+        if (modifiedStatements.isEmpty()) {
+            return UnitLiteralNode(
+                node.range
+            )
+        }
+
         return BlockNode(
             range = node.range,
-            statements = statements.filter { it ->
-                if (it is ReturnNode) {
-                    returnExists = true
-                }
-                !returnExists
-            }
+            statements = modifiedStatements
         )
     }
     private fun booleanLiteral(node: BooleanLiteralNode): Node{
