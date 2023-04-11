@@ -55,7 +55,7 @@ val expr10 = BinaryExpressionNode(
 /* 23 % 2 == 1 */
 val expr11 = BinaryExpressionNode(
     IntRange.EMPTY, BinaryOperator.EQUAL_TO, expr10, Int11)
-/* (5 * 0)  == (5 * 2) */
+/* (5 * 0) == (5 * 2) */
 val expr12 = BinaryExpressionNode(
     IntRange.EMPTY, BinaryOperator.EQUAL_TO, expr7, expr8)
 /* 23 % 2 != 1 */
@@ -137,9 +137,18 @@ val expr31 = BinaryExpressionNode(
 /* boolFalse && boolFalse */
 val expr32 = BinaryExpressionNode(
     IntRange.EMPTY, BinaryOperator.LOGICAL_DISJUNCTION, boolFalse, boolFalse)
-
+/* if else */
+/* if (10 < 23) 10 % 2  else 23 % 2   */
+val expr33 = IfNode(
+    IntRange.EMPTY, expr22, expr9, expr10)
+/* if (23 % 2 != 1) 10 % 2  else 23 % 2   */
+val expr34 = IfNode(
+    IntRange.EMPTY, expr13, expr9, expr10)
+/* if (23 % 2 != 1) 10 % 2   */
+val expr35 = IfNode(
+    IntRange.EMPTY, expr13, expr9, null)
 fun main() {
-    //IntLiteralTest()
+
     additionTest()
     println("Addition test cases passed")
     subtractionTest()
@@ -162,6 +171,9 @@ fun main() {
     println("whileNode test cases passed")
     blockNodeTest()
     println("blockNode test cases passed")
+    ifTest()
+    println("if test cases passed")
+
 
     //equalToTest()
 }
@@ -640,5 +652,24 @@ private fun blockNodeTest(): Unit {
     )
     check(actual == expected){ "equalTo: expr23 failed." +
             "Expected: $expected, actual: $actual" }
+}
+private fun ifTest():Unit{
+    var actual = ExpressionOptimizer().apply(expr33)
+    var expected = ExpressionStatementNode(IntRange.EMPTY, Int4)
+
+    check(actual == expected){ "IfTest: expr33 failed." +
+            "Expected: $expected, actual: $actual" }
+
+    actual = ExpressionOptimizer().apply(expr34)
+    expected = ExpressionStatementNode(IntRange.EMPTY, Int11)
+
+    check(actual == expected){ "IfTest: expr34 failed." +
+            "Expected: $expected, actual: $actual" }
+
+    actual = ExpressionOptimizer().apply(expr35)
+    var expectedUnit = UnitLiteralNode(IntRange.EMPTY)
+
+    check(actual == expectedUnit){ "IfTest: expr35 failed." +
+            "Expected: $expectedUnit, actual: $actual" }
 }
 
