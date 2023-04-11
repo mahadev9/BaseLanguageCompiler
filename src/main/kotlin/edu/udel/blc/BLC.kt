@@ -9,7 +9,9 @@ import com.github.ajalt.clikt.parameters.groups.groupChoice
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.types.file
+import edu.udel.blc.ast.CompilationUnitNode
 import edu.udel.blc.ast.Node
+import edu.udel.blc.ast.opt.ExpressionOptimizer
 import edu.udel.blc.machine_code.MachineCode
 import edu.udel.blc.machine_code.bytecode.BytecodeGenerator
 import edu.udel.blc.parse.antlr.AntlrBasedParser
@@ -27,6 +29,9 @@ class BLC : CliktCommand() {
 
     private val input by argument()
         .file(mustExist = true, mustBeReadable = true, canBeDir = false)
+
+    private val noOptimization by option("--no-optimization", help = "No optimizations to abstract syntax tree")
+        .flag(default = false, defaultForHelp = "false")
 
     private val parser by option("-p", "--parser").groupChoice(
         "antlr" to AntlrBasedParser(),
@@ -63,7 +68,11 @@ class BLC : CliktCommand() {
         val source = input.readText()
 
         val result = binding {
-            val compilationUnit = parser.apply(source).bind()
+            var compilationUnit = parser.apply(source).bind()
+
+            if (!noOptimization) {
+                compilationUnit = ExpressionOptimizer().apply(compilationUnit) as CompilationUnitNode
+            }
 
             if (printAst) {
                 TreeFormatter.appendTo(System.out, compilationUnit, Node::class.java)
