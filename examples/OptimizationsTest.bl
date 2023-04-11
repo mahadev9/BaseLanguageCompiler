@@ -72,8 +72,7 @@ print((98 + 12) == (84 - 46));  // false
 
 // dead code elimination test
 // While loop test
-// expr22
-while(false == true){
+while(false == true){// expr22
     10;
 }
 
