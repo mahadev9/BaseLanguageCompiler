@@ -5,7 +5,7 @@ import edu.udel.blc.ast.BinaryOperator.*
 import edu.udel.blc.util.visitor.ValuedVisitor
 
 class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
-
+    val operatorReductionLimit = 3
     init {
         // TODO: Add implementation for ALL AST Nodes types
         register(ArrayLiteralNode::class.java, ::arrayLiteral)
@@ -139,35 +139,59 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             }
         }
     }
-    private fun multiplication(node: BinaryExpressionNode): Node{
+    private fun multiplication(node: BinaryExpressionNode): Node {
         val left = apply(node.left)
         val right = apply(node.right)
 
         return when {
-            // if left and right children are both int literals, replace the node with the result of the operation
-            left is IntLiteralNode && right is IntLiteralNode -> {
-                if (left.value == 0.toLong() || right.value == 0.toLong()) {
-                    return IntLiteralNode(
-                        range = -1..-1,
-                        value = 0
-                    )
-                }
-                if (left.value == 1.toLong()) {
-                    return IntLiteralNode(
-                        range = -1..-1,
-                        value = right.value
-                    )
-                } else if (right.value == 1.toLong()) {
-                    return IntLiteralNode(
-                        range = -1..-1,
-                        value = left.value
-                    )
-                }
+            left is IntLiteralNode && right is IntLiteralNode &&
+                    (left.value == 0.toLong() || right.value == 0.toLong()) -> {
                 IntLiteralNode(
-                    range = -1..-1, // what should the range of the new node be? How does this impact error reporting?
+                    range = -1..-1,
+                    value = 0
+                )
+            }
+
+            left is IntLiteralNode && right is IntLiteralNode && left.value == 1.toLong() -> {
+                IntLiteralNode(
+                    range = -1..-1,
+                    value = right.value
+                )
+            }
+
+            left is IntLiteralNode && right is IntLiteralNode && right.value == 1.toLong() -> {
+                IntLiteralNode(
+                    range = -1..-1,
+                    value = left.value
+                )
+            }
+
+            left is IntLiteralNode && right is IntLiteralNode -> {
+                IntLiteralNode(
+                    range = -1..-1,
                     value = left.value * right.value
                 )
             }
+            left is IntLiteralNode && left.value <= operatorReductionLimit -> {
+                var i = 1
+                var expr = BinaryExpressionNode(-1..-1, ADDITION, right, right)
+                while(i < left.value - 1) {
+                    expr = BinaryExpressionNode(-1..-1, ADDITION, right, expr)
+                    i++
+                }
+                expr
+
+            }
+            right is IntLiteralNode && right.value <= operatorReductionLimit -> {
+                var i = 1
+                var expr = BinaryExpressionNode(-1..-1, ADDITION, left, left)
+                while(i < right.value - 1) {
+                    expr = BinaryExpressionNode(-1..-1, ADDITION, left, expr)
+                    i++
+                }
+                expr
+            }
+
             else -> {
                 BinaryExpressionNode(
                     range = node.range,
@@ -175,6 +199,7 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
                     left = left,
                     right = right
                 )
+
             }
         }
     }
