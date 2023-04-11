@@ -1,0 +1,94 @@
+// Addition
+print("Addition");
+print(5 + 5); // 10
+print(5 + 0); // 5
+print((5 + 5) + (5 + 0)); // 15
+print(-23 + (5 + 0)); // -18
+
+// Subtraction
+print("Subtraction");
+print(10 - 15); // -5
+print(0 - -2); // 2
+
+// Multiplication
+print("Multiplication");
+print(5 * 0); // 0
+print(5 * 2); //10
+
+// Remainder
+print("Remainder");
+print(10 % 2); // 0
+print(23 % 2); // 1
+
+// Equality
+print("Equality");
+print(23 % 2 == 1); // true
+print((5 * 0) == (5 * 2)); // false
+print("Hello" == "Hello"); //  true
+
+// Inequality
+print("Inequality");
+print(23 % 2 != 1); //false
+print((5 * 0) != (5 * 2));//true
+print("Hello" != "World");//true
+print("World" != "HelloWorld");//true
+print("HelloWorld" != "HelloWorld");//false
+
+// Greater than
+print("Greater than");
+print(1 > -18);//true
+print(10 > 23);//false
+
+// Less than
+print("Less than");
+print(1 < -18);//false
+print(10 < 23);//true
+
+// Greater than or equal to
+print("Greater than or equal to");
+print(10 >= 23);//false
+print(10 >= 10);//true
+
+// Less than or equal to
+print("Less than or equal to");
+print(1 <= -18);//false
+print(1 <= 1);//true
+
+// Logical conjunction (AND)
+print("Logical conjunction (AND)");
+print(true && false);//false
+print(true && true);//true
+
+// Logical disjunction (OR)
+print("Logical disjunction (OR)");
+print(true || false);//true
+print(false || false);//false
+
+// Complex arithmetic operation test
+print("Complex arithmetic operation test");
+print((678 + 8311) + (9023 + 57)); // 18069
+print((0 - 892) * (73 % (65 + -34))); // -9812
+print((98 + 12) == (84 - 46));  // false
+
+// dead code elimination test
+// While loop test
+// expr22
+while(false == true){
+    10;
+}
+
+//while(false || true){ // expr24
+//    {}
+//}
+
+// Block test
+{ // expr23
+    var a: Int = 5;
+    var b: Int = 6;
+ //   return b;
+    var c: Int = a * (b + 2);
+    if(false){
+    c = c % 10;
+    }else{
+    }
+}
