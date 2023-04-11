@@ -481,20 +481,19 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
 
         return when{
             condition is BooleanLiteralNode && condition.value ->{
-                IfNode(
+                ExpressionStatementNode(
                     range = node.range,
-                    condition = condition,
-                    thenStatement = thenStatement,
-                    elseStatement = null
+                    expression = thenStatement
                 )
             }
-            condition is BooleanLiteralNode && !condition.value ->{
-                IfNode(
-                    range = node.range,
-                    condition = condition,
-                    thenStatement = thenStatement,
-                    elseStatement = null
-                )
+            condition is BooleanLiteralNode && !(condition.value) ->{
+                when(elseStatement){
+                    null -> UnitLiteralNode(range = node.range)
+                    else -> ExpressionStatementNode(
+                        range = node.range,
+                        expression = elseStatement
+                    )
+                }
             }
             else -> {
                 IfNode(
