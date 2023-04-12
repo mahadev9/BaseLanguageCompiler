@@ -672,4 +672,3 @@ private fun ifTest():Unit{
     check(actual == expectedUnit){ "IfTest: expr41 failed." +
             "Expected: $expectedUnit, actual: $actual" }
 }
-
