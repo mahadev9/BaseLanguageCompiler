@@ -1,0 +1,258 @@
+  {ExpressionStatementNode (range = 17..17,expression = {CallNode (range = 17..17,callee = {ReferenceNode (range = 12..16,name = print)},arguments = [{StringLiteralNode (range = 18..18,value = Addition,)}])})}
+    {CallNode (range = 17..17,callee = {ReferenceNode (range = 12..16,name = print)},arguments = [{StringLiteralNode (range = 18..18,value = Addition,)}])}
+      {ReferenceNode (range = 12..16,name = print)}
+      {StringLiteralNode (range = 18..18,value = Addition,)}
+  {ExpressionStatementNode (range = 36..36,expression = {CallNode (range = 36..36,callee = {ReferenceNode (range = 31..35,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 10)}])})}
+    {CallNode (range = 36..36,callee = {ReferenceNode (range = 31..35,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 10)}])}
+      {ReferenceNode (range = 31..35,name = print)}
+      {IntLiteralNode (range = -1..-1, value = 10)}
+  {ExpressionStatementNode (range = 56..56,expression = {CallNode (range = 56..56,callee = {ReferenceNode (range = 51..55,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 5)}])})}
+    {CallNode (range = 56..56,callee = {ReferenceNode (range = 51..55,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 5)}])}
+      {ReferenceNode (range = 51..55,name = print)}
+      {IntLiteralNode (range = -1..-1, value = 5)}
+  {ExpressionStatementNode (range = 75..75,expression = {CallNode (range = 75..75,callee = {ReferenceNode (range = 70..74,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 15)}])})}
+    {CallNode (range = 75..75,callee = {ReferenceNode (range = 70..74,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 15)}])}
+      {ReferenceNode (range = 70..74,name = print)}
+      {IntLiteralNode (range = -1..-1, value = 15)}
+  {ExpressionStatementNode (range = 107..107,expression = {CallNode (range = 107..107,callee = {ReferenceNode (range = 102..106,name = print)},arguments = [{BinaryExpressionNode (range = 112..112,operator = +,left = {UnaryExpressionNode (range = 108..108,operator = -,operand = {IntLiteralNode (range = 109..110, value = 23)})},right = {IntLiteralNode (range = -1..-1, value = 5)})}])})}
+    {CallNode (range = 107..107,callee = {ReferenceNode (range = 102..106,name = print)},arguments = [{BinaryExpressionNode (range = 112..112,operator = +,left = {UnaryExpressionNode (range = 108..108,operator = -,operand = {IntLiteralNode (range = 109..110, value = 23)})},right = {IntLiteralNode (range = -1..-1, value = 5)})}])}
+      {ReferenceNode (range = 102..106,name = print)}
+      {BinaryExpressionNode (range = 112..112,operator = +,left = {UnaryExpressionNode (range = 108..108,operator = -,operand = {IntLiteralNode (range = 109..110, value = 23)})},right = {IntLiteralNode (range = -1..-1, value = 5)})}
+        {UnaryExpressionNode (range = 108..108,operator = -,operand = {IntLiteralNode (range = 109..110, value = 23)})}
+          {IntLiteralNode (range = 109..110, value = 23)}
+        {IntLiteralNode (range = -1..-1, value = 5)}
+  {ExpressionStatementNode (range = 152..152,expression = {CallNode (range = 152..152,callee = {ReferenceNode (range = 147..151,name = print)},arguments = [{StringLiteralNode (range = 153..153,value = Subtraction,)}])})}
+    {CallNode (range = 152..152,callee = {ReferenceNode (range = 147..151,name = print)},arguments = [{StringLiteralNode (range = 153..153,value = Subtraction,)}])}
+      {ReferenceNode (range = 147..151,name = print)}
+      {StringLiteralNode (range = 153..153,value = Subtraction,)}
+  {ExpressionStatementNode (range = 174..174,expression = {CallNode (range = 174..174,callee = {ReferenceNode (range = 169..173,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = -5)}])})}
+    {CallNode (range = 174..174,callee = {ReferenceNode (range = 169..173,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = -5)}])}
+      {ReferenceNode (range = 169..173,name = print)}
+      {IntLiteralNode (range = -1..-1, value = -5)}
+  {ExpressionStatementNode (range = 196..196,expression = {CallNode (range = 196..196,callee = {ReferenceNode (range = 191..195,name = print)},arguments = [{BinaryExpressionNode (range = 199..199,operator = -,left = {IntLiteralNode (range = 197..197, value = 0)},right = {UnaryExpressionNode (range = 201..201,operator = -,operand = {IntLiteralNode (range = 202..202, value = 2)})})}])})}
+    {CallNode (range = 196..196,callee = {ReferenceNode (range = 191..195,name = print)},arguments = [{BinaryExpressionNode (range = 199..199,operator = -,left = {IntLiteralNode (range = 197..197, value = 0)},right = {UnaryExpressionNode (range = 201..201,operator = -,operand = {IntLiteralNode (range = 202..202, value = 2)})})}])}
+      {ReferenceNode (range = 191..195,name = print)}
+      {BinaryExpressionNode (range = 199..199,operator = -,left = {IntLiteralNode (range = 197..197, value = 0)},right = {UnaryExpressionNode (range = 201..201,operator = -,operand = {IntLiteralNode (range = 202..202, value = 2)})})}
+        {IntLiteralNode (range = 197..197, value = 0)}
+        {UnaryExpressionNode (range = 201..201,operator = -,operand = {IntLiteralNode (range = 202..202, value = 2)})}
+          {IntLiteralNode (range = 202..202, value = 2)}
+  {ExpressionStatementNode (range = 235..235,expression = {CallNode (range = 235..235,callee = {ReferenceNode (range = 230..234,name = print)},arguments = [{StringLiteralNode (range = 236..236,value = Multiplication,)}])})}
+    {CallNode (range = 235..235,callee = {ReferenceNode (range = 230..234,name = print)},arguments = [{StringLiteralNode (range = 236..236,value = Multiplication,)}])}
+      {ReferenceNode (range = 230..234,name = print)}
+      {StringLiteralNode (range = 236..236,value = Multiplication,)}
+  {ExpressionStatementNode (range = 260..260,expression = {CallNode (range = 260..260,callee = {ReferenceNode (range = 255..259,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 0)}])})}
+    {CallNode (range = 260..260,callee = {ReferenceNode (range = 255..259,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 0)}])}
+      {ReferenceNode (range = 255..259,name = print)}
+      {IntLiteralNode (range = -1..-1, value = 0)}
+  {ExpressionStatementNode (range = 279..279,expression = {CallNode (range = 279..279,callee = {ReferenceNode (range = 274..278,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 10)}])})}
+    {CallNode (range = 279..279,callee = {ReferenceNode (range = 274..278,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 10)}])}
+      {ReferenceNode (range = 274..278,name = print)}
+      {IntLiteralNode (range = -1..-1, value = 10)}
+  {ExpressionStatementNode (range = 312..312,expression = {CallNode (range = 312..312,callee = {ReferenceNode (range = 307..311,name = print)},arguments = [{StringLiteralNode (range = 313..313,value = Remainder,)}])})}
+    {CallNode (range = 312..312,callee = {ReferenceNode (range = 307..311,name = print)},arguments = [{StringLiteralNode (range = 313..313,value = Remainder,)}])}
+      {ReferenceNode (range = 307..311,name = print)}
+      {StringLiteralNode (range = 313..313,value = Remainder,)}
+  {ExpressionStatementNode (range = 332..332,expression = {CallNode (range = 332..332,callee = {ReferenceNode (range = 327..331,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 0)}])})}
+    {CallNode (range = 332..332,callee = {ReferenceNode (range = 327..331,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 0)}])}
+      {ReferenceNode (range = 327..331,name = print)}
+      {IntLiteralNode (range = -1..-1, value = 0)}
+  {ExpressionStatementNode (range = 352..352,expression = {CallNode (range = 352..352,callee = {ReferenceNode (range = 347..351,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 1)}])})}
+    {CallNode (range = 352..352,callee = {ReferenceNode (range = 347..351,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 1)}])}
+      {ReferenceNode (range = 347..351,name = print)}
+      {IntLiteralNode (range = -1..-1, value = 1)}
+  {ExpressionStatementNode (range = 385..385,expression = {CallNode (range = 385..385,callee = {ReferenceNode (range = 380..384,name = print)},arguments = [{StringLiteralNode (range = 386..386,value = Equality,)}])})}
+    {CallNode (range = 385..385,callee = {ReferenceNode (range = 380..384,name = print)},arguments = [{StringLiteralNode (range = 386..386,value = Equality,)}])}
+      {ReferenceNode (range = 380..384,name = print)}
+      {StringLiteralNode (range = 386..386,value = Equality,)}
+  {ExpressionStatementNode (range = 404..404,expression = {CallNode (range = 404..404,callee = {ReferenceNode (range = 399..403,name = print)},arguments = [{BooleanLiteralNode (range = 412..413,value = true)}])})}
+    {CallNode (range = 404..404,callee = {ReferenceNode (range = 399..403,name = print)},arguments = [{BooleanLiteralNode (range = 412..413,value = true)}])}
+      {ReferenceNode (range = 399..403,name = print)}
+      {BooleanLiteralNode (range = 412..413,value = true)}
+  {ExpressionStatementNode (range = 432..432,expression = {CallNode (range = 432..432,callee = {ReferenceNode (range = 427..431,name = print)},arguments = [{BooleanLiteralNode (range = 441..442,value = false)}])})}
+    {CallNode (range = 432..432,callee = {ReferenceNode (range = 427..431,name = print)},arguments = [{BooleanLiteralNode (range = 441..442,value = false)}])}
+      {ReferenceNode (range = 427..431,name = print)}
+      {BooleanLiteralNode (range = 441..442,value = false)}
+  {ExpressionStatementNode (range = 468..468,expression = {CallNode (range = 468..468,callee = {ReferenceNode (range = 463..467,name = print)},arguments = [{BooleanLiteralNode (range = 477..478,value = true)}])})}
+    {CallNode (range = 468..468,callee = {ReferenceNode (range = 463..467,name = print)},arguments = [{BooleanLiteralNode (range = 477..478,value = true)}])}
+      {ReferenceNode (range = 463..467,name = print)}
+      {BooleanLiteralNode (range = 477..478,value = true)}
+  {ExpressionStatementNode (range = 504..504,expression = {CallNode (range = 504..504,callee = {ReferenceNode (range = 499..503,name = print)},arguments = [{BooleanLiteralNode (range = 513..514,value = false)}])})}
+    {CallNode (range = 504..504,callee = {ReferenceNode (range = 499..503,name = print)},arguments = [{BooleanLiteralNode (range = 513..514,value = false)}])}
+      {ReferenceNode (range = 499..503,name = print)}
+      {BooleanLiteralNode (range = 513..514,value = false)}
+  {ExpressionStatementNode (range = 556..556,expression = {CallNode (range = 556..556,callee = {ReferenceNode (range = 551..555,name = print)},arguments = [{StringLiteralNode (range = 557..557,value = Inequality,)}])})}
+    {CallNode (range = 556..556,callee = {ReferenceNode (range = 551..555,name = print)},arguments = [{StringLiteralNode (range = 557..557,value = Inequality,)}])}
+      {ReferenceNode (range = 551..555,name = print)}
+      {StringLiteralNode (range = 557..557,value = Inequality,)}
+  {ExpressionStatementNode (range = 577..577,expression = {CallNode (range = 577..577,callee = {ReferenceNode (range = 572..576,name = print)},arguments = [{BooleanLiteralNode (range = 585..586,value = false)}])})}
+    {CallNode (range = 577..577,callee = {ReferenceNode (range = 572..576,name = print)},arguments = [{BooleanLiteralNode (range = 585..586,value = false)}])}
+      {ReferenceNode (range = 572..576,name = print)}
+      {BooleanLiteralNode (range = 585..586,value = false)}
+  {ExpressionStatementNode (range = 605..605,expression = {CallNode (range = 605..605,callee = {ReferenceNode (range = 600..604,name = print)},arguments = [{BooleanLiteralNode (range = 614..615,value = true)}])})}
+    {CallNode (range = 605..605,callee = {ReferenceNode (range = 600..604,name = print)},arguments = [{BooleanLiteralNode (range = 614..615,value = true)}])}
+      {ReferenceNode (range = 600..604,name = print)}
+      {BooleanLiteralNode (range = 614..615,value = true)}
+  {ExpressionStatementNode (range = 638..638,expression = {CallNode (range = 638..638,callee = {ReferenceNode (range = 633..637,name = print)},arguments = [{BooleanLiteralNode (range = 647..648,value = true)}])})}
+    {CallNode (range = 638..638,callee = {ReferenceNode (range = 633..637,name = print)},arguments = [{BooleanLiteralNode (range = 647..648,value = true)}])}
+      {ReferenceNode (range = 633..637,name = print)}
+      {BooleanLiteralNode (range = 647..648,value = true)}
+  {ExpressionStatementNode (range = 671..671,expression = {CallNode (range = 671..671,callee = {ReferenceNode (range = 666..670,name = print)},arguments = [{BooleanLiteralNode (range = 680..681,value = true)}])})}
+    {CallNode (range = 671..671,callee = {ReferenceNode (range = 666..670,name = print)},arguments = [{BooleanLiteralNode (range = 680..681,value = true)}])}
+      {ReferenceNode (range = 666..670,name = print)}
+      {BooleanLiteralNode (range = 680..681,value = true)}
+  {ExpressionStatementNode (range = 709..709,expression = {CallNode (range = 709..709,callee = {ReferenceNode (range = 704..708,name = print)},arguments = [{BooleanLiteralNode (range = 723..724,value = false)}])})}
+    {CallNode (range = 709..709,callee = {ReferenceNode (range = 704..708,name = print)},arguments = [{BooleanLiteralNode (range = 723..724,value = false)}])}
+      {ReferenceNode (range = 704..708,name = print)}
+      {BooleanLiteralNode (range = 723..724,value = false)}
+  {ExpressionStatementNode (range = 770..770,expression = {CallNode (range = 770..770,callee = {ReferenceNode (range = 765..769,name = print)},arguments = [{StringLiteralNode (range = 771..771,value = Greater than,)}])})}
+    {CallNode (range = 770..770,callee = {ReferenceNode (range = 765..769,name = print)},arguments = [{StringLiteralNode (range = 771..771,value = Greater than,)}])}
+      {ReferenceNode (range = 765..769,name = print)}
+      {StringLiteralNode (range = 771..771,value = Greater than,)}
+  {ExpressionStatementNode (range = 793..793,expression = {CallNode (range = 793..793,callee = {ReferenceNode (range = 788..792,name = print)},arguments = [{BinaryExpressionNode (range = 796..796,operator = >,left = {IntLiteralNode (range = 794..794, value = 1)},right = {UnaryExpressionNode (range = 798..798,operator = -,operand = {IntLiteralNode (range = 799..800, value = 18)})})}])})}
+    {CallNode (range = 793..793,callee = {ReferenceNode (range = 788..792,name = print)},arguments = [{BinaryExpressionNode (range = 796..796,operator = >,left = {IntLiteralNode (range = 794..794, value = 1)},right = {UnaryExpressionNode (range = 798..798,operator = -,operand = {IntLiteralNode (range = 799..800, value = 18)})})}])}
+      {ReferenceNode (range = 788..792,name = print)}
+      {BinaryExpressionNode (range = 796..796,operator = >,left = {IntLiteralNode (range = 794..794, value = 1)},right = {UnaryExpressionNode (range = 798..798,operator = -,operand = {IntLiteralNode (range = 799..800, value = 18)})})}
+        {IntLiteralNode (range = 794..794, value = 1)}
+        {UnaryExpressionNode (range = 798..798,operator = -,operand = {IntLiteralNode (range = 799..800, value = 18)})}
+          {IntLiteralNode (range = 799..800, value = 18)}
+  {ExpressionStatementNode (range = 815..815,expression = {CallNode (range = 815..815,callee = {ReferenceNode (range = 810..814,name = print)},arguments = [{BooleanLiteralNode (range = 819..819,value = false)}])})}
+    {CallNode (range = 815..815,callee = {ReferenceNode (range = 810..814,name = print)},arguments = [{BooleanLiteralNode (range = 819..819,value = false)}])}
+      {ReferenceNode (range = 810..814,name = print)}
+      {BooleanLiteralNode (range = 819..819,value = false)}
+  {ExpressionStatementNode (range = 852..852,expression = {CallNode (range = 852..852,callee = {ReferenceNode (range = 847..851,name = print)},arguments = [{StringLiteralNode (range = 853..853,value = Less than,)}])})}
+    {CallNode (range = 852..852,callee = {ReferenceNode (range = 847..851,name = print)},arguments = [{StringLiteralNode (range = 853..853,value = Less than,)}])}
+      {ReferenceNode (range = 847..851,name = print)}
+      {StringLiteralNode (range = 853..853,value = Less than,)}
+  {ExpressionStatementNode (range = 872..872,expression = {CallNode (range = 872..872,callee = {ReferenceNode (range = 867..871,name = print)},arguments = [{BinaryExpressionNode (range = 875..875,operator = <,left = {IntLiteralNode (range = 873..873, value = 1)},right = {UnaryExpressionNode (range = 877..877,operator = -,operand = {IntLiteralNode (range = 878..879, value = 18)})})}])})}
+    {CallNode (range = 872..872,callee = {ReferenceNode (range = 867..871,name = print)},arguments = [{BinaryExpressionNode (range = 875..875,operator = <,left = {IntLiteralNode (range = 873..873, value = 1)},right = {UnaryExpressionNode (range = 877..877,operator = -,operand = {IntLiteralNode (range = 878..879, value = 18)})})}])}
+      {ReferenceNode (range = 867..871,name = print)}
+      {BinaryExpressionNode (range = 875..875,operator = <,left = {IntLiteralNode (range = 873..873, value = 1)},right = {UnaryExpressionNode (range = 877..877,operator = -,operand = {IntLiteralNode (range = 878..879, value = 18)})})}
+        {IntLiteralNode (range = 873..873, value = 1)}
+        {UnaryExpressionNode (range = 877..877,operator = -,operand = {IntLiteralNode (range = 878..879, value = 18)})}
+          {IntLiteralNode (range = 878..879, value = 18)}
+  {ExpressionStatementNode (range = 895..895,expression = {CallNode (range = 895..895,callee = {ReferenceNode (range = 890..894,name = print)},arguments = [{BooleanLiteralNode (range = 899..899,value = true)}])})}
+    {CallNode (range = 895..895,callee = {ReferenceNode (range = 890..894,name = print)},arguments = [{BooleanLiteralNode (range = 899..899,value = true)}])}
+      {ReferenceNode (range = 890..894,name = print)}
+      {BooleanLiteralNode (range = 899..899,value = true)}
+  {ExpressionStatementNode (range = 946..946,expression = {CallNode (range = 946..946,callee = {ReferenceNode (range = 941..945,name = print)},arguments = [{StringLiteralNode (range = 947..947,value = Greater than or equal to,)}])})}
+    {CallNode (range = 946..946,callee = {ReferenceNode (range = 941..945,name = print)},arguments = [{StringLiteralNode (range = 947..947,value = Greater than or equal to,)}])}
+      {ReferenceNode (range = 941..945,name = print)}
+      {StringLiteralNode (range = 947..947,value = Greater than or equal to,)}
+  {ExpressionStatementNode (range = 981..981,expression = {CallNode (range = 981..981,callee = {ReferenceNode (range = 976..980,name = print)},arguments = [{BooleanLiteralNode (range = 985..986,value = false)}])})}
+    {CallNode (range = 981..981,callee = {ReferenceNode (range = 976..980,name = print)},arguments = [{BooleanLiteralNode (range = 985..986,value = false)}])}
+      {ReferenceNode (range = 976..980,name = print)}
+      {BooleanLiteralNode (range = 985..986,value = false)}
+  {ExpressionStatementNode (range = 1005..1005,expression = {CallNode (range = 1005..1005,callee = {ReferenceNode (range = 1000..1004,name = print)},arguments = [{BooleanLiteralNode (range = 1009..1010,value = true)}])})}
+    {CallNode (range = 1005..1005,callee = {ReferenceNode (range = 1000..1004,name = print)},arguments = [{BooleanLiteralNode (range = 1009..1010,value = true)}])}
+      {ReferenceNode (range = 1000..1004,name = print)}
+      {BooleanLiteralNode (range = 1009..1010,value = true)}
+  {ExpressionStatementNode (range = 1054..1054,expression = {CallNode (range = 1054..1054,callee = {ReferenceNode (range = 1049..1053,name = print)},arguments = [{StringLiteralNode (range = 1055..1055,value = Less than or equal to,)}])})}
+    {CallNode (range = 1054..1054,callee = {ReferenceNode (range = 1049..1053,name = print)},arguments = [{StringLiteralNode (range = 1055..1055,value = Less than or equal to,)}])}
+      {ReferenceNode (range = 1049..1053,name = print)}
+      {StringLiteralNode (range = 1055..1055,value = Less than or equal to,)}
+  {ExpressionStatementNode (range = 1086..1086,expression = {CallNode (range = 1086..1086,callee = {ReferenceNode (range = 1081..1085,name = print)},arguments = [{BinaryExpressionNode (range = 1089..1090,operator = <=,left = {IntLiteralNode (range = 1087..1087, value = 1)},right = {UnaryExpressionNode (range = 1092..1092,operator = -,operand = {IntLiteralNode (range = 1093..1094, value = 18)})})}])})}
+    {CallNode (range = 1086..1086,callee = {ReferenceNode (range = 1081..1085,name = print)},arguments = [{BinaryExpressionNode (range = 1089..1090,operator = <=,left = {IntLiteralNode (range = 1087..1087, value = 1)},right = {UnaryExpressionNode (range = 1092..1092,operator = -,operand = {IntLiteralNode (range = 1093..1094, value = 18)})})}])}
+      {ReferenceNode (range = 1081..1085,name = print)}
+      {BinaryExpressionNode (range = 1089..1090,operator = <=,left = {IntLiteralNode (range = 1087..1087, value = 1)},right = {UnaryExpressionNode (range = 1092..1092,operator = -,operand = {IntLiteralNode (range = 1093..1094, value = 18)})})}
+        {IntLiteralNode (range = 1087..1087, value = 1)}
+        {UnaryExpressionNode (range = 1092..1092,operator = -,operand = {IntLiteralNode (range = 1093..1094, value = 18)})}
+          {IntLiteralNode (range = 1093..1094, value = 18)}
+  {ExpressionStatementNode (range = 1110..1110,expression = {CallNode (range = 1110..1110,callee = {ReferenceNode (range = 1105..1109,name = print)},arguments = [{BooleanLiteralNode (range = 1113..1114,value = true)}])})}
+    {CallNode (range = 1110..1110,callee = {ReferenceNode (range = 1105..1109,name = print)},arguments = [{BooleanLiteralNode (range = 1113..1114,value = true)}])}
+      {ReferenceNode (range = 1105..1109,name = print)}
+      {BooleanLiteralNode (range = 1113..1114,value = true)}
+  {ExpressionStatementNode (range = 1161..1161,expression = {CallNode (range = 1161..1161,callee = {ReferenceNode (range = 1156..1160,name = print)},arguments = [{StringLiteralNode (range = 1162..1162,value = Logical conjunction (AND),)}])})}
+    {CallNode (range = 1161..1161,callee = {ReferenceNode (range = 1156..1160,name = print)},arguments = [{StringLiteralNode (range = 1162..1162,value = Logical conjunction (AND),)}])}
+      {ReferenceNode (range = 1156..1160,name = print)}
+      {StringLiteralNode (range = 1162..1162,value = Logical conjunction (AND),)}
+  {ExpressionStatementNode (range = 1197..1197,expression = {CallNode (range = 1197..1197,callee = {ReferenceNode (range = 1192..1196,name = print)},arguments = [{BooleanLiteralNode (range = 1203..1204,value = false)}])})}
+    {CallNode (range = 1197..1197,callee = {ReferenceNode (range = 1192..1196,name = print)},arguments = [{BooleanLiteralNode (range = 1203..1204,value = false)}])}
+      {ReferenceNode (range = 1192..1196,name = print)}
+      {BooleanLiteralNode (range = 1203..1204,value = false)}
+  {ExpressionStatementNode (range = 1226..1226,expression = {CallNode (range = 1226..1226,callee = {ReferenceNode (range = 1221..1225,name = print)},arguments = [{BooleanLiteralNode (range = 1232..1233,value = true)}])})}
+    {CallNode (range = 1226..1226,callee = {ReferenceNode (range = 1221..1225,name = print)},arguments = [{BooleanLiteralNode (range = 1232..1233,value = true)}])}
+      {ReferenceNode (range = 1221..1225,name = print)}
+      {BooleanLiteralNode (range = 1232..1233,value = true)}
+  {ExpressionStatementNode (range = 1282..1282,expression = {CallNode (range = 1282..1282,callee = {ReferenceNode (range = 1277..1281,name = print)},arguments = [{StringLiteralNode (range = 1283..1283,value = Logical disjunction (OR),)}])})}
+    {CallNode (range = 1282..1282,callee = {ReferenceNode (range = 1277..1281,name = print)},arguments = [{StringLiteralNode (range = 1283..1283,value = Logical disjunction (OR),)}])}
+      {ReferenceNode (range = 1277..1281,name = print)}
+      {StringLiteralNode (range = 1283..1283,value = Logical disjunction (OR),)}
+  {ExpressionStatementNode (range = 1317..1317,expression = {CallNode (range = 1317..1317,callee = {ReferenceNode (range = 1312..1316,name = print)},arguments = [{BooleanLiteralNode (range = 1323..1324,value = true)}])})}
+    {CallNode (range = 1317..1317,callee = {ReferenceNode (range = 1312..1316,name = print)},arguments = [{BooleanLiteralNode (range = 1323..1324,value = true)}])}
+      {ReferenceNode (range = 1312..1316,name = print)}
+      {BooleanLiteralNode (range = 1323..1324,value = true)}
+  {ExpressionStatementNode (range = 1345..1345,expression = {CallNode (range = 1345..1345,callee = {ReferenceNode (range = 1340..1344,name = print)},arguments = [{BooleanLiteralNode (range = 1352..1353,value = false)}])})}
+    {CallNode (range = 1345..1345,callee = {ReferenceNode (range = 1340..1344,name = print)},arguments = [{BooleanLiteralNode (range = 1352..1353,value = false)}])}
+      {ReferenceNode (range = 1340..1344,name = print)}
+      {BooleanLiteralNode (range = 1352..1353,value = false)}
+  {ExpressionStatementNode (range = 1413..1413,expression = {CallNode (range = 1413..1413,callee = {ReferenceNode (range = 1408..1412,name = print)},arguments = [{StringLiteralNode (range = 1414..1414,value = Complex arithmetic operation test,)}])})}
+    {CallNode (range = 1413..1413,callee = {ReferenceNode (range = 1408..1412,name = print)},arguments = [{StringLiteralNode (range = 1414..1414,value = Complex arithmetic operation test,)}])}
+      {ReferenceNode (range = 1408..1412,name = print)}
+      {StringLiteralNode (range = 1414..1414,value = Complex arithmetic operation test,)}
+  {ExpressionStatementNode (range = 1457..1457,expression = {CallNode (range = 1457..1457,callee = {ReferenceNode (range = 1452..1456,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 18069)}])})}
+    {CallNode (range = 1457..1457,callee = {ReferenceNode (range = 1452..1456,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 18069)}])}
+      {ReferenceNode (range = 1452..1456,name = print)}
+      {IntLiteralNode (range = -1..-1, value = 18069)}
+  {ExpressionStatementNode (range = 1501..1501,expression = {CallNode (range = 1501..1501,callee = {ReferenceNode (range = 1496..1500,name = print)},arguments = [{BinaryExpressionNode (range = 1512..1512,operator = *,left = {IntLiteralNode (range = -1..-1, value = -892)},right = {BinaryExpressionNode (range = 1518..1518,operator = %,left = {IntLiteralNode (range = 1515..1516, value = 73)},right = {BinaryExpressionNode (range = 1524..1524,operator = +,left = {IntLiteralNode (range = 1521..1522, value = 65)},right = {UnaryExpressionNode (range = 1526..1526,operator = -,operand = {IntLiteralNode (range = 1527..1528, value = 34)})})})})}])})}
+    {CallNode (range = 1501..1501,callee = {ReferenceNode (range = 1496..1500,name = print)},arguments = [{BinaryExpressionNode (range = 1512..1512,operator = *,left = {IntLiteralNode (range = -1..-1, value = -892)},right = {BinaryExpressionNode (range = 1518..1518,operator = %,left = {IntLiteralNode (range = 1515..1516, value = 73)},right = {BinaryExpressionNode (range = 1524..1524,operator = +,left = {IntLiteralNode (range = 1521..1522, value = 65)},right = {UnaryExpressionNode (range = 1526..1526,operator = -,operand = {IntLiteralNode (range = 1527..1528, value = 34)})})})})}])}
+      {ReferenceNode (range = 1496..1500,name = print)}
+      {BinaryExpressionNode (range = 1512..1512,operator = *,left = {IntLiteralNode (range = -1..-1, value = -892)},right = {BinaryExpressionNode (range = 1518..1518,operator = %,left = {IntLiteralNode (range = 1515..1516, value = 73)},right = {BinaryExpressionNode (range = 1524..1524,operator = +,left = {IntLiteralNode (range = 1521..1522, value = 65)},right = {UnaryExpressionNode (range = 1526..1526,operator = -,operand = {IntLiteralNode (range = 1527..1528, value = 34)})})})})}
+        {IntLiteralNode (range = -1..-1, value = -892)}
+        {BinaryExpressionNode (range = 1518..1518,operator = %,left = {IntLiteralNode (range = 1515..1516, value = 73)},right = {BinaryExpressionNode (range = 1524..1524,operator = +,left = {IntLiteralNode (range = 1521..1522, value = 65)},right = {UnaryExpressionNode (range = 1526..1526,operator = -,operand = {IntLiteralNode (range = 1527..1528, value = 34)})})})}
+          {IntLiteralNode (range = 1515..1516, value = 73)}
+          {BinaryExpressionNode (range = 1524..1524,operator = +,left = {IntLiteralNode (range = 1521..1522, value = 65)},right = {UnaryExpressionNode (range = 1526..1526,operator = -,operand = {IntLiteralNode (range = 1527..1528, value = 34)})})}
+            {IntLiteralNode (range = 1521..1522, value = 65)}
+            {UnaryExpressionNode (range = 1526..1526,operator = -,operand = {IntLiteralNode (range = 1527..1528, value = 34)})}
+              {IntLiteralNode (range = 1527..1528, value = 34)}
+  {ExpressionStatementNode (range = 1548..1548,expression = {CallNode (range = 1548..1548,callee = {ReferenceNode (range = 1543..1547,name = print)},arguments = [{BooleanLiteralNode (range = 1559..1560,value = false)}])})}
+    {CallNode (range = 1548..1548,callee = {ReferenceNode (range = 1543..1547,name = print)},arguments = [{BooleanLiteralNode (range = 1559..1560,value = false)}])}
+      {ReferenceNode (range = 1543..1547,name = print)}
+      {BooleanLiteralNode (range = 1559..1560,value = false)}
+  {ExpressionStatementNode (range = 1620..1620,expression = {CallNode (range = 1620..1620,callee = {ReferenceNode (range = 1615..1619,name = print)},arguments = [{StringLiteralNode (range = 1621..1621,value = Dead code elimination test,)}])})}
+    {CallNode (range = 1620..1620,callee = {ReferenceNode (range = 1615..1619,name = print)},arguments = [{StringLiteralNode (range = 1621..1621,value = Dead code elimination test,)}])}
+      {ReferenceNode (range = 1615..1619,name = print)}
+      {StringLiteralNode (range = 1621..1621,value = Dead code elimination test,)}
+  {ExpressionStatementNode (range = 1677..1677,expression = {CallNode (range = 1677..1677,callee = {ReferenceNode (range = 1672..1676,name = print)},arguments = [{StringLiteralNode (range = 1678..1678,value = While loop test,)}])})}
+    {CallNode (range = 1677..1677,callee = {ReferenceNode (range = 1672..1676,name = print)},arguments = [{StringLiteralNode (range = 1678..1678,value = While loop test,)}])}
+      {ReferenceNode (range = 1672..1676,name = print)}
+      {StringLiteralNode (range = 1678..1678,value = While loop test,)}
+  {UnitLiteralNode (range = -1..-1)}
+  {ExpressionStatementNode (range = 1864..1864,expression = {CallNode (range = 1864..1864,callee = {ReferenceNode (range = 1859..1863,name = print)},arguments = [{StringLiteralNode (range = 1865..1865,value = Block test,)}])})}
+    {CallNode (range = 1864..1864,callee = {ReferenceNode (range = 1859..1863,name = print)},arguments = [{StringLiteralNode (range = 1865..1865,value = Block test,)}])}
+      {ReferenceNode (range = 1859..1863,name = print)}
+      {StringLiteralNode (range = 1865..1865,value = Block test,)}
+  {FunctionDeclarationNode (range = 1880..1882,name = testFun1,parameters = [],returnType = {ReferenceNode (range = 1898..1900,name = Int)},body = {BlockNode (range = 1902..1902,statements = [{VariableDeclarationNode (range = 1922..1922,name = a,type = {ReferenceNode (range = 1925..1927,name = Int)}initializer = {IntLiteralNode (range = 1931..1931, value = 5)})}, {VariableDeclarationNode (range = 1942..1942,name = b,type = {ReferenceNode (range = 1945..1947,name = Int)}initializer = {IntLiteralNode (range = 1951..1951, value = 6)})}, {ReturnNode (range = 1958..1963,expression = {ReferenceNode (range = 1965..1965,name = b)})}])})}
+    {ReferenceNode (range = 1898..1900,name = Int)}
+    {BlockNode (range = 1902..1902,statements = [{VariableDeclarationNode (range = 1922..1922,name = a,type = {ReferenceNode (range = 1925..1927,name = Int)}initializer = {IntLiteralNode (range = 1931..1931, value = 5)})}, {VariableDeclarationNode (range = 1942..1942,name = b,type = {ReferenceNode (range = 1945..1947,name = Int)}initializer = {IntLiteralNode (range = 1951..1951, value = 6)})}, {ReturnNode (range = 1958..1963,expression = {ReferenceNode (range = 1965..1965,name = b)})}])}
+      {VariableDeclarationNode (range = 1922..1922,name = a,type = {ReferenceNode (range = 1925..1927,name = Int)}initializer = {IntLiteralNode (range = 1931..1931, value = 5)})}
+        {ReferenceNode (range = 1925..1927,name = Int)}
+        {IntLiteralNode (range = 1931..1931, value = 5)}
+      {VariableDeclarationNode (range = 1942..1942,name = b,type = {ReferenceNode (range = 1945..1947,name = Int)}initializer = {IntLiteralNode (range = 1951..1951, value = 6)})}
+        {ReferenceNode (range = 1945..1947,name = Int)}
+        {IntLiteralNode (range = 1951..1951, value = 6)}
+      {ReturnNode (range = 1958..1963,expression = {ReferenceNode (range = 1965..1965,name = b)})}
+        {ReferenceNode (range = 1965..1965,name = b)}
+  {ExpressionStatementNode (range = 2074..2074,expression = {CallNode (range = 2074..2074,callee = {ReferenceNode (range = 2069..2073,name = print)},arguments = [{CallNode (range = 2083..2083,callee = {ReferenceNode (range = 2075..2082,name = testFun1)},arguments = [])}])})}
+    {CallNode (range = 2074..2074,callee = {ReferenceNode (range = 2069..2073,name = print)},arguments = [{CallNode (range = 2083..2083,callee = {ReferenceNode (range = 2075..2082,name = testFun1)},arguments = [])}])}
+      {ReferenceNode (range = 2069..2073,name = print)}
+      {CallNode (range = 2083..2083,callee = {ReferenceNode (range = 2075..2082,name = testFun1)},arguments = [])}
+        {ReferenceNode (range = 2075..2082,name = testFun1)}
+  {ExpressionStatementNode (range = 2105..2105,expression = {CallNode (range = 2105..2105,callee = {ReferenceNode (range = 2100..2104,name = print)},arguments = [{StringLiteralNode (range = 2106..2106,value = If test,)}])})}
+    {CallNode (range = 2105..2105,callee = {ReferenceNode (range = 2100..2104,name = print)},arguments = [{StringLiteralNode (range = 2106..2106,value = If test,)}])}
+      {ReferenceNode (range = 2100..2104,name = print)}
+      {StringLiteralNode (range = 2106..2106,value = If test,)}
+  {BlockNode (range = 2130..2130,statements = [{ExpressionStatementNode (range = 2141..2141,expression = {CallNode (range = 2141..2141,callee = {ReferenceNode (range = 2136..2140,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 0)}])})}])}
+    {ExpressionStatementNode (range = 2141..2141,expression = {CallNode (range = 2141..2141,callee = {ReferenceNode (range = 2136..2140,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 0)}])})}
+      {CallNode (range = 2141..2141,callee = {ReferenceNode (range = 2136..2140,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 0)}])}
+        {ReferenceNode (range = 2136..2140,name = print)}
+        {IntLiteralNode (range = -1..-1, value = 0)}
+  {BlockNode (range = 2228..2228,statements = [{ExpressionStatementNode (range = 2239..2239,expression = {CallNode (range = 2239..2239,callee = {ReferenceNode (range = 2234..2238,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 1)}])})}])}
+    {ExpressionStatementNode (range = 2239..2239,expression = {CallNode (range = 2239..2239,callee = {ReferenceNode (range = 2234..2238,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 1)}])})}
+      {CallNode (range = 2239..2239,callee = {ReferenceNode (range = 2234..2238,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 1)}])}
+        {ReferenceNode (range = 2234..2238,name = print)}
+        {IntLiteralNode (range = -1..-1, value = 1)}
+  {BlockNode (range = 2269..2269,statements = [{ExpressionStatementNode (range = 2280..2280,expression = {CallNode (range = 2280..2280,callee = {ReferenceNode (range = 2275..2279,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 0)}])})}])}
+    {ExpressionStatementNode (range = 2280..2280,expression = {CallNode (range = 2280..2280,callee = {ReferenceNode (range = 2275..2279,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 0)}])})}
+      {CallNode (range = 2280..2280,callee = {ReferenceNode (range = 2275..2279,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 0)}])}
+        {ReferenceNode (range = 2275..2279,name = print)}
+        {IntLiteralNode (range = -1..-1, value = 0)}

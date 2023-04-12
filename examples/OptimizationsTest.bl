@@ -25,6 +25,7 @@ print("Equality");
 print(23 % 2 == 1); // true
 print((5 * 0) == (5 * 2)); // false
 print("Hello" == "Hello"); //  true
+print("Hello" == "World");  // false
 
 // Inequality
 print("Inequality");
@@ -76,40 +77,44 @@ print("Dead code elimination test");
 // While loop test
 print("While loop test");
 while(false == true){// expr22
-    10;
+    print(10);
 }
 
-//while(false || true){ // expr24
-//    {}
-//}
+// Commented so that there will be no infinite loop
+// while(false || true) {
+// 	// expr24
+// }
 
 // Block test
 print("Block test");
-{ // expr23
+fun testFun1() -> Int { // expr23
     var a: Int = 5;
     var b: Int = 6;
- //   return b;
+    return b;
     var c: Int = a * (b + 2);
     if(false){
     c = c % 10;
-    }else{
+    } else {
+        b = b + 1;
     }
 }
+print(testFun1());
 
 // If test
 print("If test");
 if (10 < 23){
-    10 % 2;
-}else{
-    23 % 2;
+    print(10 % 2);
+} else {
+    print(23 % 2);
 }
 
 if (23 % 2 != 1) {
-    10 % 2;
+    print(10 % 2);
 }  else {
-    23 % 2;
+    print(23 % 2);
 }
 
-if (23 % 2 != 1) {
-    10 % 2;
+if (23 % 2 == 1) {
+    print(10 % 2);
 }
+
