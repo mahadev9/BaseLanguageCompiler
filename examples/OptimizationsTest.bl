@@ -75,8 +75,15 @@ print("Dead code elimination test");
 
 // While loop test
 print("While loop test");
-while(false == true){// expr22
+while(false == true){
     10;
+    print("This code is unreachable");
+}
+
+var x: Int = 0;
+while (x > 5) {
+    x += 1;
+    print("This code is unreachable");
 }
 
 //while(false || true){ // expr24
@@ -100,16 +107,14 @@ print("Block test");
 print("If test");
 if (10 < 23){
     10 % 2;
+    print("This code is reachable");
 }else{
     23 % 2;
+    print("This code is unreachable");
 }
 
 if (23 % 2 != 1) {
     10 % 2;
 }  else {
     23 % 2;
-}
-
-if (23 % 2 != 1) {
-    10 % 2;
 }
