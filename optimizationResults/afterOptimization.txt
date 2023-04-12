@@ -217,42 +217,55 @@
       {ReferenceNode (range = 1672..1676,name = print)}
       {StringLiteralNode (range = 1678..1678,value = While loop test,)}
   {UnitLiteralNode (range = -1..-1)}
-  {ExpressionStatementNode (range = 1864..1864,expression = {CallNode (range = 1864..1864,callee = {ReferenceNode (range = 1859..1863,name = print)},arguments = [{StringLiteralNode (range = 1865..1865,value = Block test,)}])})}
-    {CallNode (range = 1864..1864,callee = {ReferenceNode (range = 1859..1863,name = print)},arguments = [{StringLiteralNode (range = 1865..1865,value = Block test,)}])}
-      {ReferenceNode (range = 1859..1863,name = print)}
-      {StringLiteralNode (range = 1865..1865,value = Block test,)}
-  {FunctionDeclarationNode (range = 1880..1882,name = testFun1,parameters = [],returnType = {ReferenceNode (range = 1898..1900,name = Int)},body = {BlockNode (range = 1902..1902,statements = [{VariableDeclarationNode (range = 1922..1922,name = a,type = {ReferenceNode (range = 1925..1927,name = Int)}initializer = {IntLiteralNode (range = 1931..1931, value = 5)})}, {VariableDeclarationNode (range = 1942..1942,name = b,type = {ReferenceNode (range = 1945..1947,name = Int)}initializer = {IntLiteralNode (range = 1951..1951, value = 6)})}, {ReturnNode (range = 1958..1963,expression = {ReferenceNode (range = 1965..1965,name = b)})}])})}
-    {ReferenceNode (range = 1898..1900,name = Int)}
-    {BlockNode (range = 1902..1902,statements = [{VariableDeclarationNode (range = 1922..1922,name = a,type = {ReferenceNode (range = 1925..1927,name = Int)}initializer = {IntLiteralNode (range = 1931..1931, value = 5)})}, {VariableDeclarationNode (range = 1942..1942,name = b,type = {ReferenceNode (range = 1945..1947,name = Int)}initializer = {IntLiteralNode (range = 1951..1951, value = 6)})}, {ReturnNode (range = 1958..1963,expression = {ReferenceNode (range = 1965..1965,name = b)})}])}
-      {VariableDeclarationNode (range = 1922..1922,name = a,type = {ReferenceNode (range = 1925..1927,name = Int)}initializer = {IntLiteralNode (range = 1931..1931, value = 5)})}
-        {ReferenceNode (range = 1925..1927,name = Int)}
-        {IntLiteralNode (range = 1931..1931, value = 5)}
-      {VariableDeclarationNode (range = 1942..1942,name = b,type = {ReferenceNode (range = 1945..1947,name = Int)}initializer = {IntLiteralNode (range = 1951..1951, value = 6)})}
-        {ReferenceNode (range = 1945..1947,name = Int)}
-        {IntLiteralNode (range = 1951..1951, value = 6)}
-      {ReturnNode (range = 1958..1963,expression = {ReferenceNode (range = 1965..1965,name = b)})}
-        {ReferenceNode (range = 1965..1965,name = b)}
-  {ExpressionStatementNode (range = 2074..2074,expression = {CallNode (range = 2074..2074,callee = {ReferenceNode (range = 2069..2073,name = print)},arguments = [{CallNode (range = 2083..2083,callee = {ReferenceNode (range = 2075..2082,name = testFun1)},arguments = [])}])})}
-    {CallNode (range = 2074..2074,callee = {ReferenceNode (range = 2069..2073,name = print)},arguments = [{CallNode (range = 2083..2083,callee = {ReferenceNode (range = 2075..2082,name = testFun1)},arguments = [])}])}
-      {ReferenceNode (range = 2069..2073,name = print)}
-      {CallNode (range = 2083..2083,callee = {ReferenceNode (range = 2075..2082,name = testFun1)},arguments = [])}
-        {ReferenceNode (range = 2075..2082,name = testFun1)}
-  {ExpressionStatementNode (range = 2105..2105,expression = {CallNode (range = 2105..2105,callee = {ReferenceNode (range = 2100..2104,name = print)},arguments = [{StringLiteralNode (range = 2106..2106,value = If test,)}])})}
-    {CallNode (range = 2105..2105,callee = {ReferenceNode (range = 2100..2104,name = print)},arguments = [{StringLiteralNode (range = 2106..2106,value = If test,)}])}
-      {ReferenceNode (range = 2100..2104,name = print)}
-      {StringLiteralNode (range = 2106..2106,value = If test,)}
-  {BlockNode (range = 2130..2130,statements = [{ExpressionStatementNode (range = 2141..2141,expression = {CallNode (range = 2141..2141,callee = {ReferenceNode (range = 2136..2140,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 0)}])})}])}
-    {ExpressionStatementNode (range = 2141..2141,expression = {CallNode (range = 2141..2141,callee = {ReferenceNode (range = 2136..2140,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 0)}])})}
-      {CallNode (range = 2141..2141,callee = {ReferenceNode (range = 2136..2140,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 0)}])}
-        {ReferenceNode (range = 2136..2140,name = print)}
-        {IntLiteralNode (range = -1..-1, value = 0)}
-  {BlockNode (range = 2228..2228,statements = [{ExpressionStatementNode (range = 2239..2239,expression = {CallNode (range = 2239..2239,callee = {ReferenceNode (range = 2234..2238,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 1)}])})}])}
-    {ExpressionStatementNode (range = 2239..2239,expression = {CallNode (range = 2239..2239,callee = {ReferenceNode (range = 2234..2238,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 1)}])})}
-      {CallNode (range = 2239..2239,callee = {ReferenceNode (range = 2234..2238,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 1)}])}
-        {ReferenceNode (range = 2234..2238,name = print)}
-        {IntLiteralNode (range = -1..-1, value = 1)}
-  {BlockNode (range = 2269..2269,statements = [{ExpressionStatementNode (range = 2280..2280,expression = {CallNode (range = 2280..2280,callee = {ReferenceNode (range = 2275..2279,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 0)}])})}])}
-    {ExpressionStatementNode (range = 2280..2280,expression = {CallNode (range = 2280..2280,callee = {ReferenceNode (range = 2275..2279,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 0)}])})}
-      {CallNode (range = 2280..2280,callee = {ReferenceNode (range = 2275..2279,name = print)},arguments = [{IntLiteralNode (range = -1..-1, value = 0)}])}
-        {ReferenceNode (range = 2275..2279,name = print)}
-        {IntLiteralNode (range = -1..-1, value = 0)}
+  {VariableDeclarationNode (range = 1774..1774,name = x,type = {ReferenceNode (range = 1777..1779,name = Int)}initializer = {IntLiteralNode (range = 1783..1783, value = 0)})}
+    {ReferenceNode (range = 1777..1779,name = Int)}
+    {IntLiteralNode (range = 1783..1783, value = 0)}
+  {WhileNode (range = 1786..1790,condition = {BinaryExpressionNode (range = 1795..1795,operator = >,left = {ReferenceNode (range = 1793..1793,name = x)},right = {IntLiteralNode (range = 1797..1797, value = 5)})}body = {BlockNode (range = 1800..1800,statements = [{ExpressionStatementNode (range = 1808..1808,expression = {AssignmentNode (range = 1808..1808,lvalue = {ReferenceNode (range = 1806..1806,name = x)},expression = {BinaryExpressionNode (range = 1812..1812,operator = +,left = {ReferenceNode (range = 1810..1810,name = x)},right = {IntLiteralNode (range = 1814..1814, value = 1)})})})}, {ExpressionStatementNode (range = 1826..1826,expression = {CallNode (range = 1826..1826,callee = {ReferenceNode (range = 1821..1825,name = print)},arguments = [{StringLiteralNode (range = 1827..1827,value = This code is unreachable,)}])})}])},)}
+    {BlockNode (range = 1800..1800,statements = [{ExpressionStatementNode (range = 1808..1808,expression = {AssignmentNode (range = 1808..1808,lvalue = {ReferenceNode (range = 1806..1806,name = x)},expression = {BinaryExpressionNode (range = 1812..1812,operator = +,left = {ReferenceNode (range = 1810..1810,name = x)},right = {IntLiteralNode (range = 1814..1814, value = 1)})})})}, {ExpressionStatementNode (range = 1826..1826,expression = {CallNode (range = 1826..1826,callee = {ReferenceNode (range = 1821..1825,name = print)},arguments = [{StringLiteralNode (range = 1827..1827,value = This code is unreachable,)}])})}])}
+      {ExpressionStatementNode (range = 1808..1808,expression = {AssignmentNode (range = 1808..1808,lvalue = {ReferenceNode (range = 1806..1806,name = x)},expression = {BinaryExpressionNode (range = 1812..1812,operator = +,left = {ReferenceNode (range = 1810..1810,name = x)},right = {IntLiteralNode (range = 1814..1814, value = 1)})})})}
+        {AssignmentNode (range = 1808..1808,lvalue = {ReferenceNode (range = 1806..1806,name = x)},expression = {BinaryExpressionNode (range = 1812..1812,operator = +,left = {ReferenceNode (range = 1810..1810,name = x)},right = {IntLiteralNode (range = 1814..1814, value = 1)})})}
+          {ReferenceNode (range = 1806..1806,name = x)}
+          {BinaryExpressionNode (range = 1812..1812,operator = +,left = {ReferenceNode (range = 1810..1810,name = x)},right = {IntLiteralNode (range = 1814..1814, value = 1)})}
+            {ReferenceNode (range = 1810..1810,name = x)}
+            {IntLiteralNode (range = 1814..1814, value = 1)}
+      {ExpressionStatementNode (range = 1826..1826,expression = {CallNode (range = 1826..1826,callee = {ReferenceNode (range = 1821..1825,name = print)},arguments = [{StringLiteralNode (range = 1827..1827,value = This code is unreachable,)}])})}
+        {CallNode (range = 1826..1826,callee = {ReferenceNode (range = 1821..1825,name = print)},arguments = [{StringLiteralNode (range = 1827..1827,value = This code is unreachable,)}])}
+          {ReferenceNode (range = 1821..1825,name = print)}
+          {StringLiteralNode (range = 1827..1827,value = This code is unreachable,)}
+    {BinaryExpressionNode (range = 1795..1795,operator = >,left = {ReferenceNode (range = 1793..1793,name = x)},right = {IntLiteralNode (range = 1797..1797, value = 5)})}
+      {ReferenceNode (range = 1793..1793,name = x)}
+      {IntLiteralNode (range = 1797..1797, value = 5)}
+  {ExpressionStatementNode (range = 1976..1976,expression = {CallNode (range = 1976..1976,callee = {ReferenceNode (range = 1971..1975,name = print)},arguments = [{StringLiteralNode (range = 1977..1977,value = Block test,)}])})}
+    {CallNode (range = 1976..1976,callee = {ReferenceNode (range = 1971..1975,name = print)},arguments = [{StringLiteralNode (range = 1977..1977,value = Block test,)}])}
+      {ReferenceNode (range = 1971..1975,name = print)}
+      {StringLiteralNode (range = 1977..1977,value = Block test,)}
+  {FunctionDeclarationNode (range = 1992..1994,name = testFun1,parameters = [],returnType = {ReferenceNode (range = 2010..2012,name = Int)},body = {BlockNode (range = 2014..2014,statements = [{VariableDeclarationNode (range = 2034..2034,name = a,type = {ReferenceNode (range = 2037..2039,name = Int)}initializer = {IntLiteralNode (range = 2043..2043, value = 5)})}, {VariableDeclarationNode (range = 2054..2054,name = b,type = {ReferenceNode (range = 2057..2059,name = Int)}initializer = {IntLiteralNode (range = 2063..2063, value = 6)})}, {ReturnNode (range = 2070..2075,expression = {ReferenceNode (range = 2077..2077,name = b)})}])})}
+    {ReferenceNode (range = 2010..2012,name = Int)}
+    {BlockNode (range = 2014..2014,statements = [{VariableDeclarationNode (range = 2034..2034,name = a,type = {ReferenceNode (range = 2037..2039,name = Int)}initializer = {IntLiteralNode (range = 2043..2043, value = 5)})}, {VariableDeclarationNode (range = 2054..2054,name = b,type = {ReferenceNode (range = 2057..2059,name = Int)}initializer = {IntLiteralNode (range = 2063..2063, value = 6)})}, {ReturnNode (range = 2070..2075,expression = {ReferenceNode (range = 2077..2077,name = b)})}])}
+      {VariableDeclarationNode (range = 2034..2034,name = a,type = {ReferenceNode (range = 2037..2039,name = Int)}initializer = {IntLiteralNode (range = 2043..2043, value = 5)})}
+        {ReferenceNode (range = 2037..2039,name = Int)}
+        {IntLiteralNode (range = 2043..2043, value = 5)}
+      {VariableDeclarationNode (range = 2054..2054,name = b,type = {ReferenceNode (range = 2057..2059,name = Int)}initializer = {IntLiteralNode (range = 2063..2063, value = 6)})}
+        {ReferenceNode (range = 2057..2059,name = Int)}
+        {IntLiteralNode (range = 2063..2063, value = 6)}
+      {ReturnNode (range = 2070..2075,expression = {ReferenceNode (range = 2077..2077,name = b)})}
+        {ReferenceNode (range = 2077..2077,name = b)}
+  {ExpressionStatementNode (range = 2186..2186,expression = {CallNode (range = 2186..2186,callee = {ReferenceNode (range = 2181..2185,name = print)},arguments = [{CallNode (range = 2195..2195,callee = {ReferenceNode (range = 2187..2194,name = testFun1)},arguments = [])}])})}
+    {CallNode (range = 2186..2186,callee = {ReferenceNode (range = 2181..2185,name = print)},arguments = [{CallNode (range = 2195..2195,callee = {ReferenceNode (range = 2187..2194,name = testFun1)},arguments = [])}])}
+      {ReferenceNode (range = 2181..2185,name = print)}
+      {CallNode (range = 2195..2195,callee = {ReferenceNode (range = 2187..2194,name = testFun1)},arguments = [])}
+        {ReferenceNode (range = 2187..2194,name = testFun1)}
+  {ExpressionStatementNode (range = 2217..2217,expression = {CallNode (range = 2217..2217,callee = {ReferenceNode (range = 2212..2216,name = print)},arguments = [{StringLiteralNode (range = 2218..2218,value = If test,)}])})}
+    {CallNode (range = 2217..2217,callee = {ReferenceNode (range = 2212..2216,name = print)},arguments = [{StringLiteralNode (range = 2218..2218,value = If test,)}])}
+      {ReferenceNode (range = 2212..2216,name = print)}
+      {StringLiteralNode (range = 2218..2218,value = If test,)}
+  {BlockNode (range = 2242..2242,statements = [{ExpressionStatementNode (range = 2251..2251,expression = {IntLiteralNode (range = -1..-1, value = 0)})}, {ExpressionStatementNode (range = 2265..2265,expression = {CallNode (range = 2265..2265,callee = {ReferenceNode (range = 2260..2264,name = print)},arguments = [{StringLiteralNode (range = 2266..2266,value = This code is reachable,)}])})}])}
+    {ExpressionStatementNode (range = 2251..2251,expression = {IntLiteralNode (range = -1..-1, value = 0)})}
+      {IntLiteralNode (range = -1..-1, value = 0)}
+    {ExpressionStatementNode (range = 2265..2265,expression = {CallNode (range = 2265..2265,callee = {ReferenceNode (range = 2260..2264,name = print)},arguments = [{StringLiteralNode (range = 2266..2266,value = This code is reachable,)}])})}
+      {CallNode (range = 2265..2265,callee = {ReferenceNode (range = 2260..2264,name = print)},arguments = [{StringLiteralNode (range = 2266..2266,value = This code is reachable,)}])}
+        {ReferenceNode (range = 2260..2264,name = print)}
+        {StringLiteralNode (range = 2266..2266,value = This code is reachable,)}
+  {BlockNode (range = 2400..2400,statements = [{ExpressionStatementNode (range = 2409..2409,expression = {IntLiteralNode (range = -1..-1, value = 1)})}])}
+    {ExpressionStatementNode (range = 2409..2409,expression = {IntLiteralNode (range = -1..-1, value = 1)})}
+      {IntLiteralNode (range = -1..-1, value = 1)}
