@@ -166,30 +166,33 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
                 )
             }
 
+            left is IntLiteralNode && right is IntLiteralNode && left.value > 0 && left.value <= operatorReductionLimit -> {
+                var result: Long = 0
+                for (i in 1 until left.value+1) {
+                    result += right.value
+                }
+                IntLiteralNode(
+                    range = -1..-1,
+                    value = result
+                )
+            }
+
+            left is IntLiteralNode && right is IntLiteralNode && right.value > 0 && right.value <= operatorReductionLimit -> {
+                var result: Long = 0
+                for (i in 1 until right.value+1) {
+                    result += left.value
+                }
+                IntLiteralNode(
+                    range = -1..-1,
+                    value = result
+                )
+            }
+
             left is IntLiteralNode && right is IntLiteralNode -> {
                 IntLiteralNode(
                     range = -1..-1,
                     value = left.value * right.value
                 )
-            }
-            left is IntLiteralNode && left.value <= operatorReductionLimit -> {
-                var i = 1
-                var expr = BinaryExpressionNode(-1..-1, ADDITION, right, right)
-                while(i < left.value - 1) {
-                    expr = BinaryExpressionNode(-1..-1, ADDITION, right, expr)
-                    i++
-                }
-                expr
-
-            }
-            right is IntLiteralNode && right.value <= operatorReductionLimit -> {
-                var i = 1
-                var expr = BinaryExpressionNode(-1..-1, ADDITION, left, left)
-                while(i < right.value - 1) {
-                    expr = BinaryExpressionNode(-1..-1, ADDITION, left, expr)
-                    i++
-                }
-                expr
             }
 
             else -> {
