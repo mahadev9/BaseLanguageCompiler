@@ -667,7 +667,7 @@ private fun ifTest():Unit{
             "Expected: $expected, actual: $actual" }
 
     actual = ExpressionOptimizer().apply(expr41)
-    var expectedUnit = UnitLiteralNode(IntRange.EMPTY)
+    val expectedUnit = UnitLiteralNode(IntRange.EMPTY)
 
     check(actual == expectedUnit){ "IfTest: expr41 failed." +
             "Expected: $expectedUnit, actual: $actual" }

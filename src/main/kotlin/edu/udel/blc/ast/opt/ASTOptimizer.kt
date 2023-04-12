@@ -5,7 +5,7 @@ import edu.udel.blc.ast.BinaryOperator.*
 import edu.udel.blc.util.visitor.ValuedVisitor
 
 class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
-    val operatorReductionLimit = 3
+    private val operatorReductionLimit = 3
     init {
         // TODO: Add implementation for ALL AST Nodes types
         register(ArrayLiteralNode::class.java, ::arrayLiteral)
@@ -33,6 +33,7 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         register(VariableDeclarationNode::class.java, ::variableDeclaration)
         register(WhileNode::class.java, ::`while`)
     }
+
     private fun arrayLiteral(node:ArrayLiteralNode):Node{
         val elements = node.elements.map { n -> apply(n) }
         return ArrayLiteralNode(
@@ -508,20 +509,10 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         val elseStatement = node.elseStatement?.let { apply(it) }
 
         return when{
-            condition is BooleanLiteralNode && condition.value ->{
-                ExpressionStatementNode(
-                    range = node.range,
-                    expression = thenStatement
-                )
-            }
-            condition is BooleanLiteralNode && !(condition.value) ->{
-                when(elseStatement){
-                    null -> UnitLiteralNode(range = node.range)
-                    else -> ExpressionStatementNode(
-                        range = node.range,
-                        expression = elseStatement
-                    )
-                }
+            condition is BooleanLiteralNode -> {
+                if (condition.value) {
+                    thenStatement
+                } else elseStatement ?: UnitLiteralNode(range = node.range)
             }
             else -> {
                 IfNode(
