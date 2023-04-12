@@ -70,8 +70,10 @@ print((678 + 8311) + (9023 + 57)); // 18069
 print((0 - 892) * (73 % (65 + -34))); // -9812
 print((98 + 12) == (84 - 46));  // false
 
-// dead code elimination test
+// Dead code elimination test
+print("Dead code elimination test");
 // While loop test
+print("While loop test");
 while(false == true){// expr22
     10;
 }
@@ -81,6 +83,7 @@ while(false == true){// expr22
 //}
 
 // Block test
+print("Block test");
 { // expr23
     var a: Int = 5;
     var b: Int = 6;
@@ -90,4 +93,22 @@ while(false == true){// expr22
     c = c % 10;
     }else{
     }
+}
+
+// If test
+print("If test");
+if (10 < 23){
+    10 % 2;
+}else{
+    23 % 2;
+}
+
+if (23 % 2 != 1) {
+    10 % 2;
+}  else {
+    23 % 2;
+}
+
+if (23 % 2 != 1) {
+    10 % 2;
 }
