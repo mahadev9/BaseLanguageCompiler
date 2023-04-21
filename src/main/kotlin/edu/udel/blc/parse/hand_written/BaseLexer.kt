@@ -131,10 +131,18 @@ class BaseLexer(
     }
 
     private fun number(): BaseToken.Kind {
-        while (isDigit(peek)) {
+        var isFloat: Boolean = false
+        while (isDigit(peek) || peek == '.') {
+            if (peek == '.') {
+                if (isFloat) {
+                    return UNKNOWN
+                } else {
+                    isFloat = true
+                }
+            }
             advance()
         }
-        return NUMBER
+        return if (isFloat) FLOAT else NUMBER
     }
 
     private fun whitespace(): BaseToken.Kind {

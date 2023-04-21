@@ -20,6 +20,7 @@ sealed interface Node {
         fun `if`(node: IfNode, arg: A): R
         fun index(node: IndexNode, arg: A): R
         fun intLiteral(node: IntLiteralNode, arg: A): R
+        fun floatLiteral(node: FloatLiteralNode, arg: A): R
         fun parameter(node: ParameterNode, arg: A): R
         fun reference(node: ReferenceNode, arg: A): R
         fun `return`(node: ReturnNode, arg: A): R
@@ -48,6 +49,7 @@ sealed interface Node {
         is IfNode -> visitor.`if`(this, arg)
         is IndexNode -> visitor.index(this, arg)
         is IntLiteralNode -> visitor.intLiteral(this, arg)
+        is FloatLiteralNode -> visitor.floatLiteral(this, arg)
         is ParameterNode -> visitor.parameter(this, arg)
         is ReferenceNode -> visitor.reference(this, arg)
         is ReturnNode -> visitor.`return`(this, arg)

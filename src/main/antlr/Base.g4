@@ -58,6 +58,7 @@ expr
     | value=( TRUE | FALSE )                                                             # booleanLiteral
     | value=INT_LITERAL                                                                  # intLiteral
     | value=STRING_LITERAL                                                               # stringLiteral
+    | value=FLOAT_LITERAL                                                                # floatLiteral
     | UNIT                                                                               # unitLiteral
     | LBRACE elements+=expr ( COMMA elements+=expr )* COMMA? RBRACE                      # arrayLiteral
     | reference                                                                          # referenceAsExpression
@@ -134,6 +135,10 @@ IDENTIFIER
 INT_LITERAL
     : '-'? DIGIT+
     ;
+
+FLOAT_LITERAL
+	: '-'? DIGIT+ '.' DIGIT+
+	;
 
 STRING_LITERAL
     : '"' ( '\\"' | . )*? '"'

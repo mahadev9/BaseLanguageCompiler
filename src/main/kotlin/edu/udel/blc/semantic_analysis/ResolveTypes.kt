@@ -40,6 +40,7 @@ class ResolveTypes(
         register(ArrayLiteralNode::class.java, PRE_VISIT, ::arrayLiteral)
         register(BooleanLiteralNode::class.java, PRE_VISIT, ::booleanLiteral)
         register(IntLiteralNode::class.java, PRE_VISIT, ::intLiteral)
+        register(FloatLiteralNode::class.java, PRE_VISIT, ::floatLiteral)
         register(StringLiteralNode::class.java, PRE_VISIT, ::stringLiteral)
         register(UnitLiteralNode::class.java, PRE_VISIT, ::unitLiteral)
 
@@ -240,13 +241,23 @@ class ResolveTypes(
     }
 
     private fun unaryExpression(node: UnaryExpressionNode) {
-        reactor.supply(
-            name = "unary expression: type",
-            attribute = Attribute(node, "type")
-        ) {
-            when (node.operator) {
-                LOGICAL_COMPLEMENT -> BooleanType
-                NEGATION -> IntType
+        when (node.operator) {
+            LOGICAL_COMPLEMENT -> reactor.supply(
+                    name = "unary expression: type",
+                    attribute = Attribute(node, "type")
+                ) {
+                    BooleanType
+                }
+            NEGATION -> reactor.map(
+                name = "negation type",
+                from = Attribute(node.operand, "node"),
+                to = Attribute(node, "type"),
+            ) { operandType: Node ->
+                when (operandType) {
+                    is IntLiteralNode -> IntType
+                    is FloatLiteralNode -> FloatType
+                    else -> SemanticError(node, "type $operandType is not supported")
+                }
             }
         }
     }
@@ -277,6 +288,10 @@ class ResolveTypes(
 
     private fun intLiteral(node: IntLiteralNode) {
         reactor.supply(name = "int: type", Attribute(node, "type")) { IntType }
+    }
+
+    private fun floatLiteral(node: FloatLiteralNode) {
+        reactor.supply(name = "float: type", Attribute(node, "type")) { FloatType }
     }
 
     private fun stringLiteral(node: StringLiteralNode) {

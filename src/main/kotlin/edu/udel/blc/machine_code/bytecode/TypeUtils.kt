@@ -16,6 +16,7 @@ object TypeUtils {
                 append(returnType.descriptor)
             }
             IntType -> "Ljava/lang/Long;"
+            FloatType -> "Ljava/lang/Double;"
             StringType -> "Ljava/lang/String;"
             is StructType -> "L${name};"
             UnitType -> "Ljava/lang/Void;"

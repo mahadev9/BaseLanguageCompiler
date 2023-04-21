@@ -157,6 +157,10 @@ class BaseVisitor : BaseBaseVisitor<Node>() {
         return IntLiteralNode(ctx.range, ctx.value.text.toLong())
     }
 
+    override fun visitFloatLiteral(ctx: BaseParser.FloatLiteralContext): FloatLiteralNode {
+        return FloatLiteralNode(ctx.range, ctx.value.text.toDouble())
+    }
+
     override fun visitStringLiteral(ctx: BaseParser.StringLiteralContext): StringLiteralNode {
         return StringLiteralNode(ctx.range, ctx.value.text)
     }

@@ -107,6 +107,10 @@ class ResolveReferences(
 
     }
 
+    override fun floatLiteral(node: FloatLiteralNode, arg: Scope) {
+
+    }
+
     override fun parameter(node: ParameterNode, arg: Scope) {
         val symbol = VariableSymbol(node.name, arg)
         arg.declare(symbol)

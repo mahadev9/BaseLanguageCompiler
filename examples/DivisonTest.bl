@@ -1,0 +1,5 @@
+
+print("Validating Division");
+var a: Float = 4 / 5;
+print(a); // 0.8
+print(a == 0.8); // true

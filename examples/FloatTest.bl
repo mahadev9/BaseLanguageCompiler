@@ -1,0 +1,25 @@
+
+print("Validating Float Literal");
+var a: Float = 1.0;
+print(a); // 1.0
+print(a == 1.0); // true
+
+var b: Float = 732.82391;
+print(b); // 732.82391
+print(b == 732.82391); // true
+
+var c: Float = -89.89;
+print(c); // -89.89
+print(c == -89.89); // true
+
+// var d: Float = 783.938 + 84.834;
+// print(d); // 868.772
+// print(d == 868.772); // true
+//
+// var e: Float = 783.938 - 84.834;
+// print(e); // 699.104
+// print(e == 699.104); // true
+//
+// var e: Float = 783.938 * 84.834;
+// print(e); // 66504.59629
+// print(e == 66504.59629); // true

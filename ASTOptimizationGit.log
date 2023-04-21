@@ -1,0 +1,821 @@
+commit d2dd6ad74f0d21abcb0cd786f9489cdf0d94336c
+Author: Mahadev Maitri <mmaitri@udel.edu>
+Date:   Wed Apr 12 17:42:35 2023 -0400
+
+    updated comparison of optimizations
+
+commit bf665ba3ed4e37724c842a1f4ac438dc496fb978
+Merge: 45f010c 85366f3
+Author: Mahadev Maitri <mmaitri@udel.edu>
+Date:   Wed Apr 12 17:39:45 2023 -0400
+
+    Merge branch 'main' of https://gitlab.eecis.udel.edu/cisc672/blc
+
+commit 85366f3df5432ac5d95d82a705a3590524418cc6
+Author: luomi16 <25487020@qq.com>
+Date:   Wed Apr 12 17:38:07 2023 -0400
+
+    update test cases
+
+commit 45f010cb7ba3cac63f24d10bf3ee5a2fd04eebf5
+Author: Mahadev Maitri <mmaitri@udel.edu>
+Date:   Wed Apr 12 17:38:05 2023 -0400
+
+    comparing AST before and after optimization
+
+commit b194ab07e362dfc78026088d941fa07e8898e5e0
+Author: Mahadev Maitri <mmaitri@udel.edu>
+Date:   Wed Apr 12 17:37:47 2023 -0400
+
+    handling errors ifNode optimization
+
+commit 9e406a0afdfc1f78370ab8227010c46825411761
+Author: Mahadev Maitri <mmaitri@udel.edu>
+Date:   Wed Apr 12 13:31:57 2023 -0400
+
+    strength reduction of multiplication to addition based on reduction limit
+
+commit c0a015fb332d058c394c1aef2489b8b008502651
+Author: luomi16 <25487020@qq.com>
+Date:   Tue Apr 11 22:26:49 2023 -0400
+
+    Add if test case
+
+commit f7f3076abeb38c5742070a0367b92b5d45ffb472
+Author: luomi16 <25487020@qq.com>
+Date:   Tue Apr 11 22:25:35 2023 -0400
+
+    Add if test case
+
+commit d4b7f7fc13d1c2672e030833215fe3a4a50066d0
+Author: luomi16 <25487020@qq.com>
+Date:   Tue Apr 11 22:23:24 2023 -0400
+
+    Add if test case
+
+commit 6e3739d7b8bdca4f18e459431008bdc64c6ac7d6
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 11 01:29:13 2023 -0400
+
+    improved the strength reduction implementation for multiplication to handle variables as operands
+
+commit a711f177817107e17273084eabae5ec8f8b5f5bc
+Author: luomi16 <25487020@qq.com>
+Date:   Mon Apr 10 23:48:17 2023 -0400
+
+    update
+
+commit 91c71069332131fd9ec31086510b11cd834f05d8
+Author: luomi16 <25487020@qq.com>
+Date:   Mon Apr 10 23:43:30 2023 -0400
+
+    Add Optimizations Test Cases
+
+commit aa6e28cf304802228fced20e031d2b259415fa5f
+Author: luomi16 <25487020@qq.com>
+Date:   Mon Apr 10 23:42:15 2023 -0400
+
+    Add Optimizations Test
+
+commit d3c99234b7fc37bd8523e47034ab06d0151949b4
+Merge: f9d6ffa 204a510
+Author: luomi16 <25487020@qq.com>
+Date:   Mon Apr 10 23:40:53 2023 -0400
+
+    Merge remote-tracking branch 'origin/main'
+
+commit f9d6ffab140fc43ee12986a936dd2c2c7add6368
+Author: luomi16 <25487020@qq.com>
+Date:   Mon Apr 10 23:40:30 2023 -0400
+
+    Add noOptimization command line
+
+commit 204a51059cd493b47cdb53fa1463dcc4496b88a9
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Mon Apr 10 21:29:02 2023 -0400
+
+    added test cases for dead-code elimination for IfNode
+
+commit 7f9bfe1b86cdb69c79f5114eb32a330017c154d4
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Mon Apr 10 21:15:32 2023 -0400
+
+    Implemented dead-code elimination for IfNode
+
+commit ed8d2cfd92ffdef530d9d6cc47a60b6ba4f5a0a8
+Author: luomi16 <25487020@qq.com>
+Date:   Mon Apr 10 19:12:45 2023 -0400
+
+    Add logical test
+
+commit a61d61fdeedd51213262114f35a2ff3bc9288a45
+Author: luomi16 <25487020@qq.com>
+Date:   Mon Apr 10 19:11:17 2023 -0400
+
+    add logical Test
+
+commit 28a7207b1de28dd913d73fb59d86608c5f7762a5
+Author: luomi16 <25487020@qq.com>
+Date:   Mon Apr 10 17:40:08 2023 -0400
+
+    Add comparison test
+
+commit 6ae1d01c60f378a97c615b7b9133c0d0f00f8937
+Author: Mahadev Maitri <mmaitri@udel.edu>
+Date:   Mon Apr 10 10:49:14 2023 -0400
+
+    block node code elimination
+
+commit 1980575f3ba3b5f46e5836deaeab2d49d1969c44
+Author: Mahadev Maitri <mmaitri@udel.edu>
+Date:   Mon Apr 10 08:59:29 2023 -0400
+
+    deadcode elimination for while and block node based on condition and return node
+
+commit 07679858a708abb99b2c456c5ae8a7d0803f250e
+Merge: abc59d1 b130e0d
+Author: Mahadev Maitri <mmaitri@udel.edu>
+Date:   Sun Apr 9 20:25:20 2023 -0400
+
+    Merge branch 'main' of https://gitlab.eecis.udel.edu/cisc672/blc
+
+commit abc59d1457f8ed357ccf504c5d532188392a300c
+Author: Mahadev Maitri <mmaitri@udel.edu>
+Date:   Sun Apr 9 20:24:19 2023 -0400
+
+    string & boolean node comparison, combination of test cases with equality and arithmetic operations
+
+commit b130e0dfe49738767db3c583143d50f07768b37f
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Sun Apr 9 14:36:09 2023 -0400
+
+    changed the format and the name of return()
+
+commit eb84fe83d2e4f91c6a20ee69e35f622055e6a5da
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Sun Apr 9 14:12:10 2023 -0400
+
+    implemented constant folding for variableDeclarationNode
+
+commit f9ae926110c5dcf34f3482b2e8500063fad4f894
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Sun Apr 9 14:09:51 2023 -0400
+
+    implemented constant folding for StructDeclaration
+
+commit 803c3775c23f517acefd6d965bc5cfc67be39119
+Merge: 7ecdf29 63c78e2
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Sun Apr 9 14:04:49 2023 -0400
+
+    Merge remote-tracking branch 'origin/main'
+
+commit 7ecdf293202ae08903981192f578387c65c34d5a
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Sun Apr 9 14:04:31 2023 -0400
+
+    implemented constant folding for whileNode
+
+commit 63c78e269d3015ddd6845daed0c2fa70eaa59fb8
+Author: Mahadev Maitri <mmaitri@udel.edu>
+Date:   Sun Apr 9 09:56:47 2023 -0400
+
+    strength reduction for addition, subtraction, multiplication
+
+commit 417964b952dd37ce39b18b030462d0255c559618
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Fri Apr 7 23:28:00 2023 -0400
+
+    added test cases for constant fold implementation
+
+commit 994cdc190ea6406ba59df34fc176c50715416325
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Fri Apr 7 23:25:15 2023 -0400
+
+    Corrected the constant fold implementation for some AST nodes
+
+commit 4fe3101f3b0be2edde6244f0e20c7d1b62df63e1
+Merge: 095e101 9256d43
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:46:23 2023 -0400
+
+    Merge remote-tracking branch 'origin/main'
+
+commit 095e101dfc897e3f7e23b20fd8794132b4988fc3
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:43:57 2023 -0400
+
+    changed the format of toString() for IntLiteralNode
+
+commit d8e259341741b3a8d34199a37a6adc6c421b8924
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:42:58 2023 -0400
+
+    implemented toString() for WhileNode
+
+commit 0f1cfd73b833ca95178b51f08bc1fcb808d38db9
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:42:47 2023 -0400
+
+    implemented toString() for VariableDeclarationNode
+
+commit dd2d8a7454b41e71ffef25cfcd9f743efaf4f7c6
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:42:33 2023 -0400
+
+    implemented toString() for UnitLiteralNode
+
+commit 8ed077a47884bfb23b0f73703bad0617e8fa0b74
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:42:21 2023 -0400
+
+    implemented toString() for UnaryExpressionNode
+
+commit fe21d0b24fe32a456153eababc0ed5667f3c4599
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:42:13 2023 -0400
+
+    implemented toString() for StructDeclarationNode
+
+commit 82d36139fc022981725af1cf1f1ebd96ab321cf2
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:42:01 2023 -0400
+
+    implemented toString() for StringLiteralNode
+
+commit 3295cc100120232e73d7bd3bbd83297bc724fd03
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:41:40 2023 -0400
+
+    implemented toString() for ReferenceNode
+
+commit 625c00e482cbaf4bd2151830b8c5605117343b56
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:41:28 2023 -0400
+
+    implemented toString() for ReturnNode
+
+commit 648e1167be9c673b45acc7a67fc0d9398ea1d039
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:41:14 2023 -0400
+
+    implemented toString() for ParameterNode
+
+commit 057dfa2b2747e14f0fe2b0bedc73db3b6dbdfb65
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:40:57 2023 -0400
+
+    implemented toString() for IndexNode
+
+commit df4adcac769ba263ed02f7f96650bf95e94b175c
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:40:48 2023 -0400
+
+    implemented toString() for IfNode
+
+commit ce2aae7bc0de315ff788d6b3717200eb19180dd0
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:40:39 2023 -0400
+
+    implemented toString() for FunctionDeclarationNode
+
+commit f018986751e631ffab01d21772c765ecb22271bb
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:40:27 2023 -0400
+
+    implemented toString() for FieldSelectNode
+
+commit 970b9f5fe7c163ad40e6b622931fa60d2e691037
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:40:17 2023 -0400
+
+    implemented toString() for FieldNode
+
+commit fc4d8dbf154a5829fa6f4092c5aafce21847dc77
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:40:06 2023 -0400
+
+    implemented toString() for ExpressionStatementNode
+
+commit a05c6d4fc0b3faca69a5e05466ba65150e5a9bf7
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:39:56 2023 -0400
+
+    implemented toString() for CompilationUnitNode
+
+commit 6f793ef0d2257dc461e3c9d065981b4fff7dcef5
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:39:44 2023 -0400
+
+    implemented toString() for CallNode
+
+commit 98ebbbb47d946fb27cbc555debe52e4161a67f4b
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:39:28 2023 -0400
+
+    implemented toString() for BooleanLiteralNode
+
+commit e64eb07ff0d5ceecd2945e7169ab7b4a5a3786bd
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:39:07 2023 -0400
+
+    implemented toString() for BlockNode
+
+commit 9698416cbf61ccd88f8eb98d13fb994939cc9aa7
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:38:55 2023 -0400
+
+    implemented toString() for BinaryExpressionNode
+
+commit 1125e5605a29302af39b550211c1917f9a2779dd
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:38:43 2023 -0400
+
+    implemented toString() for AssignmentNode
+
+commit 0badb0c4c44fdeace0521f73014ccb40b69476bd
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:38:31 2023 -0400
+
+    implemented toString() for ArrayTypeNode
+
+commit 3603cb27aa8e9f3c4dd0ca4e3fb57a4b59d99e8c
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 21:38:19 2023 -0400
+
+    implemented toString() for ArrayLiteralNode
+
+commit 9256d431f903b2fd5e625fbf2aa1a2f27d897d5a
+Author: Mahadev Maitri <mahadevmaitri@gmail.com>
+Date:   Wed Apr 5 20:55:03 2023 -0400
+
+    missing nodes added to optimizer and old test cases merged
+
+commit 28f3b788a46d423f3b4eb4024f6d0cb64de495d9
+Author: Mahadev Maitri <mahadevmaitri@gmail.com>
+Date:   Wed Apr 5 20:54:37 2023 -0400
+
+    missing nodes added to optimizer and old test cases merged
+
+commit 49c67f3e2d6f01fd8a1990cb412cb1a9c13eb316
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 19:36:38 2023 -0400
+
+    implemented equals() for WhileNode
+
+commit 5696adb4919e3dde684e828791cd84daed40d237
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 19:36:23 2023 -0400
+
+    implemented equals() for VariableDeclarationNode
+
+commit faeebb8f5ca712f69c58b64e70e4b5d32e8c069f
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 19:36:10 2023 -0400
+
+    implemented equals() for UnitLiteralNode
+
+commit 8b48aba2d4b249c7c5b4dc75d0ee0f6de629d529
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 19:35:59 2023 -0400
+
+    implemented equals() for UnaryExpressionNode
+
+commit 80b47f43e298bfc7de26a01109dcea41c0f11713
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 19:35:47 2023 -0400
+
+    implemented equals() for StructDeclarationNode
+
+commit a7c15bf03317422568ba6f17a0345b73f1d74e02
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 19:35:36 2023 -0400
+
+    implemented equals() for StringLiteralNode
+
+commit 7fe9a587662b508ab928468e4ff08d3c8542c03c
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 19:35:25 2023 -0400
+
+    implemented equals() for ReferenceNode
+
+commit 93092bb4c0a36903b3617b22206e20e210b60e53
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 19:35:11 2023 -0400
+
+    implemented equals() for ParameterNode
+
+commit 6caa1675f406e26130e1ee112fe49fed5ba8f5bb
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 19:35:01 2023 -0400
+
+    implemented equals() for IndexNode
+
+commit d2ca8d2e4d1073269f1aaaeeccb0a21e28a60fc9
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 19:34:51 2023 -0400
+
+    implemented equals() for IfNode
+
+commit 18ca7f0ecbf59dc0168afb51b7ecf7c27d5fdc4b
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 19:34:38 2023 -0400
+
+    implemented equals() for FunctionDeclarationNode
+
+commit ec3bee979a5c33ef2a5dbec1f2c85f526d9c0481
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 19:34:27 2023 -0400
+
+    implemented equals() for FieldSelectNode
+
+commit 97c16fccd9900af39bd051a692327957c6748259
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 19:34:17 2023 -0400
+
+    implemented equals() for FieldNode
+
+commit 5b471647ea0941db52a132c680990fc71d9efd7b
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 19:34:07 2023 -0400
+
+    implemented equals() for ExpressionStatementNode
+
+commit 687f52f1c2ebfe907943b2df85a415b899f34af0
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 19:33:56 2023 -0400
+
+    implemented equals() for CompilationUnitNode
+
+commit 76e9b1a3972d9d40ab19c3ab7758e516f8e44756
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 19:33:45 2023 -0400
+
+    implemented equals() for CallNode
+
+commit f8cf57d62c5aa4207cf599b1364a160d491eeed3
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 19:33:34 2023 -0400
+
+    implemented equals() for BooleanLiteralNode
+
+commit 4307786db00731b2003a75b55a22cdb39792265e
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 19:33:22 2023 -0400
+
+    implemented equals() for BlockNode
+
+commit 9184c5bc6e44029db0aeea2d364b1a0a94b371c7
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 19:33:05 2023 -0400
+
+    implemented equals() for BinaryExpressionNode
+
+commit 98772b3729c9ce55e49f8fa13bb5712c9be59a51
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 19:32:49 2023 -0400
+
+    implemented equals() for ArrayTypeNode
+
+commit 6978cbfccd46ec8a98ea417637f6a59bfcfd799f
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 19:19:02 2023 -0400
+
+    implemented equals() for AssignmentNode
+
+commit fc08eb243718599b49b902d67444a74b43eafc5c
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 19:16:37 2023 -0400
+
+    implemented equals() for ArrayLiteralNode
+
+commit 54c69886bd11b45589a1c141b4abc42aec105f7a
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 19:04:19 2023 -0400
+
+    added toString() stubs to all AST nodes
+
+commit 73456483f1f92a046843235417d385c619891647
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 16:53:17 2023 -0400
+
+    fixed additionTest() in TestASTOptimizer
+
+commit 2e4a644a84a1da665b744fd6015416ede46a0958
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 16:52:10 2023 -0400
+
+    implemented toString() method for IntliteralNode
+
+commit 9beba951d65bdfd94f4fa26794198eeaec6d3c8b
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 16:44:42 2023 -0400
+
+    implemented equals() method for ReturnNode
+
+commit 40d48f5280130ad5a49328f21e6ae9e88a967ea6
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 16:41:08 2023 -0400
+
+    implemented equals() method for IntLiteralNode
+
+commit 04c6cc3b947e1c9357d7d30e71f87020cd1de1a3
+Merge: e2a89af b097686
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 16:38:35 2023 -0400
+
+    Merge remote-tracking branch 'origin/main'
+
+commit e2a89af531bb18e0e3fe786be4265572bf85a9c4
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 07:31:28 2023 -0400
+
+    added equals() to all AST nodes
+
+commit b097686fb52586c81bfdbb25511a8888ebbb0ff9
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Wed Apr 5 07:31:28 2023 -0400
+
+    added implementation for FunctionDeclarationNode
+
+commit 2d59f10bd9fdf5a3a1f9853e2d8e24a75c53daa4
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 20:57:23 2023 -0400
+
+    added implementation for CompilationUnitNode
+
+commit 9d68440b0836b398d7db02ff8c9ed760f85a287d
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 20:55:11 2023 -0400
+
+    added implementation for CallNode
+
+commit 9e3cb01b06465534e25402620cec850b794f58f2
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 20:51:38 2023 -0400
+
+    added implementation for BlockNode
+
+commit d57234a07275ac1ad0a745c7c07ea3dcea286e59
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 20:48:36 2023 -0400
+
+    added implementation for AssignmentNode
+
+commit 005035b85e3bd908cf6d89107d630652c256ae64
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 20:19:11 2023 -0400
+
+    added implementation for ArrayTypeNode
+
+commit 77fe0c11e7388d3391dc07b456eadecad1706e57
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 19:35:14 2023 -0400
+
+    removed the word Node from function names in ASTOptimizer.kt
+
+commit dd626cb6322307a2e3625fe18d89b3bc70991b94
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 19:28:56 2023 -0400
+
+    added implementation for ArrayLiteralNode
+
+commit 35bc93ef9384a294939205c0ee3c5bcba280a593
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 19:08:38 2023 -0400
+
+    added implementation for UnaryExpressionNode
+
+commit 2ec930f6b4383971edd304eeff867ab4b4bd134f
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 18:12:28 2023 -0400
+
+    added implementation for ReturnNode
+
+commit 5f2f510d6d38c0895eb9c359082f80df8f86ee3c
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 17:52:37 2023 -0400
+
+    added implementation for ReferenceNode
+
+commit da94c3bbe73aebbfe5474726e969a06e21af31b9
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 16:57:34 2023 -0400
+
+    added implementation for ParameterNode
+
+commit 88fa8152f36ec847fc3d82744fb788d4ff9005ec
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 16:55:21 2023 -0400
+
+    added implementation for IndexNode
+
+commit 0d8ac0b70d6e55fd67d09570c01b05fb31f2cdad
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 16:52:32 2023 -0400
+
+    added implementation for FieldSelectNode
+
+commit bcef599a029f1489ceb680db3abd2fcbdde90e18
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 16:49:58 2023 -0400
+
+    added implementation for FieldNode
+
+commit 91fc2c656e7372806a2229111fab6f4dd98b9bc2
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 16:46:21 2023 -0400
+
+    added implementation for ExpressionStatementNode
+
+commit 477de342588179f36bb729e33a3db8294c8f6939
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 16:39:32 2023 -0400
+
+    added TestASTOPtimizer.kt
+
+commit 1efd8b3c2642c72db16e6e4cc4f6eb5cb80b91ac
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 15:42:40 2023 -0400
+
+    added the register statement to associate for StringLiteralNode
+
+commit fe548d8c94560f4df1bfdb464518e1120869c12e
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 15:36:25 2023 -0400
+
+    added implementation StringLiteralNode
+
+commit dfe02d2d3c81feadcb762442d415846051ac9905
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 15:35:36 2023 -0400
+
+    added implementation BooleanLiteralNode
+
+commit 7ad079b4daa47611eea838a8725c9254f5a6222a
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 12:03:10 2023 -0400
+
+    added implementation for logicalDisjunction for BinaryExpressionNode
+
+commit a6cf1d7694f07e3b8c1966d8f5840e4e1c925ff5
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 12:02:26 2023 -0400
+
+    added implementation for logicalConjunction for BinaryExpressionNode
+
+commit a75f0ca4df9c77c6ae3aa6b0c7ca2e665a388b00
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 12:00:32 2023 -0400
+
+    added implementation for lessThanOrEqualTo for BinaryExpressionNode
+
+commit 32d9f4a77f30d00c6217bce8206db8e3b9de7517
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 11:59:43 2023 -0400
+
+    added implementation for lessThan for BinaryExpressionNode
+
+commit 73fda8b9c236663b71b885849db5cd4f76e1d6c9
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 11:58:58 2023 -0400
+
+    added implementation for greaterThan and greaterThanorEqualTo for BinaryExpressionNode
+
+commit bd1b5b0bb25e33b59b1866570272afb28cec2e5a
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 11:56:00 2023 -0400
+
+    added implementation for equalTo and notEqualTo for BinaryExpressionNode
+
+commit d1fce01d22da102881077fd4e24c3e2f80ccd13d
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 11:45:35 2023 -0400
+
+    added implementation for remainder for BinaryExpressionNode
+
+commit 6cd60035b49d211ec293651bcec31c0f4632cd2d
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 11:44:04 2023 -0400
+
+    added implementation for multiplication for BinaryExpressionNode
+
+commit ddc7d181ad3bad9b0bb16b2704ed818effd310c2
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 11:42:24 2023 -0400
+
+    added implementation for subtaction for BinaryExpressionNode
+
+commit 7801d94d0ad97fc28726c983cc85fe60c7aa17a9
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 11:33:52 2023 -0400
+
+    changed the implementation of IntLiteralNode to return a copy of the node
+
+commit f8c8b1bd5bf5b3235547997c2921955142f6be29
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Tue Apr 4 11:30:46 2023 -0400
+
+    added implementation IntLiteralNode
+
+commit a9fba6589b17e0f76d95b00acef87d41b53e32f9
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Sun Mar 5 15:48:12 2023 -0500
+
+    added the test files
+
+commit ec892a4d945ba7ac49c102a3a1c900b397a63a57
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Fri Mar 3 11:43:15 2023 -0500
+
+    updated README.md
+
+commit 0a679f5a9f57f1c9a467300ecafca307b456c796
+Author: Mustafa Alsolami <malsolam@udel.edu>
+Date:   Fri Mar 3 11:27:45 2023 -0500
+
+    added BLC-Parser-Investigation.md
+
+commit 4bf93fef3ae83da3a83344b78309e897728e1112
+Author: James Clause <clause@udel.edu>
+Date:   Tue Feb 28 17:17:03 2023 -0500
+
+    remove logging'
+
+commit de24b3f4624d256ccd1e5042bbf5b04614cff84e
+Author: James Clause <clause@udel.edu>
+Date:   Tue Feb 28 17:10:21 2023 -0500
+
+    Fix traversal for scope resolution
+
+commit 4c0a8675c0a7545c14cf359035cc881668d1ebd0
+Author: James Clause <clause@udel.edu>
+Date:   Tue Feb 28 15:12:33 2023 -0500
+
+    Add logging
+
+commit f08453a10e5ac86db8051c4626bcfb37bf77b2e0
+Author: James Clause <clause@udel.edu>
+Date:   Tue Feb 28 14:19:18 2023 -0500
+
+    Simplify symbol resolution
+
+commit 3a0764d8154ba37b35926632056e5ff9928409ed
+Author: James Clause <clause@udel.edu>
+Date:   Mon Feb 27 17:20:13 2023 -0500
+
+    Updates
+
+commit e66f2cdb3b0e52739213e662ed11f583dbb1e1a4
+Author: James Clause <clause@udel.edu>
+Date:   Mon Feb 13 10:47:23 2023 -0500
+
+    Update dependencies
+
+commit b85fc1a64d4879e3e137b919874da0d934fd439d
+Author: James Clause <clause@udel.edu>
+Date:   Mon Mar 7 10:36:52 2022 -0500
+
+    Fix code generation for method that return Unit
+
+commit 0a006bb16fe17b800e89fa1a60d53dd1e39e242d
+Author: James Clause <clause@udel.edu>
+Date:   Mon Mar 7 10:29:36 2022 -0500
+
+    Fix parsing '+'
+
+commit 85c5151455dda2f5e624ce14a4a16370cde154d5
+Author: James Clause <clause@udel.edu>
+Date:   Mon Mar 7 10:25:11 2022 -0500
+
+    Fix code generation for array index
+
+commit 0074b31a19056332e0a03941c4fe6b8f1ede5d70
+Author: James Clause <clause@udel.edu>
+Date:   Mon Mar 7 10:24:21 2022 -0500
+
+    Fix bugs relating to && and ||
+
+commit 0a55efab82673993d13e541220362b5b1d98621c
+Author: James Clause <clause@udel.edu>
+Date:   Wed Mar 2 13:56:12 2022 -0500
+
+    Fix code generation for function parameters
+
+commit 78585a010978296701a2884a5aadd95c2e41a474
+Author: James Clause <clause@udel.edu>
+Date:   Sat Feb 19 10:30:45 2022 -0500
+
+    Fix bytecode generation for struct equals
+
+commit cf954066fdfc222e553a758674bedc439cc9d3c6
+Author: James Clause <clause@udel.edu>
+Date:   Thu Feb 17 09:28:34 2022 -0500
+
+    Update language description
+
+commit 55c80756f164914e71ea55af0984a9e116be66ca
+Author: James Clause <clause@udel.edu>
+Date:   Tue Feb 15 12:08:50 2022 -0500
+
+    Initial commit

@@ -23,6 +23,11 @@ object BuiltinScope : Scope() {
         containingScope = this
     )
 
+    val _Float = PrimitiveTypeSymbol(
+        name = "Float",
+        containingScope = this
+    )
+
     val _String = PrimitiveTypeSymbol(
         name = "String",
         containingScope = this
@@ -64,6 +69,7 @@ object BuiltinScope : Scope() {
         declare(_Any)
         declare(_Boolean)
         declare(_Int)
+        declare(_Float)
         declare(_String)
         declare(_Unit)
 
@@ -85,6 +91,7 @@ object BuiltinScope : Scope() {
         reactor[_Any, "type"] = AnyType
         reactor[_Boolean, "type"] = BooleanType
         reactor[_Int, "type"] = IntType
+        reactor[_Float, "type"] = FloatType
         reactor[_String, "type"] = StringType
         reactor[_Unit, "type"] = UnitType
 

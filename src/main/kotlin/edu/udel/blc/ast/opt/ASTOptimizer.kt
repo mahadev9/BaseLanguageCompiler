@@ -23,6 +23,7 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         register(IfNode::class.java, ::`if`)
         register(IndexNode::class.java, ::index)
         register(IntLiteralNode::class.java, ::intLiteral)
+        register(FloatLiteralNode::class.java, ::floatLiteral)
         register(ParameterNode::class.java, ::parameter)
         register(ReferenceNode::class.java, ::reference)
         register(ReturnNode::class.java, ::`return`)
@@ -539,6 +540,14 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             range = node.range,
             value = node.value)
     }
+
+    private fun floatLiteral(node: FloatLiteralNode): Node {
+        return FloatLiteralNode (
+            range = node.range,
+            value = node.value
+        )
+    }
+
     private fun parameter(node:ParameterNode): Node{
         val type = apply(node.type)
         return ParameterNode(

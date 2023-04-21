@@ -336,6 +336,7 @@ class BaseParser(
         return when {
             check(FALSE, TRUE) -> booleanLiteral()
             check(NUMBER) -> intLiteral()
+            check(FLOAT) -> floatLiteral()
             check(QUOTE_OPEN) -> stringLiteral()
             check(IDENTIFIER) -> identifier()
             check(UNIT) -> unitLiteral()
@@ -353,6 +354,11 @@ class BaseParser(
     fun intLiteral(): IntLiteralNode {
         val literal = consume(NUMBER) { "Expect number." }
         return IntLiteralNode(literal.range, literal.text.toLong())
+    }
+
+    fun floatLiteral(): FloatLiteralNode {
+        val literal = consume(FLOAT) { "Expect float number." }
+        return FloatLiteralNode(literal.range, literal.text.toDouble())
     }
 
     fun stringLiteral(): StringLiteralNode {
