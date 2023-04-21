@@ -9,10 +9,7 @@ import edu.udel.blc.semantic_analysis.scope.FunctionSymbol
 import edu.udel.blc.semantic_analysis.scope.StructSymbol
 import edu.udel.blc.semantic_analysis.scope.Symbol
 import edu.udel.blc.semantic_analysis.scope.VariableSymbol
-import edu.udel.blc.semantic_analysis.type.ArrayType
-import edu.udel.blc.semantic_analysis.type.FunctionType
-import edu.udel.blc.semantic_analysis.type.StructType
-import edu.udel.blc.semantic_analysis.type.Type
+import edu.udel.blc.semantic_analysis.type.*
 import edu.udel.blc.util.uranium.Reactor
 import edu.udel.blc.util.visitor.Visitor
 import org.objectweb.asm.Type.*
@@ -141,12 +138,16 @@ class ExpressionVisitor(
     }
 
     private fun binaryMath(node: BinaryExpressionNode, operator: Int) {
+        val operandTypes = when (reactor.get<Type>(node, "type")) {
+            IntType -> LONG_TYPE
+            else -> DOUBLE_TYPE
+        }
         accept(node.left)
-        method.unbox(LONG_TYPE)
+        method.unbox(operandTypes)
         accept(node.right)
-        method.unbox(LONG_TYPE)
-        method.math(operator, LONG_TYPE)
-        method.box(LONG_TYPE)
+        method.unbox(operandTypes)
+        method.math(operator, operandTypes)
+        method.box(operandTypes)
     }
 
     private fun equality(node: BinaryExpressionNode, mode: Int) {

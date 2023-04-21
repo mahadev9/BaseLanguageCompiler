@@ -200,6 +200,14 @@ open class Reactor {
         }
     }
 
+    fun <T : Any> mapOfList(name: String = "", from: List<Attribute>, to: Attribute, f: (value: List<T>) -> Any) {
+        rule(name) {
+            exports(to)
+            using(from)
+            by { r -> r[to] = f( from.map{ r[it] } ) }
+        }
+    }
+
     fun copy(name: String = "", from: Attribute, to: Attribute) {
         map<Any>(name, from, to) { it }
     }

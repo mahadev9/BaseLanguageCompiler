@@ -190,15 +190,26 @@ class ResolveTypes(
     }
 
     private fun binaryExpression(node: BinaryExpressionNode) {
-        reactor.supply(
-            "binary expression: type",
-            Attribute(node, "type")
-        ) {
-            when (node.operator) {
-                ADDITION, SUBTRACTION, MULTIPLICATION, REMAINDER -> IntType
-                EQUAL_TO, NOT_EQUAL_TO,
-                GREATER_THAN, GREATER_THAN_OR_EQUAL_TO, LESS_THAN, LESS_THAN_OR_EQUAL_TO,
-                LOGICAL_CONJUNCTION, LOGICAL_DISJUNCTION -> BooleanType
+        when (node.operator) {
+            ADDITION, SUBTRACTION, MULTIPLICATION, REMAINDER -> reactor.mapOfList(
+                name = "negation type",
+                from = listOf(Attribute(node.left, "type"), Attribute(node.right, "type")),
+                to = Attribute(node, "type"),
+            ) { operandTypes: List<Type> ->
+                when {
+                    operandTypes.all{ type -> type is IntType } -> IntType
+                    operandTypes.all{ type -> type is FloatType } -> FloatType
+                    operandTypes.all{ type -> type is IntType || type is FloatType } -> FloatType
+                    else -> SemanticError(node, "Binary expression is not supported between these types $operandTypes")
+                }
+            }
+            EQUAL_TO, NOT_EQUAL_TO,
+            GREATER_THAN, GREATER_THAN_OR_EQUAL_TO, LESS_THAN, LESS_THAN_OR_EQUAL_TO,
+            LOGICAL_CONJUNCTION, LOGICAL_DISJUNCTION -> reactor.supply(
+                "binary expression: type",
+                Attribute(node, "type")
+            ) {
+                BooleanType
             }
         }
     }
@@ -250,12 +261,12 @@ class ResolveTypes(
                 }
             NEGATION -> reactor.map(
                 name = "negation type",
-                from = Attribute(node.operand, "node"),
+                from = Attribute(node.operand, "type"),
                 to = Attribute(node, "type"),
-            ) { operandType: Node ->
+            ) { operandType: Type ->
                 when (operandType) {
-                    is IntLiteralNode -> IntType
-                    is FloatLiteralNode -> FloatType
+                    is IntType -> IntType
+                    is FloatType -> FloatType
                     else -> SemanticError(node, "type $operandType is not supported")
                 }
             }
