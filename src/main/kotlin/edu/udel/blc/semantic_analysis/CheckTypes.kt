@@ -97,7 +97,8 @@ class CheckTypes(
             BinaryOperator.ADDITION,
             BinaryOperator.SUBTRACTION,
             BinaryOperator.MULTIPLICATION,
-            BinaryOperator.REMAINDER -> binaryMath(node)
+            BinaryOperator.REMAINDER,
+            BinaryOperator.DIVISION -> binaryMath(node)
 
             BinaryOperator.EQUAL_TO,
             BinaryOperator.NOT_EQUAL_TO -> equality(node)

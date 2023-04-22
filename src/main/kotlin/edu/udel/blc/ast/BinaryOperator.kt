@@ -6,6 +6,7 @@ enum class BinaryOperator {
     SUBTRACTION,
     MULTIPLICATION,
     REMAINDER,
+    DIVISION,
 
     EQUAL_TO,
     NOT_EQUAL_TO,
@@ -23,6 +24,7 @@ enum class BinaryOperator {
         SUBTRACTION -> "-"
         MULTIPLICATION -> "*"
         REMAINDER -> "%"
+        DIVISION -> "/"
 
         EQUAL_TO -> "=="
         NOT_EQUAL_TO -> "!="

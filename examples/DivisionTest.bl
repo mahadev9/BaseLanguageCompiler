@@ -3,3 +3,9 @@ print("Validating Division");
 var a: Float = 4 / 5;
 print(a); // 0.8
 print(a == 0.8); // true
+
+var b: Float = 4 / 0;
+print(b);
+
+var c: Float = 47.738 / 83.37;
+print(c);

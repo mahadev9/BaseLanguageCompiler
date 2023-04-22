@@ -126,6 +126,7 @@ class ExpressionVisitor(
             BinaryOperator.SUBTRACTION -> binaryMath(node, SUB)
             BinaryOperator.MULTIPLICATION -> binaryMath(node, MUL)
             BinaryOperator.REMAINDER -> binaryMath(node, REM)
+            BinaryOperator.DIVISION -> binaryMath(node, DIV)
             BinaryOperator.EQUAL_TO -> equality(node, EQ)
             BinaryOperator.NOT_EQUAL_TO -> equality(node, NE)
             BinaryOperator.GREATER_THAN -> comparison(node, GT)

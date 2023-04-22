@@ -23,3 +23,13 @@ print(e == 699.104); // true
 var e: Float = 783.938 * 84.834;
 print(e); // 66504.59629
 print(e == 66504.59629); // true
+
+var f: Float = 567.876 + 678;
+print(f);
+
+var g: Float = 533 - 876.56;
+print(g);
+
+var h: Float = 567 * 987.001;
+print(h);
+

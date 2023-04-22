@@ -64,6 +64,7 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             SUBTRACTION -> subtraction(node)
             MULTIPLICATION -> multiplication(node)
             REMAINDER -> remainder(node)
+            DIVISION -> division(node)
             EQUAL_TO -> equalTo(node)
             NOT_EQUAL_TO -> notEqualTo(node)
             GREATER_THAN -> greaterThan(node)
@@ -230,6 +231,19 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             }
         }
     }
+
+    private fun division(node: BinaryExpressionNode): Node {
+        val left = apply(node.left)
+        val right = apply(node.right)
+
+        return BinaryExpressionNode(
+            range = node.range,
+            operator = node.operator,
+            left = left,
+            right = right
+        )
+    }
+
     private fun equalTo(node: BinaryExpressionNode): Node{
         val left = apply(node.left)
         val right = apply(node.right)

@@ -192,13 +192,23 @@ class ResolveTypes(
     private fun binaryExpression(node: BinaryExpressionNode) {
         when (node.operator) {
             ADDITION, SUBTRACTION, MULTIPLICATION, REMAINDER -> reactor.mapOfList(
-                name = "negation type",
+                name = "binary math operand types",
                 from = listOf(Attribute(node.left, "type"), Attribute(node.right, "type")),
                 to = Attribute(node, "type"),
             ) { operandTypes: List<Type> ->
                 when {
                     operandTypes.all{ type -> type is IntType } -> IntType
                     operandTypes.all{ type -> type is FloatType } -> FloatType
+                    operandTypes.all{ type -> type is IntType || type is FloatType } -> FloatType
+                    else -> SemanticError(node, "Binary expression is not supported between these types $operandTypes")
+                }
+            }
+            DIVISION -> reactor.mapOfList(
+                name = "binary math div '/' type",
+                from = listOf(Attribute(node.left, "type"), Attribute(node.right, "type")),
+                to = Attribute(node, "type"),
+            ) { operandTypes: List<Type> ->
+                when {
                     operandTypes.all{ type -> type is IntType || type is FloatType } -> FloatType
                     else -> SemanticError(node, "Binary expression is not supported between these types $operandTypes")
                 }

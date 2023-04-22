@@ -280,6 +280,11 @@ class BaseParser(
                     val right = factor()
                     BinaryExpressionNode(operator.range, MULTIPLICATION, expr, right)
                 }
+                check(SLASH) -> {
+                    val operator = consume(SLASH) { "Expect '/'." }
+                    val right = factor()
+                    BinaryExpressionNode(operator.range, BinaryOperator.DIVISION, expr, right)
+                }
                 else -> break
             }
         }
