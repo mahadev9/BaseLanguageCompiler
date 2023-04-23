@@ -4,10 +4,7 @@ import edu.udel.blc.ast.*
 import edu.udel.blc.ast.BinaryOperator.*
 import edu.udel.blc.ast.UnaryOperator.LOGICAL_COMPLEMENT
 import edu.udel.blc.ast.UnaryOperator.NEGATION
-import edu.udel.blc.semantic_analysis.scope.FunctionSymbol
-import edu.udel.blc.semantic_analysis.scope.StructSymbol
-import edu.udel.blc.semantic_analysis.scope.Symbol
-import edu.udel.blc.semantic_analysis.scope.VariableSymbol
+import edu.udel.blc.semantic_analysis.scope.*
 import edu.udel.blc.semantic_analysis.type.*
 import edu.udel.blc.util.uranium.Attribute
 import edu.udel.blc.util.uranium.Reactor
@@ -191,7 +188,7 @@ class ResolveTypes(
 
     private fun binaryExpression(node: BinaryExpressionNode) {
         when (node.operator) {
-            ADDITION, SUBTRACTION, MULTIPLICATION, REMAINDER -> reactor.mapOfList(
+            ADDITION, SUBTRACTION, MULTIPLICATION, REMAINDER -> reactor.mapN(
                 name = "binary math operand types",
                 from = listOf(Attribute(node.left, "type"), Attribute(node.right, "type")),
                 to = Attribute(node, "type"),
@@ -203,7 +200,7 @@ class ResolveTypes(
                     else -> SemanticError(node, "Binary expression is not supported between these types $operandTypes")
                 }
             }
-            DIVISION -> reactor.mapOfList(
+            DIVISION -> reactor.mapN(
                 name = "binary math div '/' type",
                 from = listOf(Attribute(node.left, "type"), Attribute(node.right, "type")),
                 to = Attribute(node, "type"),
