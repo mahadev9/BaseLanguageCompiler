@@ -642,11 +642,12 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
     }
 
     private fun classDeclaration(node: ClassDeclarationNode): Node {
-        val block = apply(node.node.block) as BlockNode
-        return ClassDeclarationNode{
+        val block = apply(node.block) as BlockNode
+        return ClassDeclarationNode(
             range = node.range,
             name = node.name,
             block = block
+        )
     }
 
 }

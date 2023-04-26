@@ -333,7 +333,7 @@ class ResolveTypes(
         reactor.on(
             name = "load class declaration symbol",
             attribute = Attribute(node, "symbol")
-        ) { symbol: Classsymbol -> 
+        ) { symbol: ClassSymbol ->
             ClassType(
                 name = symbol.getQualifiedName(),
                 superClass = null
