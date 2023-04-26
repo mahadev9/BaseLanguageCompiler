@@ -18,6 +18,9 @@ declaration
         LBRACKET
         ( fields+=field ( COMMA fields+=field )* COMMA? )?
         RBRACKET                                                                         # structDeclaration
+    | CLASS
+        name=IDENTIFIER
+        body=block                                                                       # classDeclaration
     | VAR name=IDENTIFIER COLON type=typeExpression EQUAL initializer=expr SEMICOLON     # variableDeclaration
     | stmt                                                                               # statementAsDeclaration
     ;
@@ -115,6 +118,7 @@ FUN: 'fun';
 IF: 'if';
 ELSE: 'else';
 STRUCT: 'struct';
+CLASS: 'class';
 WHILE: 'while';
 RETURN: 'return';
 VAR: 'var';

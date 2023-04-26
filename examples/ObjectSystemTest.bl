@@ -1,0 +1,23 @@
+print("Validating Object System");
+
+// example from proposal
+class Student {
+	var name: String;
+	var studentId: Int;
+	constructor(name: String, sId: Int) {
+		this.name = name;
+		this.studentId = sId;
+	}
+	fun getNameId() -> String {
+		return concat(this.name, str(studentId));
+	}
+	fun testEquality(nameId: String) -> Boolean {
+		return this.getNameId() == nameId;
+	}
+}
+
+var s1: Student = Student(“BLCompiler”, 12345);
+print(s1.name);
+print(s1.studentId);
+print(s1.getNameId());
+print(testEquality(“Compiler 12345”));

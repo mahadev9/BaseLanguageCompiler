@@ -42,6 +42,7 @@ sealed interface Node {
         is BlockNode -> visitor.block(this, arg)
         is BooleanLiteralNode -> visitor.booleanLiteral(this, arg)
         is CallNode -> visitor.call(this, arg)
+        is ClassDeclarationNode -> visitor.classDeclaration(this, arg)
         is CompilationUnitNode -> visitor.compilationUnit(this, arg)
         is ExpressionStatementNode -> visitor.expressionStatement(this, arg)
         is FieldNode -> visitor.field(this, arg)
