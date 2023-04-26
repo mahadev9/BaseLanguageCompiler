@@ -50,6 +50,8 @@ class BaseToken(
 
         STRUCT,
 
+        CLASS,
+
         EOF,
         COMMENT,
         WHITESPACE,

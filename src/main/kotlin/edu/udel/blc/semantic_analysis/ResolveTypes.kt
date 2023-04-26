@@ -23,6 +23,7 @@ class ResolveTypes(
         register(ParameterNode::class.java, PRE_VISIT, ::parameterDeclaration)
         register(VariableDeclarationNode::class.java, PRE_VISIT, ::variableDeclaration)
         register(StructDeclarationNode::class.java, PRE_VISIT, ::structDeclaration)
+        register(ClassDeclarationNode::class.java, PRE_VISIT, ::classDeclaration)
         register(FieldNode::class.java, PRE_VISIT, ::fieldDeclaration)
 
         register(ReferenceNode::class.java, PRE_VISIT, ::reference)
@@ -328,4 +329,15 @@ class ResolveTypes(
         ) { elementType: Type -> ArrayType(elementType) }
     }
 
+    private fun classDeclaration(node: ClassDeclarationNode){
+        reactor.on(
+            name = "load class declaration symbol",
+            attribute = Attribute(node, "symbol")
+        ) { symbol: Classsymbol -> 
+            ClassType(
+                name = symbol.getQualifiedName(),
+                superClass = null
+            ) 
+        }
+    }
 }

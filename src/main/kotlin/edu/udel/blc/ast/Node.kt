@@ -12,6 +12,7 @@ sealed interface Node {
         fun block(node: BlockNode, arg: A): R
         fun booleanLiteral(node: BooleanLiteralNode, arg: A): R
         fun call(node: CallNode, arg: A): R
+        fun classDeclaration(node: ClassDeclarationNode, arg: A):R
         fun compilationUnit(node: CompilationUnitNode, arg: A): R
         fun expressionStatement(node: ExpressionStatementNode, arg: A): R
         fun field(node: FieldNode, arg: A): R

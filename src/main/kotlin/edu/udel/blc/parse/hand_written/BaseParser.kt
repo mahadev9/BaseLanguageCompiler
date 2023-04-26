@@ -40,6 +40,7 @@ class BaseParser(
         return when {
             check(FUN) -> functionDeclaration()
             check(STRUCT) -> structDeclaration()
+            check(CLASS) -> classDeclaration()
             check(VAR) -> variableDeclaration()
             else -> statement()
         }
@@ -71,6 +72,14 @@ class BaseParser(
         val fields = list(RBRACE, ::field)
         consume(RBRACE) { "Expect '}' after fields." }
         return StructDeclarationNode(name.range, name.text, fields)
+    }
+
+
+    fun classDeclaration(): ClassDeclarationNode {
+        val keyword = consume(CLASS) { "Expect 'struct'." }
+        val name = consume(IDENTIFIER) { "Expect struct name." }
+        val bodyBlock = block();
+        return ClassDeclarationNode(name.range, name.text, bodyBlock)
     }
 
     fun field(): FieldNode {

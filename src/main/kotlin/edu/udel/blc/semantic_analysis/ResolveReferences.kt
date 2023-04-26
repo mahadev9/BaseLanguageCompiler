@@ -214,4 +214,7 @@ class ResolveReferences(
         return null
     }
 
+    override fun classDeclaration(node: ClassDeclarationNode, arg: Scope) {
+        TODO("Not yet implemented")
+    }
 }

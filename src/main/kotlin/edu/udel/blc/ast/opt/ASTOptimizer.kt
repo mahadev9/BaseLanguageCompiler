@@ -33,6 +33,7 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         register(UnitLiteralNode::class.java, ::unitLiteral)
         register(VariableDeclarationNode::class.java, ::variableDeclaration)
         register(WhileNode::class.java, ::`while`)
+        register(ClassDeclarationNode::class.java, ::classDeclaration)
     }
 
     private fun arrayLiteral(node:ArrayLiteralNode):Node{
@@ -638,6 +639,14 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
                 )
             }
         }
+    }
+
+    private fun classDeclaration(node: ClassDeclarationNode): Node {
+        val block = apply(node.node.block) as BlockNode
+        return ClassDeclarationNode{
+            range = node.range,
+            name = node.name,
+            block = block
     }
 
 }
