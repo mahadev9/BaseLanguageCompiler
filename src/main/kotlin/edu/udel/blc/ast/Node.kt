@@ -12,6 +12,7 @@ sealed interface Node {
         fun block(node: BlockNode, arg: A): R
         fun booleanLiteral(node: BooleanLiteralNode, arg: A): R
         fun call(node: CallNode, arg: A): R
+        fun methodCall(node: MethodCallNode, arg: A): R
         fun classDeclaration(node: ClassDeclarationNode, arg: A):R
         fun compilationUnit(node: CompilationUnitNode, arg: A): R
         fun expressionStatement(node: ExpressionStatementNode, arg: A): R
@@ -42,6 +43,7 @@ sealed interface Node {
         is BlockNode -> visitor.block(this, arg)
         is BooleanLiteralNode -> visitor.booleanLiteral(this, arg)
         is CallNode -> visitor.call(this, arg)
+        is MethodCallNode -> visitor.methodCall(this, arg)
         is ClassDeclarationNode -> visitor.classDeclaration(this, arg)
         is CompilationUnitNode -> visitor.compilationUnit(this, arg)
         is ExpressionStatementNode -> visitor.expressionStatement(this, arg)

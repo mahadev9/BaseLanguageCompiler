@@ -31,7 +31,7 @@ class BLC : CliktCommand() {
         .file(mustExist = true, mustBeReadable = true, canBeDir = false)
 
     private val noOptimization by option("--no-optimization", help = "No optimizations to abstract syntax tree")
-        .flag(default = false, defaultForHelp = "false")
+        .flag(default = true, defaultForHelp = "false")
 
     private val parser by option("-p", "--parser").groupChoice(
         "antlr" to AntlrBasedParser(),

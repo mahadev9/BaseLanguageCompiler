@@ -39,7 +39,11 @@ class CompilationUnitTranslator(
 
         }
 
-        return Bytecode(mainclass, structs)
+        val classes = ClassTranslator(reactor, clazzType).apply(node)
+        val addedClasses = structs + classes
+
+
+        return Bytecode(mainclass, addedClasses)
     }
 
     private fun generateBuiltins(clazz: ClassWriter) {

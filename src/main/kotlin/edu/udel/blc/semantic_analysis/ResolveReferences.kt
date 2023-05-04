@@ -78,18 +78,33 @@ class ResolveReferences(
     override fun functionDeclaration(node: FunctionDeclarationNode, arg: Scope) {
         node.returnType.accept(this, arg)
 
-        val functionScope = FunctionSymbol(node.name, arg)
-        arg.declare(functionScope)
+        if (arg is ClassSymbol) {
+            val containingScope = MethodSymbol(node.name, arg)
+            arg.declare(containingScope)
 
-        reactor.supply(
-            name = "function declaration: set symbol",
-            attribute = Attribute(node, "symbol")
-        ) {
-            functionScope
+            reactor.supply(
+                name = "function declaration: set symbol",
+                attribute = Attribute(node, "symbol")
+            ) {
+                containingScope
+            }
+
+            node.parameters.forEach { it.accept(this, containingScope) }
+            node.body.accept(this, containingScope)
+        } else {
+            val containingScope = FunctionSymbol(node.name, arg)
+            arg.declare(containingScope)
+
+            reactor.supply(
+                name = "function declaration: set symbol",
+                attribute = Attribute(node, "symbol")
+            ) {
+                containingScope
+            }
+
+            node.parameters.forEach { it.accept(this, containingScope) }
+            node.body.accept(this, containingScope)
         }
-
-        node.parameters.forEach { it.accept(this, functionScope) }
-        node.body.accept(this, functionScope)
     }
 
     override fun `if`(node: IfNode, arg: Scope) {
@@ -215,6 +230,22 @@ class ResolveReferences(
     }
 
     override fun classDeclaration(node: ClassDeclarationNode, arg: Scope) {
-        TODO("Not yet implemented")
+        val classScope = ClassSymbol(node.name, containingScope = arg)
+        arg.declare(classScope)
+
+        reactor.supply(
+            name = "class declaration: set symbol",
+            attribute = Attribute(node, "symbol")
+        ) {
+            classScope
+        }
+
+        node.fields.forEach { it.accept(this, classScope) }
+        node.methods.forEach { it.accept(this, classScope) }
+    }
+
+    override fun methodCall(node: MethodCallNode, arg: Scope) {
+        node.arguments.forEach{ it.accept(this, arg) }
+        node.receiver.accept(this, arg)
     }
 }

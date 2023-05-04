@@ -5,10 +5,7 @@ import edu.udel.blc.ast.UnaryOperator.LOGICAL_COMPLEMENT
 import edu.udel.blc.ast.UnaryOperator.NEGATION
 import edu.udel.blc.machine_code.bytecode.TypeUtils.methodDescriptor
 import edu.udel.blc.machine_code.bytecode.TypeUtils.nativeType
-import edu.udel.blc.semantic_analysis.scope.FunctionSymbol
-import edu.udel.blc.semantic_analysis.scope.StructSymbol
-import edu.udel.blc.semantic_analysis.scope.Symbol
-import edu.udel.blc.semantic_analysis.scope.VariableSymbol
+import edu.udel.blc.semantic_analysis.scope.*
 import edu.udel.blc.semantic_analysis.type.*
 import edu.udel.blc.util.uranium.Reactor
 import edu.udel.blc.util.visitor.Visitor
@@ -255,6 +252,18 @@ class ExpressionVisitor(
                         )
                         method.invokeConstructor(nativeType(structType), Method("<init>", descriptor))
                     }
+                    is ClassSymbol -> {
+                        val classType = reactor.get<ClassType>(symbol, "type")
+                        method.newInstance(nativeType(classType))
+                        method.dup()
+                        node.arguments.forEach { accept(it) }
+                        val descriptor = methodDescriptor(
+                            VOID_TYPE,
+                            classType.fieldTypes.map { nativeType(it.value) }
+
+                        )
+                        method.invokeConstructor(nativeType(classType), Method("<init>", descriptor))
+                    }
                     else -> TODO("generate call for $symbol")
                 }
             }
@@ -280,6 +289,23 @@ class ExpressionVisitor(
         val structType = reactor.get<Type>(node.expression, "type")
         val fieldType = reactor.get<Type>(node, "type")
         method.getField(nativeType(structType), node.name, nativeType(fieldType))
+    }
+
+    private fun methodCall(node: MethodCallNode) {
+        accept(node.receiver)
+        node.arguments.forEach { accept(it) }
+
+        val symbol = reactor.get<MethodSymbol>(node, "symbol")
+        val overrides = reactor.get<MethodSymbol?>(symbol, "overrides")
+        val finalSymbol = overrides ?: symbol
+
+        val classType = reactor.get<ClassType>(node.receiver, "type")
+        val methodType = reactor.get<FunctionType>(symbol, "type")
+
+        method.invokeVirtual(
+            nativeType(classType),
+            Method(finalSymbol.getQualifiedName("_"), methodDescriptor(methodType))
+        )
     }
 
 }

@@ -76,16 +76,34 @@ class BaseParser(
 
 
     fun classDeclaration(): ClassDeclarationNode {
-        val keyword = consume(CLASS) { "Expect 'struct'." }
-        val name = consume(IDENTIFIER) { "Expect struct name." }
-        val bodyBlock = block();
-        return ClassDeclarationNode(name.range, name.text, bodyBlock)
+        val keyword = consume(CLASS) { "Expect 'class'." }
+        val name = consume(IDENTIFIER) { "Expect class name." }
+        consume(LBRACE) { "Expect '{' before class declaration." }
+        val members = list(RBRACE, ::classMember, false)
+        consume(RBRACE) { "Expect '}' after class declaration." }
+        val fields = members.filterIsInstance<FieldNode>();
+        val methods = members.filterIsInstance<FunctionDeclarationNode>()
+        return ClassDeclarationNode(name.range, name.text, fields, methods)
     }
 
-    fun field(): FieldNode {
+    fun classMember(): Node {
+        return when {
+            check(VAR) -> field(true)
+            check(FUN) -> functionDeclaration()
+            else -> error("Unknown")
+        }
+    }
+
+    fun field(classField: Boolean = false): FieldNode {
+        if (classField) {
+            consume(VAR) { "Expect 'var' after field name" }
+        }
         val name = consume(IDENTIFIER) { "Expect field name." }
         consume(COLON) { "Expect ':' after field name" }
         val type = type()
+        if (classField) {
+            consume(SEMICOLON) { "Expect ';' after field name" }
+        }
         return FieldNode(name.range, name.text, type)
     }
 
@@ -337,7 +355,22 @@ class BaseParser(
                 check(DOT) -> {
                     val dot = consume(DOT) { "Expect '.'." }
                     val name = consume(IDENTIFIER) { "Expect name" }
-                    FieldSelectNode(dot.range, expr, name.text)
+                    when {
+                        check(LPAREN) -> {
+                            val lparen = consume(LPAREN) { "Expect ')'. " }
+                            val arguments = list(RPAREN, ::expression)
+                            consume(RPAREN) { "Expect ')' after arguments." }
+                            MethodCallNode(
+                                lparen.range,
+                                name.text,
+                                arguments,
+                                expr,
+                            )
+                        }
+                        else -> {
+                            FieldSelectNode(dot.range, expr, name.text)
+                        }
+                    }
                 }
                 else -> break
             }
@@ -356,8 +389,14 @@ class BaseParser(
             check(UNIT) -> unitLiteral()
             check(LPAREN) -> parenthesizedExpression()
             check(LBRACKET) -> arrayLiteral()
+            check(THIS) -> thisKeyword()
             else -> error("Expect expression.")
         }
+    }
+
+    fun thisKeyword(): ThisNode {
+        val keyword = consume(THIS) { "Expect 'this'." }
+        return ThisNode(keyword.range)
     }
 
     fun booleanLiteral(): BooleanLiteralNode {
@@ -426,14 +465,14 @@ class BaseParser(
         return ArrayTypeNode(lbrace.range, elementType)
     }
 
-    fun <T> list(kind: BaseToken.Kind, element: () -> T): List<T> = buildList {
+    fun <T> list(kind: BaseToken.Kind, element: () -> T, useSeparator: Boolean = true): List<T> = buildList {
         if (!check(kind)) {
             do {
                 when {
                     check(kind) -> break
                     else -> add(element())
                 }
-            } while (match(COMMA))
+            } while (if (useSeparator) match(COMMA) else true)
         }
     }
 

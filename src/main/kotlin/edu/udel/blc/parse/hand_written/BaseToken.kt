@@ -14,7 +14,7 @@ class BaseToken(
         COMMA,
         DOT,
 
-        PLUS, MINUS, SLASH, STAR, PERCENT, DIVISION,
+        PLUS, MINUS, SLASH, STAR, PERCENT,
         COLON, SEMICOLON,
         BANG,
 
@@ -51,6 +51,7 @@ class BaseToken(
         STRUCT,
 
         CLASS,
+        THIS,
 
         EOF,
         COMMENT,

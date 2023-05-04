@@ -1,6 +1,7 @@
 package edu.udel.blc.semantic_analysis
 
 import edu.udel.blc.ast.*
+import edu.udel.blc.semantic_analysis.scope.CallableSymbol
 import edu.udel.blc.semantic_analysis.scope.FunctionSymbol
 import edu.udel.blc.semantic_analysis.type.FunctionType
 import edu.udel.blc.semantic_analysis.type.UnitType
@@ -30,10 +31,42 @@ class CheckReturns(
         reactor.on(
             name = "load function declaration symbol",
             attribute = Attribute(node, "symbol"),
-        ) { symbol: FunctionSymbol ->
+        ) { symbol: CallableSymbol ->
 
             val symbolTypeAttribute = Attribute(symbol, "type")
             val bodyReturnsAttribute = Attribute(node.body, "returns")
+
+            if (node.returnType == null) {
+                val parameterTypeAttributesMap = symbol.parameters
+                    .associateTo(LinkedHashMap()) { parameterSymbol ->
+                        parameterSymbol.name to Attribute(parameterSymbol, "type")
+                    }
+
+                val bodyReturnTypeAttribute = Attribute(node.body, "returnType")
+                reactor.rule(
+                    name = "infer the function return type",
+                ) {
+                    using(parameterTypeAttributesMap.values)
+                    using(bodyReturnTypeAttribute)
+                    exports(symbolTypeAttribute)
+                    by {
+                            r ->
+                        r[symbolTypeAttribute] = FunctionType(
+                            parameterTypes = parameterTypeAttributesMap
+                                .mapValuesTo(LinkedHashMap()) { (_, fieldTypeAttribute) ->
+                                    r[fieldTypeAttribute]
+                                },
+                            returnType = r[bodyReturnTypeAttribute]
+                        )
+                    }
+                }
+            } else {
+                reactor.copy(
+                    name = "resolve function return type",
+                    from = Attribute(node.returnType, "type"),
+                    to = Attribute(node, "returnType")
+                )
+            }
 
             reactor.rule("check that function returns if necessary") {
                 using(symbolTypeAttribute, bodyReturnsAttribute)

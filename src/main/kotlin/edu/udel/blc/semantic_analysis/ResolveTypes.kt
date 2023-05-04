@@ -4,6 +4,7 @@ import edu.udel.blc.ast.*
 import edu.udel.blc.ast.BinaryOperator.*
 import edu.udel.blc.ast.UnaryOperator.LOGICAL_COMPLEMENT
 import edu.udel.blc.ast.UnaryOperator.NEGATION
+import edu.udel.blc.machine_code.bytecode.find
 import edu.udel.blc.semantic_analysis.scope.*
 import edu.udel.blc.semantic_analysis.type.*
 import edu.udel.blc.util.uranium.Attribute
@@ -28,6 +29,7 @@ class ResolveTypes(
 
         register(ReferenceNode::class.java, PRE_VISIT, ::reference)
         register(CallNode::class.java, PRE_VISIT, ::call)
+        register(MethodCallNode::class.java, PRE_VISIT, ::methodCall)
 
         register(AssignmentNode::class.java, PRE_VISIT, ::assignment)
         register(IndexNode::class.java, PRE_VISIT, ::index)
@@ -66,11 +68,12 @@ class ResolveTypes(
     }
 
     private fun functionDeclaration(node: FunctionDeclarationNode) {
+        if(node.body.find<ReturnNode>().isEmpty()) reactor[node.body, "returnType"] = UnitType
 
         reactor.on(
             name = "load function declaration symbol",
             attribute = Attribute(node, "symbol")
-        ) { symbol: FunctionSymbol ->
+        ) { symbol: CallableSymbol ->
 
             val symbolTypeAttribute = Attribute(symbol, "type")
 
@@ -79,7 +82,8 @@ class ResolveTypes(
                     parameterSymbol.name to Attribute(parameterSymbol, "type")
                 }
 
-            val returnTypeAttribute = Attribute(node.returnType, "type")
+            val returnTypeAttribute = if (node.returnType != null) Attribute(node.returnType, "type") else
+                Attribute(node.body, "returnType")
 
             reactor.rule("type function declaration symbol") {
                 exports(symbolTypeAttribute)
@@ -232,6 +236,7 @@ class ResolveTypes(
             when (calleeType) {
                 is FunctionType -> calleeType.returnType
                 is StructType -> calleeType
+                is ClassType -> calleeType
                 else -> SemanticError(node, "expression is not callable")
             }
 
@@ -247,6 +252,12 @@ class ResolveTypes(
 
             when (expressionType) {
                 is StructType -> {
+                    when (val fieldType = expressionType.fieldTypes[node.name]) {
+                        null -> SemanticError(node, "unknown field ${node.name} in ${expressionType.name}")
+                        else -> fieldType
+                    }
+                }
+                is ClassType -> {
                     when (val fieldType = expressionType.fieldTypes[node.name]) {
                         null -> SemanticError(node, "unknown field ${node.name} in ${expressionType.name}")
                         else -> fieldType
@@ -331,13 +342,81 @@ class ResolveTypes(
 
     private fun classDeclaration(node: ClassDeclarationNode){
         reactor.on(
-            name = "load class declaration symbol",
+            name = "type class declaration symbol",
             attribute = Attribute(node, "symbol")
         ) { symbol: ClassSymbol ->
-            ClassType(
-                name = symbol.getQualifiedName(),
-                superClass = null
-            ) 
+
+            val symbolTypeAttribute = Attribute(symbol, "type")
+            val fieldTypes = symbol.fields.associateTo(LinkedHashMap()) {
+                it.name to Attribute(it, "type")
+            }
+            val methodTypes = symbol.methods.associateTo(LinkedHashMap()) {
+                it.name to Attribute(it, "type")
+            }
+
+            reactor.rule("type class declaration symbol") {
+                exports(symbolTypeAttribute)
+                using(fieldTypes.values)
+                using(methodTypes.values)
+                by { r ->
+                    r[symbolTypeAttribute] = ClassType(
+                        name = symbol.getQualifiedName("_"),
+                        fieldTypes = fieldTypes.mapValuesTo(LinkedHashMap()) { (_, fieldTypeAttribute) ->
+                            r[fieldTypeAttribute]
+                        },
+                        methodTypes = methodTypes.mapValuesTo(LinkedHashMap()) { (_, methodTypeAttribute) ->
+                            r[methodTypeAttribute]
+                        },
+                        superClass = null
+                    )
+                }
+            }
+        }
+    }
+
+    private fun methodCall(node: MethodCallNode) {
+        reactor.map(
+            name = "type method call",
+            from = Attribute(node.receiver, "type"),
+            to = Attribute(node, "type")
+        ) { expressionType: Type ->
+            when (expressionType) {
+                is ClassType -> {
+                    when (val methodType = expressionType.methodTypes[node.callee]) {
+                        null -> SemanticError(node, "unknown method ${node.callee} in ${expressionType.name}")
+                        is FunctionType -> methodType.returnType
+                        else -> SemanticError(
+                            node,
+                            "${node.callee} is not a callable function in ${expressionType.name}"
+                        )
+                    }
+                }
+                else -> SemanticError(node, "expression must be Class, not $expressionType")
+            }
+        }
+
+        reactor.on(
+            name = "resolve symbol for method call",
+            attribute = Attribute(node.receiver, "type")
+        ) { classType: ClassType ->
+            reactor.map(
+                name = "resolve symbol for method call",
+                from = Attribute(node.receiver, "scope"),
+                to = Attribute(node, "symbol")
+            ) { referenceScope: Scope ->
+                when (val classSymbol = referenceScope.lookup(classType.name)) {
+                    is ClassSymbol -> {
+                        when (val methodSymbol = classSymbol.resolveMethod(node.callee)) {
+                            is MethodSymbol -> methodSymbol
+                            else -> SemanticError(
+                                node,
+                                "unable to resolve method ${node.callee} in ${classType.name}"
+                            )
+                        }
+                    }
+                    else -> SemanticError(node, "unable to resolve class ${classType.name}")
+                }
+            }
         }
     }
 }
