@@ -4,6 +4,7 @@ import edu.udel.blc.ast.*
 import edu.udel.blc.machine_code.bytecode.TypeUtils.methodDescriptor
 import edu.udel.blc.machine_code.bytecode.TypeUtils.nativeType
 import edu.udel.blc.semantic_analysis.scope.FunctionSymbol
+import edu.udel.blc.semantic_analysis.scope.MethodSymbol
 import edu.udel.blc.semantic_analysis.scope.Symbol
 import edu.udel.blc.semantic_analysis.type.FunctionType
 import edu.udel.blc.semantic_analysis.type.Type

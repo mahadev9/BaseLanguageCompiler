@@ -81,7 +81,7 @@ class BaseParser(
         consume(LBRACE) { "Expect '{' before class declaration." }
         val members = list(RBRACE, ::classMember, false)
         consume(RBRACE) { "Expect '}' after class declaration." }
-        val fields = members.filterIsInstance<FieldNode>();
+        val fields = members.filterIsInstance<FieldNode>()
         val methods = members.filterIsInstance<FunctionDeclarationNode>()
         return ClassDeclarationNode(name.range, name.text, fields, methods)
     }

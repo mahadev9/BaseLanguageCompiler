@@ -20,12 +20,17 @@ class ResolveTypes(
 
     val walker = ReflectiveAccessorWalker(Node::class.java, PRE_VISIT).apply {
 
+        register(BlockNode::class.java, PRE_VISIT, ::block)
+        register(ReturnNode::class.java, PRE_VISIT, ::returnStmt)
+        register(IfNode::class.java, PRE_VISIT, ::ifStmt)
+
         register(FunctionDeclarationNode::class.java, PRE_VISIT, ::functionDeclaration)
         register(ParameterNode::class.java, PRE_VISIT, ::parameterDeclaration)
         register(VariableDeclarationNode::class.java, PRE_VISIT, ::variableDeclaration)
         register(StructDeclarationNode::class.java, PRE_VISIT, ::structDeclaration)
         register(ClassDeclarationNode::class.java, PRE_VISIT, ::classDeclaration)
         register(FieldNode::class.java, PRE_VISIT, ::fieldDeclaration)
+        register(ThisNode::class.java, PRE_VISIT, ::thisDeclaration)
 
         register(ReferenceNode::class.java, PRE_VISIT, ::reference)
         register(CallNode::class.java, PRE_VISIT, ::call)
@@ -59,16 +64,57 @@ class ResolveTypes(
             name = "load variable declaration symbol",
             attribute = Attribute(node, "symbol")
         ) { symbol: VariableSymbol ->
+            if (node.type != null) {
+                reactor.on(
+                    name = "infer variable initializer type",
+                    attribute = Attribute(symbol, "type")
+                ){inferType: Type ->
+                    if(reactor.get<Type?>(node.initializer, "type") == null){
+                        reactor.copy(
+                            name = "type variable declaration symbol",
+                            to = Attribute(node.initializer, "type"),
+                            from = Attribute(symbol, "type")
+                        )
+                    }
+                }
+                reactor.copy(
+                    name = "type variable declaration symbol",
+                    to = Attribute(symbol, "type"),
+                    from = Attribute(node.type, "type")
+                )
+            }
+            else{
+                reactor.copy(
+                    name = "infer variable declaration symbol",
+                    to = Attribute(symbol, "type"),
+                    from = Attribute(node.initializer, "type")
+                )
+            }
+        }
+    }
+
+    private fun thisDeclaration(node: ThisNode) {
+        reactor.on(
+            name = "load this declaration symbol",
+            attribute = Attribute(node, "containingClass")
+        ) { symbol: ClassSymbol ->
             reactor.copy(
-                name = "type variable declaration symbol",
-                to = Attribute(symbol, "type"),
-                from = Attribute(node.type, "type")
+                name = "type this declaration symbol",
+                from = Attribute(symbol, "type"),
+                to = Attribute(node, "type")
             )
         }
     }
 
     private fun functionDeclaration(node: FunctionDeclarationNode) {
-        if(node.body.find<ReturnNode>().isEmpty()) reactor[node.body, "returnType"] = UnitType
+        if(node.body.find<ReturnNode>().isEmpty()) {
+            reactor.supply(
+                name = "infer return type of function declaration",
+                attribute = Attribute(node.body, "returnType")
+            ) {
+                UnitType
+            }
+        }
 
         reactor.on(
             name = "load function declaration symbol",
@@ -84,6 +130,8 @@ class ResolveTypes(
 
             val returnTypeAttribute = if (node.returnType != null) Attribute(node.returnType, "type") else
                 Attribute(node.body, "returnType")
+
+            // println("function: $returnTypeAttribute")
 
             reactor.rule("type function declaration symbol") {
                 exports(symbolTypeAttribute)
@@ -384,11 +432,17 @@ class ResolveTypes(
                 is ClassType -> {
                     when (val methodType = expressionType.methodTypes[node.callee]) {
                         null -> SemanticError(node, "unknown method ${node.callee} in ${expressionType.name}")
-                        is FunctionType -> methodType.returnType
-                        else -> SemanticError(
-                            node,
-                            "${node.callee} is not a callable function in ${expressionType.name}"
-                        )
+                        is FunctionType -> {
+                            // println("type ${node} ${methodType} ${expressionType.name} ${expressionType.methodTypes}")
+                            methodType.returnType
+                        }
+                        else -> {
+                            // println("else ${node} ${methodType} ${expressionType.name} ${expressionType.methodTypes}")
+                            SemanticError(
+                                node,
+                                "${node.callee} is not a callable function in ${expressionType.name}"
+                            )
+                        }
                     }
                 }
                 else -> SemanticError(node, "expression must be Class, not $expressionType")
@@ -418,5 +472,65 @@ class ResolveTypes(
                 }
             }
         }
+    }
+
+     private fun block(node: BlockNode) {
+         val childrenReturnTypeAttributes = node.statements
+             .filter { isReturnContainer(it) }
+             .map { Attribute(it, "returnType") }
+
+
+         reactor.mapN(
+             name = "infer block return type",
+             from = childrenReturnTypeAttributes,
+             to = Attribute(node, "returnType")
+         ) {
+             branchReturnTypes: List<Type> ->
+             val knownTypes = branchReturnTypes.filterNot { it is UnitType }
+
+             if(knownTypes.isEmpty()) UnitType
+             else knownTypes.reduce { acc, type -> acc.commonSupertype(type) }
+         }
+
+     }
+
+     private fun ifStmt(node: IfNode) {
+         reactor.mapN(
+             "resolve return type of if",
+             from = listOfNotNull(node.thenStatement, node.elseStatement)
+                 .filter { isReturnContainer(it) }
+                 .map { Attribute(it, "returnType") },
+             to = Attribute(node, "returnType")
+         ) {
+             branchReturnTypes: List<Type> ->
+             val hasUnknown = branchReturnTypes.any { it is UnitType }
+
+             if(hasUnknown) UnitType
+             else branchReturnTypes.reduce { acc, type -> acc.commonSupertype(type) }
+         }
+     }
+
+    private fun returnStmt(node: ReturnNode) {
+        // println("return ${node}")
+        if (node.expression != null) {
+            reactor.map(
+                name = "infer return type of return",
+                from = Attribute(node.expression, "type"),
+                to = Attribute(node, "returnType")
+            ) {
+                type: Type -> type
+            }
+        } else {
+            reactor.supply(
+                "return statement type",
+                Attribute(node, "returnType")
+            ) {
+                UnitType
+            }
+        }
+    }
+
+    private fun isReturnContainer(node: Node): Boolean {
+        return (node is BlockNode || node is IfNode || node is ReturnNode)
     }
 }

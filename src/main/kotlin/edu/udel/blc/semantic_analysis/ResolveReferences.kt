@@ -82,6 +82,8 @@ class ResolveReferences(
             val containingScope = MethodSymbol(node.name, arg)
             arg.declare(containingScope)
 
+            // println("containingScope: $containingScope")
+
             reactor.supply(
                 name = "function declaration: set symbol",
                 attribute = Attribute(node, "symbol")
@@ -218,11 +220,11 @@ class ResolveReferences(
         node.body.accept(this, arg)
     }
 
-    private fun containingFunction(start: Scope): FunctionSymbol? {
+    private fun containingFunction(start: Scope): CallableSymbol? {
         var scope: Scope? = start
 
         while (scope != null) {
-            if (scope is FunctionSymbol) return scope
+            if (scope is CallableSymbol) return scope
             scope = scope.containingScope
         }
 
@@ -247,5 +249,30 @@ class ResolveReferences(
     override fun methodCall(node: MethodCallNode, arg: Scope) {
         node.arguments.forEach{ it.accept(this, arg) }
         node.receiver.accept(this, arg)
+    }
+
+    override fun `this`(node: ThisNode, arg: Scope) {
+        val classScope = containingClass(arg)
+
+        reactor.supply(
+            name = "this: set containing class",
+            attribute = Attribute(node, "containingClass")
+        ) {
+            when (classScope) {
+                null -> SemanticError(node, "this outside of class")
+                else -> classScope
+            }
+        }
+    }
+
+    private fun containingClass(start: Scope): ClassSymbol? {
+        var scope: Scope? = start
+
+        while (scope != null) {
+            if (scope is ClassSymbol) return scope
+            scope = scope.containingScope
+        }
+
+        return null
     }
 }

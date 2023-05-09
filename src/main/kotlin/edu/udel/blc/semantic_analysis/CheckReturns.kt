@@ -4,6 +4,7 @@ import edu.udel.blc.ast.*
 import edu.udel.blc.semantic_analysis.scope.CallableSymbol
 import edu.udel.blc.semantic_analysis.scope.FunctionSymbol
 import edu.udel.blc.semantic_analysis.type.FunctionType
+import edu.udel.blc.semantic_analysis.type.Type
 import edu.udel.blc.semantic_analysis.type.UnitType
 import edu.udel.blc.util.uranium.Attribute
 import edu.udel.blc.util.uranium.Reactor
@@ -68,6 +69,9 @@ class CheckReturns(
                 )
             }
 
+            // println("functionDeclaration2: $node")
+            // println(reactor.get<FunctionType>(symbolTypeAttribute))
+
             reactor.rule("check that function returns if necessary") {
                 using(symbolTypeAttribute, bodyReturnsAttribute)
                 by { r ->
@@ -83,13 +87,31 @@ class CheckReturns(
 
     private fun block(node: BlockNode) {
         // a block returns if it contains something that can return and does return
+        val returnChildren = node.statements.filter { isReturnContainer(it) }
         reactor.mapN(
             name = "determine whether block returns",
-            from = node.statements
-                .filter { isReturnContainer(it) }
-                .map { Attribute(it, "returns") },
+            from = returnChildren.map { Attribute(it, "returns") },
             to = Attribute(node, "returns"),
-        ) { bodyReturns: List<Boolean> -> bodyReturns.any { it } }
+        ) { bodyReturns: List<Boolean> ->
+            val returns = bodyReturns.any { it }
+
+            if (returns) {
+                val childrenTypeAttributes = returnChildren
+                    .zip(bodyReturns)
+                    .filter { (_, it) -> it }
+                    .map { (node, _) -> Attribute(node, "returnType") }
+
+                reactor.mapN(
+                    name = "infer return type of block",
+                    from = childrenTypeAttributes,
+                    to = Attribute(node, "returnType")
+                ) { childrenReturns: List<Type> ->
+                    childrenReturns.reduce { acc, type -> acc.commonSupertype(type) }
+                }
+            }
+
+            returns
+        }
     }
 
     private fun ifStmt(node: IfNode) {

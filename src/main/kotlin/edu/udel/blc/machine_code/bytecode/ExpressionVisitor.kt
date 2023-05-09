@@ -5,6 +5,7 @@ import edu.udel.blc.ast.UnaryOperator.LOGICAL_COMPLEMENT
 import edu.udel.blc.ast.UnaryOperator.NEGATION
 import edu.udel.blc.machine_code.bytecode.TypeUtils.methodDescriptor
 import edu.udel.blc.machine_code.bytecode.TypeUtils.nativeType
+import edu.udel.blc.semantic_analysis.SemanticError
 import edu.udel.blc.semantic_analysis.scope.*
 import edu.udel.blc.semantic_analysis.type.*
 import edu.udel.blc.util.uranium.Reactor
@@ -36,6 +37,9 @@ class ExpressionVisitor(
         register(IndexNode::class.java, ::index)
         register(ReferenceNode::class.java, ::reference)
         register(UnaryExpressionNode::class.java, ::unaryExpression)
+
+        register(ThisNode::class.java, ::thisNode)
+        register(MethodCallNode::class.java, ::methodCall)
     }
 
     private fun booleanLiteral(node: BooleanLiteralNode) {
@@ -107,9 +111,13 @@ class ExpressionVisitor(
                 accept(node.expression)
                 method.dup()
                 method.storeLocal(tmp)
-                val structType = reactor.get<StructType>(lvalue.expression, "type")
-                val fieldType = structType.fieldTypes[lvalue.name]!!
-                method.putField(nativeType(structType), lvalue.name, nativeType(fieldType))
+                val storeType = reactor.get<Type>(lvalue.expression, "type")
+                val fieldType = when (storeType) {
+                    is StructType -> storeType.fieldTypes[lvalue.name]!!
+                    is ClassType -> storeType.fieldTypes[lvalue.name]!!
+                    else -> throw SemanticError(node, "cannot assign to field on $storeType")
+                }
+                method.putField(nativeType(storeType), lvalue.name, nativeType(fieldType))
             }
             else -> TODO("Generate assignment to: $lvalue")
         }
@@ -306,6 +314,12 @@ class ExpressionVisitor(
             nativeType(classType),
             Method(finalSymbol.getQualifiedName("_"), methodDescriptor(methodType))
         )
+    }
+
+    private fun thisNode(node: ThisNode) {
+        val classType = reactor.get<ClassType>(node, "type")
+        method.loadThis()
+        method.checkCast(nativeType(classType))
     }
 
 }

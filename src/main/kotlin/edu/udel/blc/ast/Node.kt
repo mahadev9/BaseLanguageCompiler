@@ -32,6 +32,7 @@ sealed interface Node {
         fun unitLiteral(node: UnitLiteralNode, arg: A): R
         fun variableDeclaration(node: VariableDeclarationNode, arg: A): R
         fun `while`(node: WhileNode, arg: A): R
+        fun `this`(node: ThisNode, arg: A): R
 
     }
 
@@ -63,6 +64,7 @@ sealed interface Node {
         is UnitLiteralNode -> visitor.unitLiteral(this, arg)
         is VariableDeclarationNode -> visitor.variableDeclaration(this, arg)
         is WhileNode -> visitor.`while`(this, arg)
+        is ThisNode -> visitor.`this`(this, arg)
     }
     override fun equals(other: Any?): Boolean
     override fun toString():String
