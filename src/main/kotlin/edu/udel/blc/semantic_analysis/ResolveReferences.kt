@@ -14,6 +14,7 @@ class ResolveReferences(
 
     override fun accept(node: CompilationUnitNode) {
         node.accept(this, BuiltinScope)
+        reactor.run()
     }
 
     override fun arrayLiteral(node: ArrayLiteralNode, arg: Scope) {
@@ -76,13 +77,13 @@ class ResolveReferences(
     }
 
     override fun functionDeclaration(node: FunctionDeclarationNode, arg: Scope) {
-        node.returnType.accept(this, arg)
+
+        println("resolve ref function declaration: ${arg}")
 
         if (arg is ClassSymbol) {
             val containingScope = MethodSymbol(node.name, arg)
             arg.declare(containingScope)
-
-            // println("containingScope: $containingScope")
+            println("resolve ref function declaration class symbol: ${containingScope}")
 
             reactor.supply(
                 name = "function declaration: set symbol",
@@ -91,6 +92,7 @@ class ResolveReferences(
                 containingScope
             }
 
+            node.returnType.accept(this, containingScope)
             node.parameters.forEach { it.accept(this, containingScope) }
             node.body.accept(this, containingScope)
         } else {
@@ -104,6 +106,7 @@ class ResolveReferences(
                 containingScope
             }
 
+            node.returnType.accept(this, containingScope)
             node.parameters.forEach { it.accept(this, containingScope) }
             node.body.accept(this, containingScope)
         }
@@ -144,6 +147,7 @@ class ResolveReferences(
 
     override fun reference(node: ReferenceNode, arg: Scope) {
         val symbol = arg.lookup(node.name)
+//        println("resolve ref reference: ${symbol} ${node} ${arg}")
 
         reactor.supply(
             name = "reference: set symbol",
@@ -234,6 +238,7 @@ class ResolveReferences(
     override fun classDeclaration(node: ClassDeclarationNode, arg: Scope) {
         val classScope = ClassSymbol(node.name, containingScope = arg)
         arg.declare(classScope)
+        println("Resolve ref class declaration: ${classScope} ${arg}")
 
         reactor.supply(
             name = "class declaration: set symbol",
@@ -247,6 +252,16 @@ class ResolveReferences(
     }
 
     override fun methodCall(node: MethodCallNode, arg: Scope) {
+        val containingScope = MethodSymbol(node.callee, arg)
+        arg.declare(containingScope)
+        println("Resolve ref method call: ${containingScope} ${arg}")
+
+        reactor.supply(
+            name="function declaration: set symbol",
+            attribute = Attribute(node, "symbol")
+        ) {
+            containingScope
+        }
         node.arguments.forEach{ it.accept(this, arg) }
         node.receiver.accept(this, arg)
     }
