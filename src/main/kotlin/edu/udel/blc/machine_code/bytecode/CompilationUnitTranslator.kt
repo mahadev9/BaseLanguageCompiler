@@ -39,7 +39,7 @@ class CompilationUnitTranslator(
 
         }
 
-        val classes = ClassTranslator(reactor, clazzType).apply(node)
+        val classes = ClassTranslator(reactor).apply(node)
         val addedClasses = structs + classes
 
 

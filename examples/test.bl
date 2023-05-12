@@ -3,8 +3,8 @@ class Point {
     var x: Int;
     var y: Int;
     fun test() -> Int {
-		print("test");
-		return 10;
+        print("test");
+		return this.x;
 	}
 }
 

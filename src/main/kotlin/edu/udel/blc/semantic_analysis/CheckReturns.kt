@@ -26,6 +26,7 @@ class CheckReturns(
 
     override fun accept(compilationUnit: CompilationUnitNode) {
         walker.accept(compilationUnit)
+        reactor.run()
     }
 
     private fun functionDeclaration(node: FunctionDeclarationNode) {

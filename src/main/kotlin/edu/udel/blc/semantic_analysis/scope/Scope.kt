@@ -8,12 +8,18 @@ sealed class Scope {
     // Using a LinkedHashMap is important so that the order of parameters and fields is maintained
     val declarations = LinkedHashMap<String, Symbol>()
 
+//    val symbols: List<Symbol>
+//        get() = buildList {
+//            addAll(declarations.entries.map { it.value })
+//            containingScope?.let { scope ->
+//                addAll(scope.symbols)
+//            }
+//        }
+
     val symbols: List<Symbol>
-        get() = buildList {
-            addAll(declarations.entries.map { it.value })
-            containingScope?.let { scope ->
-                addAll(scope.symbols)
-            }
+        get() {
+//            println("Scope: ${declarations.values.toList() + containingScope?.symbols.orEmpty()}")
+            return declarations.values.toList() // + containingScope?.symbols.orEmpty()
         }
 
     open fun declare(symbol: Symbol): Symbol {

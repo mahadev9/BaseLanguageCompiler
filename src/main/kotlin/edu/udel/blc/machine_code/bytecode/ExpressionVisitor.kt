@@ -8,6 +8,7 @@ import edu.udel.blc.machine_code.bytecode.TypeUtils.nativeType
 import edu.udel.blc.semantic_analysis.SemanticError
 import edu.udel.blc.semantic_analysis.scope.*
 import edu.udel.blc.semantic_analysis.type.*
+import edu.udel.blc.util.uranium.Attribute
 import edu.udel.blc.util.uranium.Reactor
 import edu.udel.blc.util.visitor.Visitor
 import org.objectweb.asm.Type.*
@@ -304,16 +305,43 @@ class ExpressionVisitor(
         node.arguments.forEach { accept(it) }
 
         val symbol = reactor.get<MethodSymbol>(node, "symbol")
+        println(node)
+        println("name: ${symbol.name}")
+        println("containingScope ${symbol.containingScope}")
+        println(reactor.get<FunctionType>(symbol, "type"))
+        var methodTypeDummy: FunctionType? = null
+        var symbolDummy: MethodSymbol? = null
+        for(attribute in reactor.attributeValues.keys){
+            if (attribute.value is MethodSymbol) {
+                println("attribute: $attribute")
+                println("value: ${reactor.attributeValues[attribute]}")
+                println((attribute.value as MethodSymbol).containingScope)
+                methodTypeDummy = reactor.attributeValues[attribute] as FunctionType
+                symbolDummy = attribute.value as MethodSymbol
+            }
+        }
         val overrides = reactor.get<MethodSymbol?>(symbol, "overrides")
         val finalSymbol = overrides ?: symbol
 
         val classType = reactor.get<ClassType>(node.receiver, "type")
         val methodType = reactor.get<FunctionType>(symbol, "type")
+        println(classType.javaClass.kotlin.qualifiedName)
+        println("node.receiver: ${node.receiver}")
+        println("methodType: $methodType $symbol")
+        println("Attributes: ${reactor.attributeValues[Attribute(symbol, "type")]}")
+        println("${(classType.methodTypes[node.callee])}")
+        println(Attribute(symbol, "type"))
 
-        method.invokeVirtual(
-            nativeType(classType),
-            Method(finalSymbol.getQualifiedName("_"), methodDescriptor(methodType))
-        )
+//        method.invokeVirtual(
+//            nativeType(classType),
+//            Method(finalSymbol.getQualifiedName("_"), methodDescriptor(methodType))
+//        )
+        if (symbolDummy != null) {
+            method.invokeVirtual(
+                nativeType(classType),
+                Method(symbolDummy.getQualifiedName("_"), methodTypeDummy?.let { methodDescriptor(it) })
+            )
+        }
     }
 
     private fun thisNode(node: ThisNode) {

@@ -54,6 +54,7 @@ class ResolveTypes(
 
     override fun accept(compilationUnit: CompilationUnitNode) {
         walker.accept(compilationUnit)
+        reactor.run()
     }
 
     // Declarations
@@ -432,17 +433,11 @@ class ResolveTypes(
                 is ClassType -> {
                     when (val methodType = expressionType.methodTypes[node.callee]) {
                         null -> SemanticError(node, "unknown method ${node.callee} in ${expressionType.name}")
-                        is FunctionType -> {
-                            // println("type ${node} ${methodType} ${expressionType.name} ${expressionType.methodTypes}")
-                            methodType.returnType
-                        }
-                        else -> {
-                            // println("else ${node} ${methodType} ${expressionType.name} ${expressionType.methodTypes}")
-                            SemanticError(
+                        is FunctionType -> methodType.returnType
+                        else -> SemanticError(
                                 node,
                                 "${node.callee} is not a callable function in ${expressionType.name}"
                             )
-                        }
                     }
                 }
                 else -> SemanticError(node, "expression must be Class, not $expressionType")

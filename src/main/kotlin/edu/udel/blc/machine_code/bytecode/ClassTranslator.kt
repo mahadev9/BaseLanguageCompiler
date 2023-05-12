@@ -19,12 +19,10 @@ import org.objectweb.asm.Type.VOID_TYPE
 import org.objectweb.asm.commons.Method
 
 class ClassTranslator(
-    private val reactor: Reactor,
-    private val mainClazzType: Type
+    private val reactor: Reactor
 ) : Function<CompilationUnitNode, List<ClassFileObject>> {
     override fun apply(compilationUnit: CompilationUnitNode): List<ClassFileObject> {
-        val classNodes = compilationUnit.find<ClassDeclarationNode>()
-        return topoSortClasses(classNodes).map { translate(it) }
+        return  compilationUnit.find<ClassDeclarationNode>().map { translate(it) }
     }
 
     /**
@@ -55,19 +53,12 @@ class ClassTranslator(
     private fun translate(node: ClassDeclarationNode): ClassFileObject {
         val classSymbol = reactor.get<ClassSymbol>(node, "symbol")
         val classType = reactor.get<ClassType>(classSymbol, "type")
-        val superClassType = when (val superSymbol = classSymbol.superClassScope) {
-            is ClassSymbol -> reactor.get<ClassType>(superSymbol, "type")
-            else -> null
-        }
-
-        val superClassNativeType = superClassType?.let { nativeType(it) } ?: java_lang_Object
 
         val clazzType = nativeType(classType)
 
         return buildClass(
             access = ACC_PUBLIC,
-            name = classType.name,
-            superType = superClassNativeType
+            name = classType.name
         ) { clazz ->
             classType.fieldTypes.entries.forEach { (name, type) ->
                 clazz.visitField(
@@ -86,22 +77,7 @@ class ClassTranslator(
                 )
             ) { method ->
                 method.loadThis()
-
-                // invoke constructor of superclass
-                when (superClassType) {
-                    null -> method.invokeConstructor(java_lang_Object, "void <init>()")
-                    else -> {
-                        superClassType.fieldTypes.entries.forEachIndexed { index, _ ->
-                            method.loadArg(index)
-                        }
-
-                        val descriptor = methodDescriptor(
-                            VOID_TYPE,
-                            superClassType.fieldTypes.map { nativeType(it.value) }
-                        )
-                        method.invokeConstructor(superClassNativeType, Method("<init>", descriptor))
-                    }
-                }
+                method.invokeConstructor(java_lang_Object, "void <init>()")
 
                 classType.fieldTypes.entries.forEachIndexed { index, (name, type) ->
                     method.loadThis()
