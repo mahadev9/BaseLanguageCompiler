@@ -19,6 +19,7 @@ import org.objectweb.asm.commons.Method
 
 class ExpressionVisitor(
     private val clazzType: org.objectweb.asm.Type,
+    private val staticClazzType: org.objectweb.asm.Type,
     private val method: GeneratorAdapter,
     private val reactor: Reactor,
 ) : Visitor<Node>() {
@@ -246,7 +247,7 @@ class ExpressionVisitor(
                         val functionType = reactor.get<FunctionType>(symbol, "type")
                         node.arguments.forEach { accept(it) }
                         method.invokeStatic(
-                            clazzType,
+                            staticClazzType,
                             Method(symbol.getQualifiedName("_"), methodDescriptor(functionType))
                         )
                     }
@@ -305,17 +306,10 @@ class ExpressionVisitor(
         node.arguments.forEach { accept(it) }
 
         val symbol = reactor.get<MethodSymbol>(node, "symbol")
-        println(node)
-        println("name: ${symbol.name}")
-        println("containingScope ${symbol.containingScope}")
-        println(reactor.get<FunctionType>(symbol, "type"))
         var methodTypeDummy: FunctionType? = null
         var symbolDummy: MethodSymbol? = null
         for(attribute in reactor.attributeValues.keys){
             if (attribute.value is MethodSymbol) {
-                println("attribute: $attribute")
-                println("value: ${reactor.attributeValues[attribute]}")
-                println((attribute.value as MethodSymbol).containingScope)
                 methodTypeDummy = reactor.attributeValues[attribute] as FunctionType
                 symbolDummy = attribute.value as MethodSymbol
             }
@@ -325,13 +319,6 @@ class ExpressionVisitor(
 
         val classType = reactor.get<ClassType>(node.receiver, "type")
         val methodType = reactor.get<FunctionType>(symbol, "type")
-        println(classType.javaClass.kotlin.qualifiedName)
-        println("node.receiver: ${node.receiver}")
-        println("methodType: $methodType $symbol")
-        println("Attributes: ${reactor.attributeValues[Attribute(symbol, "type")]}")
-        println("${(classType.methodTypes[node.callee])}")
-        println(Attribute(symbol, "type"))
-
 //        method.invokeVirtual(
 //            nativeType(classType),
 //            Method(finalSymbol.getQualifiedName("_"), methodDescriptor(methodType))

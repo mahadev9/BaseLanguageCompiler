@@ -32,14 +32,14 @@ class CompilationUnitTranslator(
                 access = ACC_PUBLIC or ACC_STATIC,
                 method = "void main(String[])",
             ) { method ->
-                val visitor = StatementVisitor(clazzType, clazz, method, reactor)
+                val visitor = StatementVisitor(clazzType, clazzType, clazz, method, reactor)
                 node.statements.forEach { visitor.accept(it) }
                 method.returnValue()
             }
 
         }
 
-        val classes = ClassTranslator(reactor).apply(node)
+        val classes = ClassTranslator(reactor, clazzType).apply(node)
         val addedClasses = structs + classes
 
 

@@ -132,8 +132,6 @@ class ResolveTypes(
             val returnTypeAttribute = if (node.returnType != null) Attribute(node.returnType, "type") else
                 Attribute(node.body, "returnType")
 
-            // println("function: $returnTypeAttribute")
-
             reactor.rule("type function declaration symbol") {
                 exports(symbolTypeAttribute)
                 using(parameterTypeAttributesMap.values)
@@ -506,7 +504,6 @@ class ResolveTypes(
      }
 
     private fun returnStmt(node: ReturnNode) {
-        // println("return ${node}")
         if (node.expression != null) {
             reactor.map(
                 name = "infer return type of return",

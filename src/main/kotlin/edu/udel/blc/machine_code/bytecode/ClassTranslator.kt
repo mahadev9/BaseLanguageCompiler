@@ -19,35 +19,11 @@ import org.objectweb.asm.Type.VOID_TYPE
 import org.objectweb.asm.commons.Method
 
 class ClassTranslator(
-    private val reactor: Reactor
+    private val reactor: Reactor,
+    private val mainClazzType: Type
 ) : Function<CompilationUnitNode, List<ClassFileObject>> {
     override fun apply(compilationUnit: CompilationUnitNode): List<ClassFileObject> {
-        return  compilationUnit.find<ClassDeclarationNode>().map { translate(it) }
-    }
-
-    /**
-     * Sorts the class based on inheritance relationships so that superclasses are compiled before subclasses
-     */
-    private fun topoSortClasses(classes: List<ClassDeclarationNode>): List<ClassDeclarationNode> {
-        val classSymbols = classes.associateBy { reactor.get<ClassSymbol>(it, "symbol") }
-        val compileOrder = mutableListOf<ClassSymbol>()
-        val visitedClasses = mutableSetOf<ClassSymbol>()
-
-        fun visitClass(symbol: ClassSymbol) {
-            if (visitedClasses.contains(symbol)) return
-            visitedClasses.add(symbol)
-
-            val superSymbol = symbol.superClassScope
-            if (superSymbol != null) visitClass(superSymbol)
-
-            compileOrder.add(symbol)
-        }
-
-        classSymbols.keys.forEach { visitClass(it) }
-
-        require(compileOrder.size == classes.size) { "Not all classes are covered in the topological sort" }
-
-        return compileOrder.map { classSymbols[it]!! }
+        return compilationUnit.find<ClassDeclarationNode>().map { translate(it) }
     }
 
     private fun translate(node: ClassDeclarationNode): ClassFileObject {
@@ -106,7 +82,7 @@ class ClassTranslator(
                     access = ACC_PUBLIC,
                     method = Method(finalSymbol.getQualifiedName("_"), descriptor)
                 ) { method ->
-                    val statementVisitor = StatementVisitor(clazzType, clazz, method, reactor)
+                    val statementVisitor = StatementVisitor(clazzType, mainClazzType, clazz, method, reactor)
                     statementVisitor.accept(methodNode.body)
 
                     if (methodType.returnType == UnitType && methodNode.body.find<ReturnNode>().isEmpty()) {

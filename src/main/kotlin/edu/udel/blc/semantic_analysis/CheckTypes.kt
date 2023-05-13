@@ -77,7 +77,6 @@ class CheckTypes(
 
         val calleeTypeAttribute = Attribute(node.callee, "type")
         val argumentTypeAttributes = node.arguments.map { Attribute(it, "type") }
-        // println("qwertyuio $argumentTypeAttributes")
 
         reactor.rule("check whether argument types match parameter types") {
             using(calleeTypeAttribute)
@@ -240,8 +239,6 @@ class CheckTypes(
             name = "check return",
             attribute = Attribute(node, "containingFunction")
         ) { containingFunction: CallableSymbol ->
-
-            // println("return statement in ${containingFunction.name} ${Attribute(containingFunction, "type")}")
 
             reactor.on(
                 name = "check return type",

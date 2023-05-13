@@ -18,7 +18,6 @@ sealed class Scope {
 
     val symbols: List<Symbol>
         get() {
-//            println("Scope: ${declarations.values.toList() + containingScope?.symbols.orEmpty()}")
             return declarations.values.toList() // + containingScope?.symbols.orEmpty()
         }
 

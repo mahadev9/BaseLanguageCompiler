@@ -70,9 +70,6 @@ class CheckReturns(
                 )
             }
 
-            // println("functionDeclaration2: $node")
-            // println(reactor.get<FunctionType>(symbolTypeAttribute))
-
             reactor.rule("check that function returns if necessary") {
                 using(symbolTypeAttribute, bodyReturnsAttribute)
                 by { r ->
