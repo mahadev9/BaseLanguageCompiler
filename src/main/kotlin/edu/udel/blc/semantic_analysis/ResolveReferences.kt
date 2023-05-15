@@ -14,6 +14,7 @@ class ResolveReferences(
 
     override fun accept(node: CompilationUnitNode) {
         node.accept(this, BuiltinScope)
+        reactor.run()
     }
 
     override fun arrayLiteral(node: ArrayLiteralNode, arg: Scope) {
@@ -76,20 +77,36 @@ class ResolveReferences(
     }
 
     override fun functionDeclaration(node: FunctionDeclarationNode, arg: Scope) {
-        node.returnType.accept(this, arg)
 
-        val functionScope = FunctionSymbol(node.name, arg)
-        arg.declare(functionScope)
+        if (arg is ClassSymbol) {
+            val containingScope = MethodSymbol(node.name, arg)
+            arg.declare(containingScope)
 
-        reactor.supply(
-            name = "function declaration: set symbol",
-            attribute = Attribute(node, "symbol")
-        ) {
-            functionScope
+            reactor.supply(
+                name = "function declaration: set symbol",
+                attribute = Attribute(node, "symbol")
+            ) {
+                containingScope
+            }
+
+            node.returnType.accept(this, containingScope)
+            node.parameters.forEach { it.accept(this, containingScope) }
+            node.body.accept(this, containingScope)
+        } else {
+            val containingScope = FunctionSymbol(node.name, arg)
+            arg.declare(containingScope)
+
+            reactor.supply(
+                name = "function declaration: set symbol",
+                attribute = Attribute(node, "symbol")
+            ) {
+                containingScope
+            }
+
+            node.returnType.accept(this, containingScope)
+            node.parameters.forEach { it.accept(this, containingScope) }
+            node.body.accept(this, containingScope)
         }
-
-        node.parameters.forEach { it.accept(this, functionScope) }
-        node.body.accept(this, functionScope)
     }
 
     override fun `if`(node: IfNode, arg: Scope) {
@@ -203,11 +220,11 @@ class ResolveReferences(
         node.body.accept(this, arg)
     }
 
-    private fun containingFunction(start: Scope): FunctionSymbol? {
+    private fun containingFunction(start: Scope): CallableSymbol? {
         var scope: Scope? = start
 
         while (scope != null) {
-            if (scope is FunctionSymbol) return scope
+            if (scope is CallableSymbol) return scope
             scope = scope.containingScope
         }
 
@@ -215,6 +232,56 @@ class ResolveReferences(
     }
 
     override fun classDeclaration(node: ClassDeclarationNode, arg: Scope) {
-        TODO("Not yet implemented")
+        val classScope = ClassSymbol(node.name, containingScope = arg)
+        arg.declare(classScope)
+
+        reactor.supply(
+            name = "class declaration: set symbol",
+            attribute = Attribute(node, "symbol")
+        ) {
+            classScope
+        }
+
+        node.fields.forEach { it.accept(this, classScope) }
+        node.methods.forEach { it.accept(this, classScope) }
+    }
+
+    override fun methodCall(node: MethodCallNode, arg: Scope) {
+        val containingScope = MethodSymbol(node.callee, arg)
+        arg.declare(containingScope)
+
+        reactor.supply(
+            name="function declaration: set symbol",
+            attribute = Attribute(node, "symbol")
+        ) {
+            containingScope
+        }
+        node.arguments.forEach{ it.accept(this, arg) }
+        node.receiver.accept(this, arg)
+    }
+
+    override fun `this`(node: ThisNode, arg: Scope) {
+        val classScope = containingClass(arg)
+
+        reactor.supply(
+            name = "this: set containing class",
+            attribute = Attribute(node, "containingClass")
+        ) {
+            when (classScope) {
+                null -> SemanticError(node, "this outside of class")
+                else -> classScope
+            }
+        }
+    }
+
+    private fun containingClass(start: Scope): ClassSymbol? {
+        var scope: Scope? = start
+
+        while (scope != null) {
+            if (scope is ClassSymbol) return scope
+            scope = scope.containingScope
+        }
+
+        return null
     }
 }

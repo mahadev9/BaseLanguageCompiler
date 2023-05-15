@@ -12,6 +12,7 @@ sealed interface Node {
         fun block(node: BlockNode, arg: A): R
         fun booleanLiteral(node: BooleanLiteralNode, arg: A): R
         fun call(node: CallNode, arg: A): R
+        fun methodCall(node: MethodCallNode, arg: A): R
         fun classDeclaration(node: ClassDeclarationNode, arg: A):R
         fun compilationUnit(node: CompilationUnitNode, arg: A): R
         fun expressionStatement(node: ExpressionStatementNode, arg: A): R
@@ -31,6 +32,7 @@ sealed interface Node {
         fun unitLiteral(node: UnitLiteralNode, arg: A): R
         fun variableDeclaration(node: VariableDeclarationNode, arg: A): R
         fun `while`(node: WhileNode, arg: A): R
+        fun `this`(node: ThisNode, arg: A): R
 
     }
 
@@ -42,6 +44,7 @@ sealed interface Node {
         is BlockNode -> visitor.block(this, arg)
         is BooleanLiteralNode -> visitor.booleanLiteral(this, arg)
         is CallNode -> visitor.call(this, arg)
+        is MethodCallNode -> visitor.methodCall(this, arg)
         is ClassDeclarationNode -> visitor.classDeclaration(this, arg)
         is CompilationUnitNode -> visitor.compilationUnit(this, arg)
         is ExpressionStatementNode -> visitor.expressionStatement(this, arg)
@@ -61,6 +64,7 @@ sealed interface Node {
         is UnitLiteralNode -> visitor.unitLiteral(this, arg)
         is VariableDeclarationNode -> visitor.variableDeclaration(this, arg)
         is WhileNode -> visitor.`while`(this, arg)
+        is ThisNode -> visitor.`this`(this, arg)
     }
     override fun equals(other: Any?): Boolean
     override fun toString():String

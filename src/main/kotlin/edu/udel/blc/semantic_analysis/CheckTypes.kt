@@ -3,6 +3,7 @@ package edu.udel.blc.semantic_analysis
 import edu.udel.blc.ast.*
 import edu.udel.blc.ast.UnaryOperator.LOGICAL_COMPLEMENT
 import edu.udel.blc.ast.UnaryOperator.NEGATION
+import edu.udel.blc.semantic_analysis.scope.CallableSymbol
 import edu.udel.blc.semantic_analysis.scope.FunctionSymbol
 import edu.udel.blc.semantic_analysis.scope.Symbol
 import edu.udel.blc.semantic_analysis.type.*
@@ -29,6 +30,8 @@ class CheckTypes(
         register(CallNode::class.java, PRE_VISIT, ::call)
         register(UnaryExpressionNode::class.java, PRE_VISIT, ::unaryExpression)
 
+        register(ReferenceNode::class.java, PRE_VISIT, ::reference)
+
         // statements
         register(AssignmentNode::class.java, PRE_VISIT, ::assignment)
         register(IfNode::class.java, PRE_VISIT, ::ifStmt)
@@ -38,10 +41,36 @@ class CheckTypes(
 
     override fun accept(compilationUnit: CompilationUnitNode) {
         walker.accept(compilationUnit)
+        reactor.run()
     }
 
     private fun index(node: IndexNode) {
         checkType("check index is Int", node.index, IntType)
+    }
+
+    private fun reference(node: ReferenceNode) {
+        reactor.on(
+            name = "check reference type",
+            attribute = Attribute(node, "symbol")
+        ) {
+            symbol: Symbol ->
+
+            val symbolType = Attribute(symbol, "type")
+            val referenceType = Attribute(node, "type")
+            reactor.rule {
+                using(symbolType)
+                using(referenceType)
+                by {
+                    r ->
+                    val leftType = reactor.get<Type>(symbolType)
+                    val rightType = reactor.get<Type>(referenceType)
+
+                    if (!rightType.isAssignableTo(leftType)) {
+                        reactor.error(SemanticError(node, "type error after inference"))
+                    }
+                }
+            }
+        }
     }
 
     private fun call(node: CallNode) {
@@ -209,7 +238,7 @@ class CheckTypes(
         reactor.on(
             name = "check return",
             attribute = Attribute(node, "containingFunction")
-        ) { containingFunction: FunctionSymbol ->
+        ) { containingFunction: CallableSymbol ->
 
             reactor.on(
                 name = "check return type",

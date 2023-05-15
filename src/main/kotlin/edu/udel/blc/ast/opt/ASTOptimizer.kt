@@ -34,6 +34,8 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
         register(VariableDeclarationNode::class.java, ::variableDeclaration)
         register(WhileNode::class.java, ::`while`)
         register(ClassDeclarationNode::class.java, ::classDeclaration)
+        register(ThisNode::class.java, ::thisNode)
+        register(MethodCallNode::class.java, ::methodCall)
     }
 
     private fun arrayLiteral(node:ArrayLiteralNode):Node{
@@ -642,11 +644,31 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
     }
 
     private fun classDeclaration(node: ClassDeclarationNode): Node {
-        val block = apply(node.block) as BlockNode
+        val fields = node.fields.map { f -> apply(f) as FieldNode }
+        val methods = node.methods.map { m -> apply(m) as FunctionDeclarationNode }
         return ClassDeclarationNode(
             range = node.range,
             name = node.name,
-            block = block
+            fields = fields,
+            methods = methods
+        )
+    }
+
+    private fun thisNode(node: ThisNode): Node {
+        return ThisNode(
+            range = node.range
+        )
+    }
+
+    private fun methodCall(node: MethodCallNode): Node {
+        val arguments = node.arguments.map { f -> apply(f) }
+        val receiver = apply(node.receiver)
+
+        return MethodCallNode(
+            range = node.range,
+            callee = node.callee,
+            arguments = arguments,
+            receiver = receiver
         )
     }
 

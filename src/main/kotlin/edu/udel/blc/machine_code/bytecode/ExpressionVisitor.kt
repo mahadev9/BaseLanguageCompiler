@@ -5,11 +5,10 @@ import edu.udel.blc.ast.UnaryOperator.LOGICAL_COMPLEMENT
 import edu.udel.blc.ast.UnaryOperator.NEGATION
 import edu.udel.blc.machine_code.bytecode.TypeUtils.methodDescriptor
 import edu.udel.blc.machine_code.bytecode.TypeUtils.nativeType
-import edu.udel.blc.semantic_analysis.scope.FunctionSymbol
-import edu.udel.blc.semantic_analysis.scope.StructSymbol
-import edu.udel.blc.semantic_analysis.scope.Symbol
-import edu.udel.blc.semantic_analysis.scope.VariableSymbol
+import edu.udel.blc.semantic_analysis.SemanticError
+import edu.udel.blc.semantic_analysis.scope.*
 import edu.udel.blc.semantic_analysis.type.*
+import edu.udel.blc.util.uranium.Attribute
 import edu.udel.blc.util.uranium.Reactor
 import edu.udel.blc.util.visitor.Visitor
 import org.objectweb.asm.Type.*
@@ -20,6 +19,7 @@ import org.objectweb.asm.commons.Method
 
 class ExpressionVisitor(
     private val clazzType: org.objectweb.asm.Type,
+    private val staticClazzType: org.objectweb.asm.Type,
     private val method: GeneratorAdapter,
     private val reactor: Reactor,
 ) : Visitor<Node>() {
@@ -39,6 +39,9 @@ class ExpressionVisitor(
         register(IndexNode::class.java, ::index)
         register(ReferenceNode::class.java, ::reference)
         register(UnaryExpressionNode::class.java, ::unaryExpression)
+
+        register(ThisNode::class.java, ::thisNode)
+        register(MethodCallNode::class.java, ::methodCall)
     }
 
     private fun booleanLiteral(node: BooleanLiteralNode) {
@@ -110,9 +113,13 @@ class ExpressionVisitor(
                 accept(node.expression)
                 method.dup()
                 method.storeLocal(tmp)
-                val structType = reactor.get<StructType>(lvalue.expression, "type")
-                val fieldType = structType.fieldTypes[lvalue.name]!!
-                method.putField(nativeType(structType), lvalue.name, nativeType(fieldType))
+                val storeType = reactor.get<Type>(lvalue.expression, "type")
+                val fieldType = when (storeType) {
+                    is StructType -> storeType.fieldTypes[lvalue.name]!!
+                    is ClassType -> storeType.fieldTypes[lvalue.name]!!
+                    else -> throw SemanticError(node, "cannot assign to field on $storeType")
+                }
+                method.putField(nativeType(storeType), lvalue.name, nativeType(fieldType))
             }
             else -> TODO("Generate assignment to: $lvalue")
         }
@@ -240,7 +247,7 @@ class ExpressionVisitor(
                         val functionType = reactor.get<FunctionType>(symbol, "type")
                         node.arguments.forEach { accept(it) }
                         method.invokeStatic(
-                            clazzType,
+                            staticClazzType,
                             Method(symbol.getQualifiedName("_"), methodDescriptor(functionType))
                         )
                     }
@@ -254,6 +261,18 @@ class ExpressionVisitor(
                             structType.fieldTypes.map { nativeType(it.value) }
                         )
                         method.invokeConstructor(nativeType(structType), Method("<init>", descriptor))
+                    }
+                    is ClassSymbol -> {
+                        val classType = reactor.get<ClassType>(symbol, "type")
+                        method.newInstance(nativeType(classType))
+                        method.dup()
+                        node.arguments.forEach { accept(it) }
+                        val descriptor = methodDescriptor(
+                            VOID_TYPE,
+                            classType.fieldTypes.map { nativeType(it.value) }
+
+                        )
+                        method.invokeConstructor(nativeType(classType), Method("<init>", descriptor))
                     }
                     else -> TODO("generate call for $symbol")
                 }
@@ -280,6 +299,44 @@ class ExpressionVisitor(
         val structType = reactor.get<Type>(node.expression, "type")
         val fieldType = reactor.get<Type>(node, "type")
         method.getField(nativeType(structType), node.name, nativeType(fieldType))
+    }
+
+    private fun methodCall(node: MethodCallNode) {
+        accept(node.receiver)
+        node.arguments.forEach { accept(it) }
+
+        val symbol = reactor.get<MethodSymbol>(node, "symbol")
+        // TODO: This is a hack to get the method type. We should be able to get it from the symbol.
+        // We know the issue is that symbol scope is not being set correctly.
+        var methodTypeDummy: FunctionType? = null
+        var symbolDummy: MethodSymbol? = null
+        for(attribute in reactor.attributeValues.keys){
+            if (attribute.value is MethodSymbol && attribute.value.name == node.callee) {
+                methodTypeDummy = reactor.attributeValues[attribute] as FunctionType
+                symbolDummy = attribute.value as MethodSymbol
+            }
+        }
+        val overrides = reactor.get<MethodSymbol?>(symbol, "overrides")
+        val finalSymbol = overrides ?: symbol
+
+        val classType = reactor.get<ClassType>(node.receiver, "type")
+        val methodType = reactor.get<FunctionType>(symbol, "type")
+        // method.invokeVirtual(
+        //     nativeType(classType),
+        //     Method(finalSymbol.getQualifiedName("_"), methodDescriptor(methodType))
+        // )
+        if (symbolDummy != null) {
+            method.invokeVirtual(
+                nativeType(classType),
+                Method(symbolDummy.getQualifiedName("_"), methodTypeDummy?.let { methodDescriptor(it) })
+            )
+        }
+    }
+
+    private fun thisNode(node: ThisNode) {
+        val classType = reactor.get<ClassType>(node, "type")
+        method.loadThis()
+        method.checkCast(nativeType(classType))
     }
 
 }

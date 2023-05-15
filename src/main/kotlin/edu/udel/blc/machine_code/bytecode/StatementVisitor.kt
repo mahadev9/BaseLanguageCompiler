@@ -4,6 +4,7 @@ import edu.udel.blc.ast.*
 import edu.udel.blc.machine_code.bytecode.TypeUtils.methodDescriptor
 import edu.udel.blc.machine_code.bytecode.TypeUtils.nativeType
 import edu.udel.blc.semantic_analysis.scope.FunctionSymbol
+import edu.udel.blc.semantic_analysis.scope.MethodSymbol
 import edu.udel.blc.semantic_analysis.scope.Symbol
 import edu.udel.blc.semantic_analysis.type.FunctionType
 import edu.udel.blc.semantic_analysis.type.Type
@@ -21,12 +22,13 @@ import org.objectweb.asm.commons.Method
 
 class StatementVisitor(
     val clazzType: org.objectweb.asm.Type,
+    val staticClazzType: org.objectweb.asm.Type,
     val clazz: ClassWriter,
     val method: GeneratorAdapter,
     private val reactor: Reactor,
 ) : Visitor<Node>() {
 
-    private val expressionVisitor = ExpressionVisitor(clazzType, method, reactor)
+    private val expressionVisitor = ExpressionVisitor(clazzType, staticClazzType, method, reactor)
 
     init {
 
@@ -61,7 +63,7 @@ class StatementVisitor(
             access = ACC_PUBLIC or ACC_STATIC,
             method = Method(functionSymbol.getQualifiedName("_"), descriptor)
         ) { method ->
-            val statementVisitor = StatementVisitor(clazzType, clazz, method, reactor)
+            val statementVisitor = StatementVisitor(clazzType, staticClazzType, clazz, method, reactor)
             statementVisitor.accept(node.body)
 
             if(functionType.returnType == UnitType && node.body.find<ReturnNode>().isEmpty()) {

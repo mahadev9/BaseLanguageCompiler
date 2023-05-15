@@ -185,6 +185,7 @@ class BaseLexer(
             "var" to VAR,
             "struct" to STRUCT,
             "class" to CLASS,
+            "this" to THIS,
             "if" to IF,
             "else" to ELSE,
             "return" to RETURN,
