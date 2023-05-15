@@ -84,7 +84,6 @@ class BaseVisitor : BaseBaseVisitor<Node>() {
         return WhileNode(ctx.range, condition, body)
     }
 
-
     // expr
 
     override fun visitAssignment(ctx: BaseParser.AssignmentContext): AssignmentNode {
@@ -182,6 +181,32 @@ class BaseVisitor : BaseBaseVisitor<Node>() {
     override fun visitReference(ctx: BaseParser.ReferenceContext): ReferenceNode {
         val name = ctx.name.text
         return ReferenceNode(ctx.range, name)
+    }
+
+    override fun visitClassDeclaration(ctx: BaseParser.ClassDeclarationContext): ClassDeclarationNode {
+        val members = ctx.members.map { it.accept(this) as Node }
+
+        val fields = members.filterIsInstance<FieldNode>()
+        val methods = members.filterIsInstance<FunctionDeclarationNode>()
+
+        return ClassDeclarationNode(ctx.range, ctx.name.text, fields, methods)
+    }
+
+    override fun visitMethodCall(ctx: BaseParser.MethodCallContext): MethodCallNode {
+        val arguments = ctx.arguments.map { it.accept(this) }
+        val receiver = ctx.receiver.accept(this)
+
+        return MethodCallNode(ctx.range, ctx.callee.text, arguments, receiver)
+    }
+
+    override fun visitFieldMember(ctx: BaseParser.FieldMemberContext): FieldNode {
+        val type = ctx.type.accept(this) as Node
+
+        return FieldNode(ctx.range, ctx.name.text, type)
+    }
+
+    override fun visitThisLiteral(ctx: BaseParser.ThisLiteralContext): ThisNode {
+        return ThisNode(ctx.range)
     }
 
 

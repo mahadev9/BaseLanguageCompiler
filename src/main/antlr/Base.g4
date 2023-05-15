@@ -5,14 +5,7 @@ compilatonUnit
      ;
 
 declaration
-    : FUN
-        name=IDENTIFIER
-        LPAREN
-        ( parameters+=parameter (',' parameters+=parameter )* (',')? )?
-        RPAREN
-        ARROW
-        returnType=typeExpression
-        body=block                                                                       # functionDeclaration
+    : functionDeclaration                                                               # functionDeclarations
     | STRUCT
         name=IDENTIFIER
         LBRACKET
@@ -20,9 +13,27 @@ declaration
         RBRACKET                                                                         # structDeclaration
     | CLASS
         name=IDENTIFIER
-        body=block                                                                       # classDeclaration
+        ( COLON superclass=IDENTIFIER )?
+        LBRACKET
+        ( members+=member )*
+        RBRACKET                                                                         # classDeclaration
     | VAR name=IDENTIFIER COLON type=typeExpression EQUAL initializer=expr SEMICOLON     # variableDeclaration
     | stmt                                                                               # statementAsDeclaration
+    ;
+
+member
+    : VAR name=IDENTIFIER (COLON type=typeExpression)? SEMICOLON                         # fieldMember
+    | functionDeclaration                                                                # methodMember
+    ;
+
+functionDeclaration
+    :  FUN
+        name=IDENTIFIER
+        LPAREN
+        ( parameters+=parameter (',' parameters+=parameter )* (',')? )?
+        RPAREN
+        (ARROW returnType=typeExpression)?
+        body=block
     ;
 
 parameter
@@ -55,6 +66,10 @@ expr
     | left=expr operator=SLASH right=expr                                                # binary
     | left=expr operator=( PERCENT | STAR ) right=expr                                   # binary
     | operator=( BANG | MINUS ) operand=expr                                             # unaryPrefix
+    | receiver=expr DOT callee=expr
+        LPAREN
+        ( arguments+=expr ( COMMA arguments+=expr )* COMMA? )?
+        RPAREN                                                                           # methodCall
     | callee=expr LPAREN ( arguments+=expr ( COMMA arguments+=expr )* COMMA? )? RPAREN   # call
     | expression=expr LBRACE index=expr RBRACE                                           # index
     | expression=expr DOT name=IDENTIFIER                                                # fieldSelect
@@ -65,6 +80,7 @@ expr
     | value=FLOAT_LITERAL                                                                # floatLiteral
     | UNIT                                                                               # unitLiteral
     | LBRACE elements+=expr ( COMMA elements+=expr )* COMMA? RBRACE                      # arrayLiteral
+    | THIS                                                                               # thisLiteral
     | reference                                                                          # referenceAsExpression
     ;
 
@@ -122,6 +138,7 @@ CLASS: 'class';
 WHILE: 'while';
 RETURN: 'return';
 VAR: 'var';
+THIS: 'this';
 
 LESS: '<';
 LESS_EQUAL: '<=';
