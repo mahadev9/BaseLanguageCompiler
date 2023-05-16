@@ -50,6 +50,7 @@ class ResolveTypes(
         register(UnitLiteralNode::class.java, PRE_VISIT, ::unitLiteral)
 
         register(ArrayTypeNode::class.java, PRE_VISIT, ::arrayType)
+        register(FunctionTypeNode::class.java, PRE_VISIT, ::functionType)
     }
 
     override fun accept(compilationUnit: CompilationUnitNode) {
@@ -385,6 +386,9 @@ class ResolveTypes(
             from = Attribute(node.elementType, "type"),
             to = Attribute(node, "type"),
         ) { elementType: Type -> ArrayType(elementType) }
+    }
+    private fun functionType(node: FunctionTypeNode){
+        // TODO: implement
     }
 
     private fun classDeclaration(node: ClassDeclarationNode){
