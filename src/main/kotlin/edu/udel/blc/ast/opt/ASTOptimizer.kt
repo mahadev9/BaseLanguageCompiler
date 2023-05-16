@@ -52,6 +52,15 @@ class ExpressionOptimizer : ValuedVisitor<Node, Node>() {
             elementType = elementType
         )
     }
+    private fun functionType(node:FunctionTypeNode): Node{
+        val from = node.from.map { n -> apply(n) }
+        val to = apply(node.to)
+        return FunctionTypeNode(
+            range = node.range,
+            from = from,
+            to = to
+        )
+    }
     private fun assignment(node:AssignmentNode):Node{
         val lvalue = apply(node.lvalue)
         val expression = apply(node.expression)
