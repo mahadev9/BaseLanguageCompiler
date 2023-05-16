@@ -147,6 +147,22 @@ val expr40 = IfNode(
 /* if (23 % 2 != 1) 10 % 2   */
 val expr41 = IfNode(
     IntRange.EMPTY, expr13, expr9, null)
+/* var x:Int = 5 */
+val var1 = VariableDeclarationNode(
+    IntRange.EMPTY, "x", ReferenceNode(IntRange.EMPTY, "Int"),
+    IntLiteralNode(-1..-1, 5)
+)
+/* var y:Int = 13 */
+val var2 = VariableDeclarationNode(
+    IntRange.EMPTY, "y", ReferenceNode(IntRange.EMPTY, "Int"),
+    IntLiteralNode(-1..-1, 13)
+)
+/* x * 2 */
+val expr42 = BinaryExpressionNode(
+    IntRange.EMPTY, BinaryOperator.MULTIPLICATION, var1, IntLiteralNode(IntRange.EMPTY, 2))
+/* 2 * x */
+val expr43 = BinaryExpressionNode(
+    IntRange.EMPTY, BinaryOperator.MULTIPLICATION, IntLiteralNode(IntRange.EMPTY, 2), var1)
 fun main() {
 
     additionTest()
@@ -221,6 +237,10 @@ private fun multiplicationTest(): Unit{
     expected = Int8
     check( actual == expected){ "multiplication: expr8 failed." +
             "Expected: $expected, actual: $actual" }
+
+    actual = ExpressionOptimizer().apply(expr42)
+    actual = ExpressionOptimizer().apply(expr43)
+    //println(actual)
 }
 
 private fun remainderTest(): Unit {
