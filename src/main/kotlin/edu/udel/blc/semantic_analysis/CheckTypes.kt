@@ -149,7 +149,25 @@ class CheckTypes(
     }
 
     private fun equality(node: BinaryExpressionNode) {
+        // We tried to create companion objects for each type, but that didn't work out.
+        // So we have to check each type individually put a reactor rule.
+        // checkType("check left operand for equality", node.left, BooleanType, IntType, StringType, FloatType, StructType, ArrayType, ClassType, UnitType)
+        // checkType("check right operand for equality", node.right, BooleanType, IntType, StringType, FloatType, StructType, ArrayType, ClassType, UnitType)
 
+        val leftTypeAttribute = Attribute(node.left, "type")
+        val rightTypeAttribute = Attribute(node.right, "type")
+
+        reactor.rule("check left and right operands are the same type") {
+            using(leftTypeAttribute, rightTypeAttribute)
+            by { r ->
+                val leftType = r.get<Type>(leftTypeAttribute)
+                val rightType = r.get<Type>(rightTypeAttribute)
+
+                if (leftType != rightType) {
+                    reactor.error(SemanticError(node, "can not compare $leftType to $rightType"))
+                }
+            }
+        }
     }
 
     private fun comparison(node: BinaryExpressionNode) {
