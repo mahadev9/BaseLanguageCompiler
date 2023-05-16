@@ -1,0 +1,11 @@
+print("Validating Type Checking Functionality");
+
+print(1 == 1); // true
+// print(1 == "1"); // error,  can not compare Int to String
+// print(1 == 1.0); // error, can not compare Int to Float
+print(true == false); //  false
+print("Hello" == "World"); // false
+// print("qwerty" == 782); // error, can not compare String to Int
+print(3 == len([1, 2, 3])); // true
+print("Hi There!" == concat("Hi ", "There!")); // true
+print("Compiler123" == concat("Compiler", "123")); // true
