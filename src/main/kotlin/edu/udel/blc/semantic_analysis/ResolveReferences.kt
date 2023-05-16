@@ -25,6 +25,11 @@ class ResolveReferences(
         node.elementType.accept(this, arg)
     }
 
+    override fun functionType(node: FunctionTypeNode, arg: Scope) {
+        node.from.forEach {it.accept(this, arg)}
+        node.to.accept(this, arg)
+    }
+
     override fun assignment(node: AssignmentNode, arg: Scope) {
         node.expression.accept(this, arg)
         node.lvalue.accept(this, arg)
