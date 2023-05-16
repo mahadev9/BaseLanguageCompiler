@@ -7,6 +7,7 @@ sealed interface Node {
     interface Visitor<R, A> {
         fun arrayLiteral(node: ArrayLiteralNode, arg: A): R
         fun arrayType(node: ArrayTypeNode, arg: A): R
+        fun functionType(node: FunctionTypeNode, arg: A): R
         fun assignment(node: AssignmentNode, arg: A): R
         fun binaryExpression(node: BinaryExpressionNode, arg: A): R
         fun block(node: BlockNode, arg: A): R
@@ -39,6 +40,7 @@ sealed interface Node {
     fun <R, A> accept(visitor: Visitor<R, A>, arg: A): R = when (this) {
         is ArrayLiteralNode -> visitor.arrayLiteral(this, arg)
         is ArrayTypeNode -> visitor.arrayType(this, arg)
+        is FunctionTypeNode -> visitor.functionType(this, arg)
         is AssignmentNode -> visitor.assignment(this, arg)
         is BinaryExpressionNode -> visitor.binaryExpression(this, arg)
         is BlockNode -> visitor.block(this, arg)
