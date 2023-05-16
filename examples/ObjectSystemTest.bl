@@ -17,3 +17,85 @@ print(s1.name);
 print(s1.studentId);
 print(s1.getNameId());
 print(s1.testEquality("Compiler 12345"));
+
+print("Test case 1");
+
+class BankAccount {
+	var account_number: Int;
+	var account_owner: String;
+	var balance: Int;
+	fun deposit(amount: Int) -> Int {
+		this.balance = this.balance + amount;
+		return this.balance;
+	}
+	fun withdraw(amount: Int) -> Int {
+		var new_balance: Int = this.balance - amount;
+		if (new_balance < 0) {
+			print("Insufficient funds");
+			return this.balance;
+		}
+		this.balance = new_balance;
+		return this.balance;
+	}
+	fun getBalance() -> Unit {
+		print("Account number: ");
+		print(this.account_number);
+		print("Account owner: ");
+		print(this.account_owner);
+		print("Balance: ");
+		print(this.balance);
+	}
+}
+
+var account: BankAccount = BankAccount(12345, "BLCompiler", 1000);
+account.getBalance();
+account.deposit(100);
+account.getBalance();
+account.withdraw(200);
+account.getBalance();
+account.withdraw(2000);
+account.getBalance();
+
+print("Test case 2");
+
+class GradeCalculator {
+	var scores: [Int];
+	fun getAverage() -> Float {
+		var total: Int = 0;
+		var i: Int = 0;
+		while (i < len(this.scores)) {
+			total = total + this.scores[i];
+			i = i + 1;
+		}
+		return total / len(this.scores);
+	}
+	fun printGrade() -> Unit {
+		var average: Float = this.getAverage();
+		print("Grade: ");
+		if (average >= 90.0) {
+			print("A");
+		} else if (average >= 80.0) {
+			print("B");
+		} else if (average >= 70.0) {
+			print("C");
+		} else if (average >= 60.0) {
+			print("D");
+		} else {
+			print("F");
+		}
+	}
+	fun printGPA() -> Unit {
+		var average: Float = this.getAverage();
+		print("GPA: ");
+		print(average * 4 / 100);
+	}
+}
+
+var gc: GradeCalculator = GradeCalculator([90, 80, 70, 60, 50, 100]);
+gc.printGrade();
+gc.printGPA();
+
+var gc: GradeCalculator = GradeCalculator([48, 98, 78, 94, 81, 100, 69, 55, 87, 91]);
+gc.printGrade();
+gc.printGPA();
+
