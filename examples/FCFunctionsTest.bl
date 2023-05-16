@@ -1,0 +1,23 @@
+fun sum(x:Int, y:Int) -> Int{
+    return x + y;
+}
+print(sum(3, 5)); // 8
+
+fun product(x:Int, y:Int) -> Int{
+    return x * y;
+}
+print(product(2, 3)); // 6
+
+fun evaluateAt(f:(Int) -> Int, x:Int) -> Int{
+    return f(x);
+}
+fun traverse(f:(Int, Int) -> Int,l:[Int])-> Int{
+    var val:Int = l[0];
+    var i:Int = 1;
+    while(i < len(l)){
+        val = f(val,l[i]);
+        i = i + 1;
+    }
+    return val;
+}
+
