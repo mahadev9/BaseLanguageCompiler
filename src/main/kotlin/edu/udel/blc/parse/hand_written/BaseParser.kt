@@ -426,11 +426,6 @@ class BaseParser(
         return StringLiteralNode(openQuote.range, literal)
     }
 
-    fun identifier(): ReferenceNode {
-        val name = consume(IDENTIFIER) { "Expect identifier." }
-        return ReferenceNode(name.range, name.text)
-    }
-
     fun parenthesizedExpression(): Node {
         val lparen = consume(LPAREN) { "Expect '('." }
         val expr = expression()
@@ -453,10 +448,24 @@ class BaseParser(
     fun type(): Node {
         return when {
             check(IDENTIFIER) -> identifier()
+            check(LPAREN) -> functionType()
             check(LBRACKET) -> arrayType()
             else -> error("Expect type.")
         }
     }
+
+    fun identifier(): ReferenceNode {
+        val name = consume(IDENTIFIER) { "Expect identifier." }
+        return ReferenceNode(name.range, name.text)
+    }
+   fun functionType():FunctionTypeNode{
+       consume(LPAREN){"Expect ( at the beginning of function type"}
+       val from = list(RPAREN, ::type) //function domain
+       consume(RPAREN){"Expect ( at the beginning of function type"}
+       consume(ARROW) {"Expect -> after the from type"}
+       val to = type() // function range
+       return FunctionTypeNode(from[0].range, from, to)
+   }
 
     fun arrayType(): ArrayTypeNode {
         val lbrace = consume(LBRACKET) { "Expect '[' after array type." }
